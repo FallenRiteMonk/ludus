@@ -1,7 +1,7 @@
-# #-ludus
+# #-ludus <img src="https://lh3.googleusercontent.com/vgUxZVRHQU_eDCJrKX1dH4RIlFgDs1hK3zo3EjnASGC9AWigw1Prr6dx0p3rjcM0WQ=w300-rw" width="120" align="right">
 
 The simple and fun number combination game **#-ludus** goes 2.0 and open source.
-<br>
+
 <a href="https://play.google.com/store/apps/details?id=com.fallenritemonk.numbers">
   <img alt="Get it on Google Play"
        src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
