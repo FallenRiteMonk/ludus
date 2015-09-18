@@ -23,9 +23,13 @@ If you are interested, there are several ways you can contribute:
 * Joining the [google group](https://groups.google.com/forum/#!forum/FRM-ludus/new) to get beta access, [download](https://play.google.com/store/apps/details?id=com.fallenritemonk.numbers) the app, test it and report bugs or submit enhancement ideas to the [issue tracker](https://github.com/FallenRiteMonk/ludus/issues)
 * [Fork](https://guides.github.com/activities/forking/) the repository, contribute to the code by fixing bugs, implementing features or translating the app
 
-[Github guidelines](https://guides.github.com/activities/contributing-to-open-source/#contributing) for contributing to a open source project.
-
 No matter in which way you contribute to this project, the community and users are thankfull.
+
+### Useful links
+
+* [Branching model](http://nvie.com/posts/a-successful-git-branching-model/) describing the desired work flow.
+* [Github contribution](https://guides.github.com/activities/contributing-to-open-source/#contributing) guidelines for contributing to a open source project.
+* [Github fork](https://guides.github.com/activities/forking/) guidelines for forking to a open source project.
 
 ## Questions
 
