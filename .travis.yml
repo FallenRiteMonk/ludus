@@ -13,4 +13,4 @@ script:
     ./gradlew build
 
 notifications:
-    git staugemail: false
+    email: false
