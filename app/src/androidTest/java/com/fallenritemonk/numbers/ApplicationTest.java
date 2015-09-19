@@ -1,4 +1,4 @@
-package com.fallenritemonk.numebrs;
+package com.fallenritemonk.numbers;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
