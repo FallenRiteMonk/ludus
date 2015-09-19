@@ -8,15 +8,12 @@ public class NumberField {
 
     private final int number;
     private STATE state = STATE.UNUSED;
-    private final GameFieldAdapter adapter;
 
-    public NumberField(int number, GameFieldAdapter adapter) {
+    public NumberField(int number) {
         this.number = number;
-        this.adapter = adapter;
     }
 
-    public NumberField(String fieldState, GameFieldAdapter adapter) {
-        this.adapter = adapter;
+    public NumberField(String fieldState) {
         String[] field = fieldState.split("/");
         number = Integer.valueOf(field[0]);
         switch (field[1]) {
@@ -41,7 +38,6 @@ public class NumberField {
 
     public void setState(STATE state) {
         this.state = state;
-        adapter.notifyDataSetChanged();
     }
 
     public String stringify() {
