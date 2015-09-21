@@ -3,7 +3,7 @@ package com.fallenritemonk.numbers.game;
 /**
  * Created by FallenRiteMonk on 9/19/15.
  */
-public class CombinePos {
+class CombinePos {
     private final int id1;
     private final int id2;
 

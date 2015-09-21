@@ -1,6 +1,5 @@
 package com.fallenritemonk.numbers.game;
 
-import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -10,14 +9,11 @@ import android.widget.GridView;
 
 import com.fallenritemonk.numbers.R;
 
-import java.util.ArrayList;
-
 /**
  * Created by FallenRiteMonk on 9/19/15.
  */
 public class GameActivity extends AppCompatActivity {
     private GameField gameField;
-    private FloatingActionButton addFieldsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +21,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         GridView gameFieldView = (GridView) findViewById(R.id.fieldGrid);
-        addFieldsButton = (FloatingActionButton) findViewById(R.id.addFields);
+        FloatingActionButton addFieldsButton = (FloatingActionButton) findViewById(R.id.addFields);
 
         gameField = new GameField(this, addFieldsButton);
         gameFieldView.setAdapter(gameField);

@@ -9,11 +9,11 @@ The simple and fun number combination game **#-ludus** goes 2.0 and open source.
 
 ## What is #-ludus
 
-\#-ludus ia a android game with the goal to eliminate all the numbers on the game field by combining those numbers that are same or summ up to 10.<br>
-The player startes of with three rows, filled with the numbers from 1 to 19, without the number 10, as discrete digits.
+\#-ludus ia a android game with the goal to eliminate all the numbers on the game field by combining those numbers that are same or sum up to 10.<br>
+The player starts of with three rows, filled with the numbers from 1 to 19, without the number 10, as discrete digits.
 He then has to eliminate all numbers by combining those above or next to each other (over empty fields and over new rows are also allowed).
 If the point of no further combinations is reached, the remaining numbers get added to the end of the game field again, without the empty spaces.
-This gameflow continues until the player eliminates all the numbers on the game field.
+This game flow continues until the player eliminates all the numbers on the game field.
 
 ## How to contribute
 

@@ -15,11 +15,11 @@ import java.util.ArrayList;
 /**
  * Created by FallenRiteMonk on 9/19/15.
  */
-public class GameField extends BaseAdapter {
+class GameField extends BaseAdapter {
     private final Context context;
     private final FloatingActionButton addFieldsButton;
 
-    private ArrayList<NumberField> fieldArray;
+    private final ArrayList<NumberField> fieldArray;
     private ArrayList<CombinePos> possibilities = new ArrayList<>();
     private int selectedField = -1;
     private int hint = -1;
@@ -97,7 +97,7 @@ public class GameField extends BaseAdapter {
         return id1 != id2 && !(fieldArray.get(id1).getNumber() + fieldArray.get(id2).getNumber() != 10 && fieldArray.get(id1).getNumber() != fieldArray.get(id2).getNumber());
     }
 
-    public void hint(View view) {
+    public void hint() {
         if (possibilities.size() == 0) return;
         if (hint >= 0) {
             fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.UNUSED);
