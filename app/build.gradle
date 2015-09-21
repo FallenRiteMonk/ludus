@@ -35,7 +35,8 @@ android {
         // and abort the build (controlled by abortOnError above) if fatal issues are found
         checkReleaseBuilds true
 
-        ignore 'AllowBackup'
+        // UnusedResources ignored teporarly for translation reasons
+        ignore 'AllowBackup', 'UnusedResources'
     }
 }
 
