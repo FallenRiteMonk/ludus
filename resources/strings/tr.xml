@@ -2,40 +2,40 @@
 <resources>
     <google_play>
         <short_description>
-            Küçük ama eğlenceli bir kombinasyon oyunu!
+            KÃ¼Ã§Ã¼k ama eÄŸlenceli bir kombinasyon oyunu!
         </short_description>
         <full_description>
-           Ludus, herkesin basitçe oynayabileceği bir kombinasyon oyunudur. Bu oyun genellikle kağıt üstünde oynanırdı ama artık tüm bu kağıt israfını durdurabilir ve tüm android cihazlarınızda oynayabilirsiniz.
+            Ludus, herkesin basitÃ§e oynayabileceÄŸi bir kombinasyon oyunudur. Bu oyun genellikle kaÄŸÄ±t Ã¼stÃ¼nde oynanÄ±rdÄ± ama artÄ±k tÃ¼m bu kaÄŸÄ±t israfÄ±nÄ± durdurabilir ve tÃ¼m android cihazlarÄ±nÄ±zda oynayabilirsiniz.
 
-	   Hangi kombinasyon ile en iyi sonucu alırsınız? Bu karar sizi düşünmeye teşvik edecek. Doğru kombinasyonları bulabilmek için bütün dikkatinizi de oyuna vermelisiniz.
+            Hangi kombinasyon ile en iyi sonucu alÄ±rsÄ±nÄ±z? Bu karar sizi dÃ¼ÅŸÃ¼nmeye teÅŸvik edecek. DoÄŸru kombinasyonlarÄ± bulabilmek iÃ§in bÃ¼tÃ¼n dikkatinizi de oyuna vermelisiniz.
 
- 	   Şu anda uygulama aşağıdaki özellikleri içerir :
+            Åu anda uygulama aÅŸaÄŸÄ±daki Ã¶zellikleri iÃ§erir :
 
-	   Kağıtsız oyun oynama
-	   * Oyunu kaydetme ve kaldığı yerden devam edebilme
-	   * Bir sonraki kombinasyonu bulamadığınızda ipucu alabilme
-           * Arkadaşlarınızla kıyaslayabilmeniz için istatistikler
+            KaÄŸÄ±tsÄ±z oyun oynama
+            * Oyunu kaydetme ve kaldÄ±ÄŸÄ± yerden devam edebilme
+            * Bir sonraki kombinasyonu bulamadÄ±ÄŸÄ±nÄ±zda ipucu alabilme
+            * ArkadaÅŸlarÄ±nÄ±zla kÄ±yaslayabilmeniz iÃ§in istatistikler
 
-           Bu oyun herhangi bir sınırlama olmaksızın tamamen ücretsizdir.
+            Bu oyun herhangi bir sÄ±nÄ±rlama olmaksÄ±zÄ±n tamamen Ã¼cretsizdir.
         </full_description>
     </google_play>
 
     <play_services>
         <description>
-            #-ludus oyun servisi, oyun sırasında açabileceğiniz "başarılar" sayesinde size daha eğlenceli bir oyun sunar.
+            #-ludus oyun servisi, oyun sÄ±rasÄ±nda aÃ§abileceÄŸiniz "baÅŸarÄ±lar" sayesinde size daha eÄŸlenceli bir oyun sunar.
         </description>
         <achievements>
             <first_victory>
                 <name>
-                    İlk Zafer
+                    Ä°lk Zafer
                 </name>
                 <description>
-                    İlk klasik oyununu kazan.
+                    Ä°lk klasik oyununu kazan.
                 </description>
             </first_victory>
             <amateur_player>
                 <name>
-                    Amatör Oyuncu
+                    AmatÃ¶r Oyuncu
                 </name>
                 <description>
                     10 klasik oyun kazan.
@@ -51,23 +51,23 @@
             </pro>
             <game_master>
                 <name>
-                    Oyun Ustası
+                    Oyun UstasÄ±
                 </name>
                 <description>
-                    100 klasik oyun kazanarak oyunda ustalaş.
+                    100 klasik oyun kazanarak oyunda ustalaÅŸ.
                 </description>
             </game_master>
             <first_random_victory>
                 <name>
-                    İlk Rastgele Oyun Zaferi
+                    Ä°lk Rastgele Oyun Zaferi
                 </name>
                 <description>
-                    İlk rastgele oyununu kazan.
+                    Ä°lk rastgele oyununu kazan.
                 </description>
             </first_random_victory>
             <amateur_random_player>
                 <name>
-                    Amatör Rastgele Mod Oyuncusu
+                    AmatÃ¶r Rastgele Mod Oyuncusu
                 </name>
                 <description>
                     Rastgele modda 10 oyun kazan.
@@ -78,25 +78,24 @@
                     Rastgele Mod Profesyoneli
                 </name>
                 <description>
-                     Rastgele oyunda 50 zafer elde edene kadar kazanmaya devam et.
+                    Rastgele oyunda 50 zafer elde edene kadar kazanmaya devam et.
                 </description>
             </random_pro>
             <random_master>
                 <name>
-                    Rastgele Mod Ustası
+                    Rastgele Mod UstasÄ±
                 </name>
                 <description>
-                     100 rastgele oyun kazanarak oyunda ustalaş.
+                    100 rastgele oyun kazanarak oyunda ustalaÅŸ.
                 </description>
             </random_master>
         </achievements>
         <leaderboards>
             <combinations_to_victory>
                 <name>
-                    Zafer için birleştir
+                    Zafer iÃ§in birleÅŸtir
                 </name>
             </combinations_to_victory>
         </leaderboards>
     </play_services>
 </resources>
-
