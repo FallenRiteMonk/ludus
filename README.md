@@ -25,11 +25,18 @@ If you are interested, there are several ways you can contribute:
 
 No matter in which way you contribute to this project, the community and users are thankful.
 
+### Translating
+
+The project contains two places where it contains locale files, one in the source code under app/main/res/values, which are for the app it self, and one under resources/strings, which are for external strings like the play store.
+To translate the locale files in the source code just follow the [android way](http://developer.android.com/training/basics/supporting-devices/language.html#CreateDirs) of working with locale string files.
+The files in the resources folder follow a similar structure, just create a new file <languagecode>.xml, copy the en.xml content into it and start translating the texts between the xml tags (!!!DON'T CHANGE THE TAGS!!! ONLY THE TEXT!!!)
+
 ### Useful links
 
 * [Branching model](http://nvie.com/posts/a-successful-git-branching-model/) describing the desired work flow.
 * [Github contribution](https://guides.github.com/activities/contributing-to-open-source/#contributing) guidelines for contributing to an open source project.
 * [Github fork](https://guides.github.com/activities/forking/) guidelines for forking to an open source project.
+* [Android way](http://developer.android.com/training/basics/supporting-devices/language.html#CreateDirs) of handling locale files.
 
 ## Questions
 
