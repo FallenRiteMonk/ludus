@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_version">Uygulama Versiyonu</string>
+    <string name="back">Geri</string>
+    <string name="bug_report">Hata Raporla</string>
+    <string name="cancel">Vazgeç</string>
+    <string name="classic_game">Klasik Oyun</string>
+    <string name="confirm_restart_accept">Yeniden Başlat</string>
+    <string name="confirm_restart_message">Oyun yeniden başlatılsın mı?</string>
+    <string name="confirm_restart_title">Yeni Oyun</string>
+    <string name="game_won">Kazandın!</string>
+    <string name="greet">Hoşgeldin</string>
+    <string name="guide">Eğitici</string>
+    <string name="got_it">Anladım!</string>
+    <string name="combos">Kombolar</string>
+    <string name="achievements">Başarılar</string>
+    <string name="toast_login_failed">Giriş yapılamadı</string>
+    <string name="toast_no_possibility">Hamle kalmadı</string>
+    <string name="statistics">İstatistikler</string>
+    <string name="sign_out">Çıkış yap</string>
+    <string name="sign_in">Giriş yap</string>
+    <string name="signed_in">Giriş yapıldı</string>
+    <string name="signed_in_as">Olarak giriş yapıldı :</string>
+    <string name="toast_exit">Çıkmak için tekrar basın</string>
+    <string name="menu">Menü</string>
+    <string name="random_game">Rastgele Oyun</string>
+    <string name="rate">Oyla</string>
+    <string name="rate_cancel">Hayır, Teşekkürler</string>
+    <string name="rate_later">Sonra</string>
+    <string name="rate_message">Eğer #-ludus&#39;u sevdiyseniz, bir dakikanızı ayırıp oylayın!</string>
+    <string name="rate_title">#-ludus'u Oyla</string>
+    <string name="restart">Yeniden Başlat</string>
+    <string name="resume">Devam et</string>
+    <string name="settings">Ayarlar</string>
+    <string name="show_guide">Rehberi göster</string>
+    <string name="statistics_title">Oyun istatistikleri</string>
+    <string name="guide_title">Nasıl oynanır</string>
+    <string name="hint">İpucu</string>
+    <string name="leaderboard_combiner">Kombinasyonlar</string>
+    <string name="leaderboards">Liderler</string>
+    <string name="game_services">Oyun Servisleri</string>
+    <string name="guide_combine_1">Aynı olan veya toplamı 10 yapan alanları birleştirin &#8230;</string>
+    <string name="guide_combine_2">&#8230; yan yana ya da alt alta olanı &#8230;</string>
+    <string name="guide_empty_fields">&#8230; aralarında boş alan olanı &#8230;</string>
+    <string name="guide_add_fields">&#8230; ekle butonu görünene kadar &#8230;</string>
+    <string name="guide_won">&#8230; bütün alanları temizleyin ve kazanın!</string>
+    <string name="signed_out">Giriş yapılmadı</string>
+    <string name="guide_new_line">&#8230; önceki kurallar dahilinde bir satır da olabilir&#8230;</string>
+</resources>
+
