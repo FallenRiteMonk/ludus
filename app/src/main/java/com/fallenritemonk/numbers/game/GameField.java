@@ -1,8 +1,11 @@
 package com.fallenritemonk.numbers.game;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +22,13 @@ class GameField extends BaseAdapter {
     private final Context context;
     private final FloatingActionButton addFieldsButton;
 
+
+    private SQLiteDatabase db = null;
     private ArrayList<NumberField> fieldArray;
     private ArrayList<CombinePos> possibilities = new ArrayList<>();
     private int selectedField = -1;
     private int hint = -1;
+    private int stateOrder;
 
     public GameField(Context context, FloatingActionButton addFieldsButton) {
         this.context = context;
@@ -63,6 +69,12 @@ class GameField extends BaseAdapter {
         fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(9));
         notifyDataSetChanged();
+
+        stateOrder = 0;
+    }
+
+    public void setDb(SQLiteDatabase db) {
+        this.db = db;
     }
 
     private void findPossibilities() {
@@ -209,6 +221,12 @@ class GameField extends BaseAdapter {
         String[] tempFieldArray = string.split(",");
         for (String tempField : tempFieldArray) {
             fieldArray.add(new NumberField(tempField));
+        }
+    }
+
+    private void saveState() {
+        if (db != null) {
+
         }
     }
 
