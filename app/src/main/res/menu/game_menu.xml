@@ -3,10 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.fallenritemonk.numbers.MainActivity">
 
-    <!-- empty item to fit action bar -->
-    <item
-        android:title="" />
-
     <item
         android:id="@+id/action_hint"
         android:title="@string/hint"
