@@ -19,7 +19,7 @@ class GameField extends BaseAdapter {
     private final Context context;
     private final FloatingActionButton addFieldsButton;
 
-    private final ArrayList<NumberField> fieldArray;
+    private ArrayList<NumberField> fieldArray;
     private ArrayList<CombinePos> possibilities = new ArrayList<>();
     private int selectedField = -1;
     private int hint = -1;
@@ -28,13 +28,13 @@ class GameField extends BaseAdapter {
         this.context = context;
         this.addFieldsButton = addFieldsButton;
 
-        fieldArray = new ArrayList<>();
-        initFields();
+        newGame();
 
         findPossibilities();
     }
 
-    private void initFields() {
+    private void newGame() {
+        fieldArray = new ArrayList<>();
         fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(2));
         fieldArray.add(new NumberField(3));
@@ -193,6 +193,23 @@ class GameField extends BaseAdapter {
         }
         notifyDataSetChanged();
         findPossibilities();
+    }
+
+    private String fieldsToString() {
+        String stringified = "";
+        for (NumberField field : fieldArray) {
+            stringified += field.stringify() + ",";
+        }
+        stringified = stringified.substring(0, stringified.length() - 1);
+        return stringified;
+    }
+
+    private void fieldsFromString(String string) {
+        fieldArray.clear();
+        String[] tempFieldArray = string.split(",");
+        for (String tempField : tempFieldArray) {
+            fieldArray.add(new NumberField(tempField));
+        }
     }
 
     @Override
