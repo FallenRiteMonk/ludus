@@ -27,8 +27,8 @@
     <string name="rate">Oyla</string>
     <string name="rate_cancel">Hayır, Teşekkürler</string>
     <string name="rate_later">Sonra</string>
-    <string name="rate_message">Eğer #-ludus&#39;u sevdiyseniz, bir dakikanızı ayırıp oylayın!</string>
-    <string name="rate_title">#-ludus'u Oyla</string>
+    <string name="rate_message">Eğer #-ludus\'u sevdiyseniz, bir dakikanızı ayırıp oylayın!</string>
+    <string name="rate_title">#-ludus\'u Oyla</string>
     <string name="restart">Yeniden Başlat</string>
     <string name="resume">Devam et</string>
     <string name="settings">Ayarlar</string>
