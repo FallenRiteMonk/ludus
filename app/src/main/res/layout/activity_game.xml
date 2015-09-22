@@ -43,7 +43,8 @@
     <android.support.design.widget.NavigationView
         android:id="@+id/game_menu_drawer"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        app:headerLayout="@layout/game_drawer_header"
         app:menu="@menu/game_menu" />
 </android.support.v4.widget.DrawerLayout>
