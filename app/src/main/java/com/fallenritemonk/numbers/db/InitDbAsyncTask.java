@@ -10,7 +10,7 @@ import android.os.Message;
  * Created by FallenRiteMonk on 9/22/15.
  */
 public class InitDbAsyncTask extends AsyncTask<Context, Void, SQLiteDatabase> {
-    Handler handler;
+    private final Handler handler;
 
     public InitDbAsyncTask(Handler handler) {
         this.handler = handler;

@@ -21,7 +21,7 @@ import com.fallenritemonk.numbers.db.InitDbAsyncTask;
  * Created by FallenRiteMonk on 9/19/15.
  */
 public class GameActivity extends AppCompatActivity {
-    private GameField gameField;
+    private static GameField gameField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-    private class MessageHandler extends Handler {
+    private static class MessageHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
