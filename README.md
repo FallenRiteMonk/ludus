@@ -61,4 +61,10 @@ For help on squashing commits, read this [post](feeding.cloud.geek.nz/posts/comb
 Feel free to ask any question that comes to your mind in our [google group](https://groups.google.com/forum/#!forum/FRM-ludus),
 not because it would bother me if you write me an e-mail, but because I there is no such thing as a dumb, stupid or useless question and therefore it might also be of value for somebody else.
 
-Thanks
+# Thanks to all the contributors
+
+## Tranlations
+
+Translater | Language
+-----------|-----------
+[Şafak Eşberk](https://github.com/safakesberk) | Turkish
