@@ -1,9 +1,6 @@
 package com.fallenritemonk.numbers.game;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,6 +25,8 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        new InitDbAsyncTask().execute(this);
+
         GridView gameFieldView = (GridView) findViewById(R.id.fieldGrid);
         FloatingActionButton addFieldsButton = (FloatingActionButton) findViewById(R.id.addFields);
         final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.game_drawer_layout);
@@ -35,9 +34,6 @@ public class GameActivity extends AppCompatActivity {
 
         gameField = new GameField(this, addFieldsButton);
         gameFieldView.setAdapter(gameField);
-
-        MessageHandler handler = new MessageHandler();
-        new InitDbAsyncTask(handler).execute(this);
 
         gameFieldView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,15 +63,5 @@ public class GameActivity extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    private static class MessageHandler extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 0) {
-                SQLiteDatabase db = (SQLiteDatabase) msg.obj;
-                gameField.setDb(db);
-            }
-        }
     }
 }

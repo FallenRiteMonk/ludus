@@ -1,7 +1,6 @@
 package com.fallenritemonk.numbers.game;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.view.Gravity;
@@ -11,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.fallenritemonk.numbers.db.DatabaseHelper;
+
 import java.util.ArrayList;
 
 /**
@@ -19,9 +20,8 @@ import java.util.ArrayList;
 class GameField extends BaseAdapter {
     private final Context context;
     private final FloatingActionButton addFieldsButton;
+    private final DatabaseHelper dbHelper;
 
-
-    private SQLiteDatabase db = null;
     private ArrayList<NumberField> fieldArray;
     private ArrayList<CombinePos> possibilities = new ArrayList<>();
     private int selectedField = -1;
@@ -31,6 +31,8 @@ class GameField extends BaseAdapter {
     public GameField(Context context, FloatingActionButton addFieldsButton) {
         this.context = context;
         this.addFieldsButton = addFieldsButton;
+
+        dbHelper = DatabaseHelper.getInstance(context);
 
         newGame();
 
@@ -68,11 +70,10 @@ class GameField extends BaseAdapter {
         fieldArray.add(new NumberField(9));
         notifyDataSetChanged();
 
-        stateOrder = 0;
-    }
+        stateOrder = -1;
 
-    public void setDb(SQLiteDatabase db) {
-        this.db = db;
+        dbHelper.clearDB();
+        saveState();
     }
 
     private void findPossibilities() {
@@ -143,9 +144,11 @@ class GameField extends BaseAdapter {
             if (pos.equals(new CombinePos(id, selectedField))) {
                 fieldArray.get(id).setState(NumberField.STATE.USED);
                 fieldArray.get(selectedField).setState(NumberField.STATE.USED);
+                reduceFields();
+                saveState();
+
                 selectedField = -1;
                 combined = true;
-                reduceFields();
                 findPossibilities();
                 break;
             }
@@ -223,9 +226,7 @@ class GameField extends BaseAdapter {
     }
 
     private void saveState() {
-        if (db != null) {
-
-        }
+        dbHelper.saveState(++stateOrder, fieldsToString());
     }
 
     @Override
