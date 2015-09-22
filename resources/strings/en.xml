@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--suppress ALL -->
 <resources>
     <google_play>
@@ -16,6 +17,10 @@
             *  statistics to compare with your friends
 
             This game is totally free of charge with no limitations.
+
+            #-ludus goes 2.0 and open source.
+            Become part of the community and help by spreading the word, reporting bugs, translating or even implementing new features.
+            Visit the community page at http://fallenritemonk.github.io/ludus/
         </full_description>
     </google_play>
 

@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.fallenritemonk.numbers.db.DatabaseHelper;
+
 import java.util.ArrayList;
 
 /**
@@ -18,23 +20,27 @@ import java.util.ArrayList;
 class GameField extends BaseAdapter {
     private final Context context;
     private final FloatingActionButton addFieldsButton;
+    private final DatabaseHelper dbHelper;
 
-    private final ArrayList<NumberField> fieldArray;
+    private ArrayList<NumberField> fieldArray;
     private ArrayList<CombinePos> possibilities = new ArrayList<>();
     private int selectedField = -1;
     private int hint = -1;
+    private int stateOrder;
 
     public GameField(Context context, FloatingActionButton addFieldsButton) {
         this.context = context;
         this.addFieldsButton = addFieldsButton;
 
-        fieldArray = new ArrayList<>();
-        initFields();
+        dbHelper = DatabaseHelper.getInstance(context);
+
+        newGame();
 
         findPossibilities();
     }
 
-    private void initFields() {
+    private void newGame() {
+        fieldArray = new ArrayList<>();
         fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(2));
         fieldArray.add(new NumberField(3));
@@ -63,6 +69,11 @@ class GameField extends BaseAdapter {
         fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(9));
         notifyDataSetChanged();
+
+        stateOrder = -1;
+
+        dbHelper.clearDB();
+        saveState();
     }
 
     private void findPossibilities() {
@@ -133,9 +144,11 @@ class GameField extends BaseAdapter {
             if (pos.equals(new CombinePos(id, selectedField))) {
                 fieldArray.get(id).setState(NumberField.STATE.USED);
                 fieldArray.get(selectedField).setState(NumberField.STATE.USED);
+                reduceFields();
+                saveState();
+
                 selectedField = -1;
                 combined = true;
-                reduceFields();
                 findPossibilities();
                 break;
             }
@@ -193,6 +206,27 @@ class GameField extends BaseAdapter {
         }
         notifyDataSetChanged();
         findPossibilities();
+    }
+
+    private String fieldsToString() {
+        String stringified = "";
+        for (NumberField field : fieldArray) {
+            stringified += field.stringify() + ",";
+        }
+        stringified = stringified.substring(0, stringified.length() - 1);
+        return stringified;
+    }
+
+    private void fieldsFromString(String string) {
+        fieldArray.clear();
+        String[] tempFieldArray = string.split(",");
+        for (String tempField : tempFieldArray) {
+            fieldArray.add(new NumberField(tempField));
+        }
+    }
+
+    private void saveState() {
+        dbHelper.saveState(++stateOrder, fieldsToString());
     }
 
     @Override

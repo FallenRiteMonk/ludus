@@ -12,17 +12,20 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.fallenritemonk.numbers.R;
+import com.fallenritemonk.numbers.db.InitDbAsyncTask;
 
 /**
  * Created by FallenRiteMonk on 9/19/15.
  */
 public class GameActivity extends AppCompatActivity {
-    private GameField gameField;
+    private static GameField gameField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        new InitDbAsyncTask().execute(this);
 
         GridView gameFieldView = (GridView) findViewById(R.id.fieldGrid);
         FloatingActionButton addFieldsButton = (FloatingActionButton) findViewById(R.id.addFields);
