@@ -12,7 +12,7 @@
     <string name="greet">Hoşgeldin</string>
     <string name="guide">Eğitici</string>
     <string name="got_it">Anladım!</string>
-    <string name="combos">Kombolar</string>
+    <string name="combos">Kombolar:</string>
     <string name="achievements">Başarılar</string>
     <string name="toast_login_failed">Giriş yapılamadı</string>
     <string name="toast_no_possibility">Hamle kalmadı</string>

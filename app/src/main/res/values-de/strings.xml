@@ -7,7 +7,7 @@
     <string name="back">Zurück</string>
     <string name="bug_report">Fehler Melden</string>
     <string name="classic_game">Klassisches Spiel</string>
-    <string name="combos">Combos</string>
+    <string name="combos">Combos:</string>
     <string name="restart">Neustart</string>
     <string name="cancel">Abbruch</string>
     <string name="confirm_restart_message">Spiel neu starten?</string>

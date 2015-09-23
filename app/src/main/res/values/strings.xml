@@ -20,7 +20,7 @@
     <string name="restart">Restart</string>
     <string name="cancel">Cancel</string>
     <string name="statistics_title">Game Statistics</string>
-    <string name="combos">Combos</string>
+    <string name="combos">Combos:</string>
     <string name="guide">Tutorial</string>
     <string name="guide_title">How to play</string>
     <string name="guide_combine_1">Combine same or fields with sum 10&#8230;</string>
