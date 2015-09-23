@@ -14,7 +14,8 @@
         android:inputType="none"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textIsSelectable="true" />
+        android:textIsSelectable="true"
+        android:textColor="@android:color/white" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -27,13 +28,15 @@
             android:layout_height="wrap_content"
             android:text="@string/combos"
             android:inputType="none"
-            android:textIsSelectable="true" />
+            android:textIsSelectable="true"
+            android:textColor="@android:color/white" />
         <TextView
             android:id="@+id/header_combos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
             android:inputType="none"
-            android:textIsSelectable="true" />
+            android:textIsSelectable="true"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 </LinearLayout>

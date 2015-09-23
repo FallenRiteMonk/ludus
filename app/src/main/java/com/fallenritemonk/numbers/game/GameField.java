@@ -1,8 +1,10 @@
 package com.fallenritemonk.numbers.game;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.fallenritemonk.numbers.R;
 import com.fallenritemonk.numbers.db.DatabaseHelper;
 
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ import java.util.Random;
  * Created by FallenRiteMonk on 9/19/15.
  */
 class GameField extends BaseAdapter {
-    private final Context context;
+    private final GameActivity activity;
     private final FloatingActionButton addFieldsButton;
     private final TextView headerCombos;
     private final GameModeEnum gameMode;
@@ -33,13 +36,13 @@ class GameField extends BaseAdapter {
     private int hint;
     private int stateOrder;
 
-    public GameField(Context context, FloatingActionButton addFieldsButton, TextView headerCombos, GameModeEnum gameMode, Boolean resume) {
-        this.context = context;
+    public GameField(GameActivity activity, FloatingActionButton addFieldsButton, TextView headerCombos, GameModeEnum gameMode, Boolean resume) {
+        this.activity = activity;
         this.addFieldsButton = addFieldsButton;
         this.headerCombos = headerCombos;
         this.gameMode = gameMode;
 
-        dbHelper = DatabaseHelper.getInstance(context);
+        dbHelper = DatabaseHelper.getInstance(activity);
 
         if (resume) {
             resumeGame();
@@ -51,6 +54,18 @@ class GameField extends BaseAdapter {
     public void newGame() {
         fieldArray = new ArrayList<>();
         fieldArray.add(new NumberField(1));
+        fieldArray.add(new NumberField(1));
+        fieldArray.add(new NumberField(1));
+        fieldArray.add(new NumberField(1));
+        fieldArray.add(new NumberField(1));
+        fieldArray.add(new NumberField(1));
+        fieldArray.add(new NumberField(1));
+        fieldArray.add(new NumberField(1));
+        fieldArray.add(new NumberField(1));
+        fieldArray.add(new NumberField(1));
+        fieldArray.add(new NumberField(1));
+        fieldArray.add(new NumberField(1));
+        /*fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(2));
         fieldArray.add(new NumberField(3));
         fieldArray.add(new NumberField(4));
@@ -76,7 +91,7 @@ class GameField extends BaseAdapter {
         fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(8));
         fieldArray.add(new NumberField(1));
-        fieldArray.add(new NumberField(9));
+        fieldArray.add(new NumberField(9));*/
 
         if (gameMode == GameModeEnum.RANDOM) {
             Collections.shuffle(fieldArray, new Random(System.nanoTime()));
@@ -171,12 +186,16 @@ class GameField extends BaseAdapter {
             if (pos.equals(new CombinePos(id, selectedField))) {
                 fieldArray.get(id).setState(NumberField.STATE.USED);
                 fieldArray.get(selectedField).setState(NumberField.STATE.USED);
-                reduceFields();
-                saveState();
+                boolean won = reduceFields();
+                if (won) {
+                    won();
+                } else {
+                    saveState();
 
+                    findPossibilities();
+                }
                 selectedField = -1;
                 combined = true;
-                findPossibilities();
                 break;
             }
         }
@@ -186,17 +205,20 @@ class GameField extends BaseAdapter {
         }
     }
 
-    private void reduceFields() {
+    private boolean reduceFields() {
         int fieldSize = fieldArray.size();
         int preLeft = -1;
         for (int i = 0; i < fieldArray.size(); i += 9) {
             preLeft = reduceRow(i, preLeft);
             if (fieldSize > fieldArray.size()) {
-                i--;
+                i -= 9;
                 fieldSize = fieldArray.size();
             }
         }
-        if (fieldSize > fieldArray.size()) findPossibilities();
+        if (fieldArray.size() == 0) {
+            return true;
+        }
+        return false;
     }
 
     private int reduceRow(int index, int preLeft) {
@@ -214,6 +236,8 @@ class GameField extends BaseAdapter {
             deleteNine(index);
         } else if (preLeft != -1 && right > preLeft) {
             deleteNine(index - 8 + preLeft);
+        } else if (empty && index == 0) {
+            fieldArray.clear();
         }
         return left;
     }
@@ -258,6 +282,27 @@ class GameField extends BaseAdapter {
         headerCombos.setText(String.valueOf(stateOrder));
     }
 
+    private void won() {
+        // increase order by one to save combinations as last state is not saved
+        dbHelper.clearDB();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(R.string.game_won);
+
+        builder.setPositiveButton(R.string.confirm_restart_title, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                newGame();
+            }
+        });
+        builder.setNegativeButton(R.string.menu, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                activity.finish();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     @Override
     public int getCount() {
         return fieldArray.size();
@@ -277,7 +322,7 @@ class GameField extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         TextView textView;
         if (view == null) {
-            textView = new TextView(context);
+            textView = new TextView(activity);
             textView.setTextColor(Color.WHITE);
             textView.setTextSize(25);
             textView.setGravity(Gravity.CENTER_HORIZONTAL);
