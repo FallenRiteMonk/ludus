@@ -6,7 +6,6 @@
     <string name="game_won">GAME WON!</string>
     <string name="classic_game">Classic Game</string>
     <string name="random_game">Random Game</string>
-    <string name="restart">Restart</string>
     <string name="resume">Resume</string>
     <string name="statistics">Statistics</string>
     <string name="hint">Hint</string>
@@ -18,7 +17,7 @@
     <string name="game_services">Game Services</string>
     <string name="confirm_restart_message">Restart the game?</string>
     <string name="confirm_restart_title">New Game</string>
-    <string name="confirm_restart_accept">Restart</string>
+    <string name="restart">Restart</string>
     <string name="cancel">Cancel</string>
     <string name="statistics_title">Game Statistics</string>
     <string name="combos">Combos</string>

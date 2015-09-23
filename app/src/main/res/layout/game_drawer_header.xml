@@ -6,8 +6,8 @@
     android:layout_height="match_parent" >
 
     <EditText
+        android:id="@+id/header_game_mode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="none"
-        android:text="@string/classic_game" />
+        android:inputType="none" />
 </LinearLayout>

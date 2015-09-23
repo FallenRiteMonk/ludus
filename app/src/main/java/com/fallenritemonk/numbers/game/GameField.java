@@ -3,6 +3,7 @@ package com.fallenritemonk.numbers.game;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.fallenritemonk.numbers.db.DatabaseHelper;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 /**
  * Created by FallenRiteMonk on 9/19/15.
@@ -20,26 +23,30 @@ import java.util.ArrayList;
 class GameField extends BaseAdapter {
     private final Context context;
     private final FloatingActionButton addFieldsButton;
+    private final GameModeEnum gameMode;
     private final DatabaseHelper dbHelper;
 
     private ArrayList<NumberField> fieldArray;
     private ArrayList<CombinePos> possibilities = new ArrayList<>();
-    private int selectedField = -1;
-    private int hint = -1;
+    private int selectedField;
+    private int hint;
     private int stateOrder;
 
-    public GameField(Context context, FloatingActionButton addFieldsButton) {
+    public GameField(Context context, FloatingActionButton addFieldsButton, GameModeEnum gameMode, Boolean resume) {
         this.context = context;
         this.addFieldsButton = addFieldsButton;
+        this.gameMode = gameMode;
 
         dbHelper = DatabaseHelper.getInstance(context);
 
-        newGame();
-
-        findPossibilities();
+        if (resume) {
+            resumeGame();
+        } else {
+            newGame();
+        }
     }
 
-    private void newGame() {
+    public void newGame() {
         fieldArray = new ArrayList<>();
         fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(2));
@@ -68,12 +75,30 @@ class GameField extends BaseAdapter {
         fieldArray.add(new NumberField(8));
         fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(9));
+
+        if (gameMode == GameModeEnum.RANDOM) {
+            Collections.shuffle(fieldArray, new Random(System.nanoTime()));
+        }
+
         notifyDataSetChanged();
 
+        selectedField = -1;
+        hint = -1;
         stateOrder = -1;
+
+        findPossibilities();
 
         dbHelper.clearDB();
         saveState();
+    }
+
+    private void resumeGame() {
+        fieldsFromString(dbHelper.getLastState());
+        selectedField = -1;
+        hint = -1;
+        stateOrder = dbHelper.getLastStateOrder();
+
+        findPossibilities();
     }
 
     private void findPossibilities() {
@@ -218,11 +243,12 @@ class GameField extends BaseAdapter {
     }
 
     private void fieldsFromString(String string) {
-        fieldArray.clear();
+        fieldArray = new ArrayList<>();
         String[] tempFieldArray = string.split(",");
         for (String tempField : tempFieldArray) {
             fieldArray.add(new NumberField(tempField));
         }
+        notifyDataSetChanged();
     }
 
     private void saveState() {
