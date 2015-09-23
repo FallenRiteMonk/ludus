@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,8 +38,9 @@ public class GameActivity extends AppCompatActivity {
         final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.game_drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.game_menu_drawer);
         TextView headerGameMode = (TextView) findViewById(R.id.header_game_mode);
+        TextView headerCombos = (TextView) findViewById(R.id.header_combos);
 
-        gameField = new GameField(this, addFieldsButton, gameMode, resume);
+        gameField = new GameField(this, addFieldsButton, headerCombos, gameMode, resume);
         gameFieldView.setAdapter(gameField);
 
         gameFieldView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

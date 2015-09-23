@@ -23,6 +23,7 @@ import java.util.Random;
 class GameField extends BaseAdapter {
     private final Context context;
     private final FloatingActionButton addFieldsButton;
+    private final TextView headerCombos;
     private final GameModeEnum gameMode;
     private final DatabaseHelper dbHelper;
 
@@ -32,9 +33,10 @@ class GameField extends BaseAdapter {
     private int hint;
     private int stateOrder;
 
-    public GameField(Context context, FloatingActionButton addFieldsButton, GameModeEnum gameMode, Boolean resume) {
+    public GameField(Context context, FloatingActionButton addFieldsButton, TextView headerCombos, GameModeEnum gameMode, Boolean resume) {
         this.context = context;
         this.addFieldsButton = addFieldsButton;
+        this.headerCombos = headerCombos;
         this.gameMode = gameMode;
 
         dbHelper = DatabaseHelper.getInstance(context);
@@ -253,6 +255,7 @@ class GameField extends BaseAdapter {
 
     private void saveState() {
         dbHelper.saveState(++stateOrder, fieldsToString());
+        headerCombos.setText(String.valueOf(stateOrder));
     }
 
     @Override
