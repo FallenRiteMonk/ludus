@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress ALL -->
+<resources>
+    <google_play>
+        <short_description>
+            A small but fun number combination game!
+        </short_description>
+        <full_description>
+            #-ludus is a simple combination game which can be play by everybody! Usually the game is played on paper, but now you can stop wasting all this paper and play it on all your android devices.
+
+            The game encourages your thinking by giving you the decision of which fields you would combine to get the best result. It also requires all your attention to even be able to find the right combinations.
+
+            Currently the app contains following features:
+            *  paperless gameplay
+            *  saving and continuing gameplay
+            *  hints, for those who can’t find the next combination
+            *  statistics to compare with your friends
+
+            This game is totally free of charge with no limitations.
+
+            #-ludus goes 2.0 and open source.
+            Become part of the community and help by spreading the word, reporting bugs, translating or even implementing new features.
+            Visit the community page at http://fallenritemonk.github.io/ludus/
+        </full_description>
+    </google_play>
+
+    <play_services>
+        <description>
+            The #-ludus game service gives you more game fun by implementing achievements which can be unlocked during playing.
+        </description>
+        <achievements>
+            <first_victory>
+                <name>
+                    First Victory
+                </name>
+                <description>
+                    Win your first classic game.
+                </description>
+            </first_victory>
+            <amateur_player>
+                <name>
+                    Amateur Player
+                </name>
+                <description>
+                    Win 10 classic games.
+                </description>
+            </amateur_player>
+            <pro>
+                <name>
+                    Pro
+                </name>
+                <description>
+                    Continue winning classic games until you have 50 victories.
+                </description>
+            </pro>
+            <game_master>
+                <name>
+                    Game Master
+                </name>
+                <description>
+                    Master the game by winning 100 classic games.
+                </description>
+            </game_master>
+            <first_random_victory>
+                <name>
+                    First Random Victory
+                </name>
+                <description>
+                    Win your first random game.
+                </description>
+            </first_random_victory>
+            <amateur_random_player>
+                <name>
+                    Amateur Random Player
+                </name>
+                <description>
+                    Win 10 random games.
+                </description>
+            </amateur_random_player>
+            <random_pro>
+                <name>
+                    Random Pro
+                </name>
+                <description>
+                    Continue winning random games until you have 50 victories.
+                </description>
+            </random_pro>
+            <random_master>
+                <name>
+                    Random Master
+                </name>
+                <description>
+                    Master the game by winning 100 random games.
+                </description>
+            </random_master>
+        </achievements>
+        <leaderboards>
+            <combinations_to_victory>
+                <name>
+                    Combinations to vicotry
+                </name>
+            </combinations_to_victory>
+        </leaderboards>
+    </play_services>
+</resources>

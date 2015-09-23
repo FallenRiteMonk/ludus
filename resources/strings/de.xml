@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress ALL -->
+<resources>
+    <google_play>
+        <short_description>
+            Ein kleines aber spaßiges Zahlenkombinations-Spiel!
+        </short_description>
+        <full_description>
+            #-ludus ist ein einfaches Kombinationsspiel! In der Regel wird das Spiel auf dem Papier gespielt, aber jetzt können Sie aufhören Papier zu verschwenden  und es auf all ihren Android-Geräten spielen.
+
+            Das Spiel fördert das Denken, indem es Ihnen die Entscheidung lässt, welche Felder Sie kombinieren wollen, um zum besseren Ergebniss zu kommen. Es erfordert auch all Ihre Aufmerksamkeit um die nächste Kombinationen zu finden.
+
+            Derzeit hat die App folgende Features:
+            Papier los spielbar
+            Speichern und Fortsetzung eines Spiels
+            Tipps für diejenigen, die die nächste Kombinationsmöglichkeit nicht finden können,
+            Statistiken um mit Freunden zu vergleichen
+
+            Dieses Spiel ist vollkommen kostenlos und ohne Einschränkungen.
+
+            #-ludus wird 2.0 und open source.
+            Werde Teil der Community und hilf indem du die Neuigkeit verbreitest, fehler meldest, übersetzungen machst oder sogar erweiterungen implementierst.
+            Besuche die Community-Seite unter http://fallenritemonk.github.io/ludus/
+        </full_description>
+    </google_play>
+
+    <play_services>
+        <description>
+            Der #-ludus Spielservice erhöht den Spielspaß durch Erfolge die durch spielen freigeschaltet werden.
+        </description>
+        <achievements>
+            <first_victory>
+                <name>
+                    Erster Sieg
+                </name>
+                <description>
+                    Gewinne dein erstes klassisches Spiel.
+                </description>
+            </first_victory>
+            <amateur_player>
+                <name>
+                    Amateur Spieler
+                </name>
+                <description>
+                    Gewinne 10 klassische Spiele.
+                </description>
+            </amateur_player>
+            <pro>
+                <name>
+                    Pro
+                </name>
+                <description>
+                    Gewinne weiterhin klassische Spiele bis du 50 Siege hast.
+                </description>
+            </pro>
+            <game_master>
+                <name>
+                    Spiel Master
+                </name>
+                <description>
+                    Meistere das Spiel indem du 100 klassische Spiele gewinnst.
+                </description>
+            </game_master>
+            <first_random_victory>
+                <name>
+                    Erster Random Sieg
+                </name>
+                <description>
+                    Gewinne dein erstes random Spiel.
+                </description>
+            </first_random_victory>
+            <amateur_random_player>
+                <name>
+                    Amateur Random Spieler
+                </name>
+                <description>
+                    Gewinne 10 random Spiele.
+                </description>
+            </amateur_random_player>
+            <random_pro>
+                <name>
+                    Random Pro
+                </name>
+                <description>
+                    Gewinne weiterhin random Spiele bis du 50 Siege hast.
+                </description>
+            </random_pro>
+            <random_master>
+                <name>
+                    Random Master
+                </name>
+                <description>
+                    Meistere das Spiel indem du 100 random Spiele gewinnst.
+                </description>
+            </random_master>
+        </achievements>
+        <leaderboards>
+            <combinations_to_victory>
+                <name>
+                    Kombinationen zum Sieg
+                </name>
+            </combinations_to_victory>
+        </leaderboards>
+    </play_services>
+</resources>

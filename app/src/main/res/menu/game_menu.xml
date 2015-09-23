@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.fallenritemonk.numbers.MainActivity">
+
+    <item
+        android:id="@+id/action_hint"
+        android:title="@string/hint"
+        android:icon="@android:drawable/ic_dialog_info" />
+    <item
+        android:id="@+id/action_restart"
+        android:title="@string/restart"
+        android:icon="@android:drawable/ic_popup_sync" />
+    <item
+        android:id="@+id/action_menu"
+        android:title="@string/menu"
+        android:icon="@android:drawable/ic_dialog_dialer" />
+</menu>
