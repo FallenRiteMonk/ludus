@@ -24,8 +24,8 @@ class GameField extends BaseAdapter {
 
     private ArrayList<NumberField> fieldArray;
     private ArrayList<CombinePos> possibilities = new ArrayList<>();
-    private int selectedField = -1;
-    private int hint = -1;
+    private int selectedField;
+    private int hint;
     private int stateOrder;
 
     public GameField(Context context, FloatingActionButton addFieldsButton) {
@@ -35,11 +35,9 @@ class GameField extends BaseAdapter {
         dbHelper = DatabaseHelper.getInstance(context);
 
         newGame();
-
-        findPossibilities();
     }
 
-    private void newGame() {
+    public void newGame() {
         fieldArray = new ArrayList<>();
         fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(2));
@@ -70,7 +68,11 @@ class GameField extends BaseAdapter {
         fieldArray.add(new NumberField(9));
         notifyDataSetChanged();
 
+        selectedField = -1;
+        hint = -1;
         stateOrder = -1;
+
+        findPossibilities();
 
         dbHelper.clearDB();
         saveState();

@@ -8,7 +8,7 @@
     <string name="bug_report">Fehler Melden</string>
     <string name="classic_game">Klassisches Spiel</string>
     <string name="combos">Combos</string>
-    <string name="confirm_restart_accept">Neustart</string>
+    <string name="restart">Neustart</string>
     <string name="cancel">Abbruch</string>
     <string name="confirm_restart_message">Spiel neu starten?</string>
     <string name="confirm_restart_title">Neues Spiel</string>
@@ -32,7 +32,6 @@
     <string name="rate_later">Später</string>
     <string name="rate_message">Wenn dir #-ludus gefällt, nimm dir einen Moment und bewerte uns!</string>
     <string name="rate_title">Bewerte #-ludus</string>
-    <string name="restart">Neustart</string>
     <string name="resume">Fortsetzen</string>
     <string name="settings">Einstellungen</string>
     <string name="show_guide">Anleitung anzeigen</string>

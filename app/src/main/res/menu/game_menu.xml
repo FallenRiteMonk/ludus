@@ -6,4 +6,8 @@
         android:id="@+id/action_hint"
         android:title="@string/hint"
         android:icon="@android:drawable/ic_dialog_info" />
+    <item
+        android:id="@+id/action_restart"
+        android:title="@string/restart"
+        android:icon="@android:drawable/ic_popup_sync" />
 </menu>

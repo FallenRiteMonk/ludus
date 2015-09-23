@@ -1,11 +1,14 @@
 package com.fallenritemonk.numbers.game;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -58,10 +61,31 @@ public class GameActivity extends AppCompatActivity {
                     gameField.hint();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     return true;
+                } else if (id == R.id.action_restart) {
+                    restartDialog();
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    return true;
                 }
 
                 return false;
             }
         });
+    }
+
+    private void restartDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.confirm_restart_title);
+        builder.setMessage(R.string.confirm_restart_message);
+
+        builder.setPositiveButton(R.string.restart, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                gameField.newGame();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {}
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
