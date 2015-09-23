@@ -10,4 +10,8 @@
         android:id="@+id/action_restart"
         android:title="@string/restart"
         android:icon="@android:drawable/ic_popup_sync" />
+    <item
+        android:id="@+id/action_menu"
+        android:title="@string/menu"
+        android:icon="@android:drawable/ic_dialog_dialer" />
 </menu>
