@@ -3,6 +3,7 @@ package com.fallenritemonk.numbers.game;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,14 +32,18 @@ class GameField extends BaseAdapter {
     private int hint;
     private int stateOrder;
 
-    public GameField(Context context, FloatingActionButton addFieldsButton, GameModeEnum gameMode) {
+    public GameField(Context context, FloatingActionButton addFieldsButton, GameModeEnum gameMode, Boolean resume) {
         this.context = context;
         this.addFieldsButton = addFieldsButton;
         this.gameMode = gameMode;
 
         dbHelper = DatabaseHelper.getInstance(context);
 
-        newGame();
+        if (resume) {
+            resumeGame();
+        } else {
+            newGame();
+        }
     }
 
     public void newGame() {
@@ -85,6 +90,15 @@ class GameField extends BaseAdapter {
 
         dbHelper.clearDB();
         saveState();
+    }
+
+    private void resumeGame() {
+        fieldsFromString(dbHelper.getLastState());
+        selectedField = -1;
+        hint = -1;
+        stateOrder = dbHelper.getLastStateOrder();
+
+        findPossibilities();
     }
 
     private void findPossibilities() {
@@ -229,11 +243,12 @@ class GameField extends BaseAdapter {
     }
 
     private void fieldsFromString(String string) {
-        fieldArray.clear();
+        fieldArray = new ArrayList<>();
         String[] tempFieldArray = string.split(",");
         for (String tempField : tempFieldArray) {
             fieldArray.add(new NumberField(tempField));
         }
+        notifyDataSetChanged();
     }
 
     private void saveState() {

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="static_settings_file" translatable="false">SETTINGS_FILE</string>
+    <string name="static_last_game" translatable="false">LAST_GAME</string>
     <string name="static_game_mode" translatable="false">GAME_MODE</string>
+    <string name="static_game_resume" translatable="false">GAME_RESUME</string>
 </resources>

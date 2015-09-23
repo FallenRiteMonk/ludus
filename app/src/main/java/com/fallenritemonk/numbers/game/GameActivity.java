@@ -22,7 +22,6 @@ import com.fallenritemonk.numbers.R;
  */
 public class GameActivity extends AppCompatActivity {
     private static GameField gameField;
-    private static GameModeEnum gameMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +29,8 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         Intent intent = getIntent();
-        gameMode = (GameModeEnum) intent.getSerializableExtra(getString(R.string.static_game_mode));
+        GameModeEnum gameMode = (GameModeEnum) intent.getSerializableExtra(getString(R.string.static_game_mode));
+        Boolean resume = intent.getBooleanExtra(getString(R.string.static_game_resume), false);
 
         GridView gameFieldView = (GridView) findViewById(R.id.fieldGrid);
         FloatingActionButton addFieldsButton = (FloatingActionButton) findViewById(R.id.addFields);
@@ -38,7 +38,7 @@ public class GameActivity extends AppCompatActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.game_menu_drawer);
         TextView headerGameMode = (TextView) findViewById(R.id.header_game_mode);
 
-        gameField = new GameField(this, addFieldsButton, gameMode);
+        gameField = new GameField(this, addFieldsButton, gameMode, resume);
         gameFieldView.setAdapter(gameField);
 
         gameFieldView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

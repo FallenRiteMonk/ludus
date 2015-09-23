@@ -100,7 +100,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public int getLastState() {
+    public int getLastStateOrder() {
         String POSTS_SELECT_QUERY =
                 String.format("SELECT * FROM %s",
                         TABLE_STATES);
@@ -120,5 +120,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return lastID;
+    }
+
+    public String getLastState() {
+        String POSTS_SELECT_QUERY =
+                String.format("SELECT * FROM %s",
+                        TABLE_STATES);
+        String fieldArray = "";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(POSTS_SELECT_QUERY, null);
+        try {
+            if (cursor.moveToLast()) {
+                fieldArray = cursor.getString(cursor.getColumnIndex(KEY_STATES_FIELD_ARRAY));
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "Error while trying to get max id from database");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return fieldArray;
     }
 }

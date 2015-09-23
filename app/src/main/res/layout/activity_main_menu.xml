@@ -25,11 +25,11 @@
         android:text="@string/random_game"
         android:layout_gravity="center_horizontal" />
 
-    <!--<Button
+    <Button
         android:id="@+id/menu_button_resume"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/resume"
         android:layout_gravity="center_horizontal"
-        android:visibility="gone" />-->
+        android:visibility="gone" />
 </LinearLayout>
