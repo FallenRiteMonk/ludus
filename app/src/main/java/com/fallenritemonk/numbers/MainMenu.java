@@ -2,16 +2,21 @@ package com.fallenritemonk.numbers;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.fallenritemonk.numbers.db.DatabaseHelper;
 import com.fallenritemonk.numbers.db.InitDbAsyncTask;
 import com.fallenritemonk.numbers.game.GameActivity;
 import com.fallenritemonk.numbers.game.GameModeEnum;
+
+import org.w3c.dom.Text;
 
 public class MainMenu extends AppCompatActivity {
     private Button resumeButton;
@@ -26,6 +31,7 @@ public class MainMenu extends AppCompatActivity {
         Button classicButton = (Button) findViewById(R.id.menu_button_classic_game);
         Button randomButton = (Button) findViewById(R.id.menu_button_random_game);
         resumeButton = (Button) findViewById(R.id.menu_button_resume);
+        TextView appVersion = (TextView) findViewById(R.id.app_version);
 
         classicButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +60,14 @@ public class MainMenu extends AppCompatActivity {
                 }
             }
         });
+
+        PackageInfo pInfo = null;
+        try {
+            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            appVersion.setText(getString(R.string.app_version) + " " + pInfo.versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
