@@ -35,7 +35,7 @@ public class GameActivity extends AppCompatActivity {
         final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.game_drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.game_menu_drawer);
 
-        gameField = new GameField(this, addFieldsButton);
+        gameField = new GameField(this, addFieldsButton, GameModeEnum.CLASSIC);
         gameFieldView.setAdapter(gameField);
 
         gameFieldView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

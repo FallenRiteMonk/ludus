@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.fallenritemonk.numbers.db.DatabaseHelper;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 /**
  * Created by FallenRiteMonk on 9/19/15.
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 class GameField extends BaseAdapter {
     private final Context context;
     private final FloatingActionButton addFieldsButton;
+    private final GameModeEnum gameMode;
     private final DatabaseHelper dbHelper;
 
     private ArrayList<NumberField> fieldArray;
@@ -28,9 +31,10 @@ class GameField extends BaseAdapter {
     private int hint;
     private int stateOrder;
 
-    public GameField(Context context, FloatingActionButton addFieldsButton) {
+    public GameField(Context context, FloatingActionButton addFieldsButton, GameModeEnum gameMode) {
         this.context = context;
         this.addFieldsButton = addFieldsButton;
+        this.gameMode = gameMode;
 
         dbHelper = DatabaseHelper.getInstance(context);
 
@@ -66,6 +70,11 @@ class GameField extends BaseAdapter {
         fieldArray.add(new NumberField(8));
         fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(9));
+
+        if (gameMode == GameModeEnum.RANDOM) {
+            Collections.shuffle(fieldArray, new Random(System.nanoTime()));
+        }
+
         notifyDataSetChanged();
 
         selectedField = -1;
