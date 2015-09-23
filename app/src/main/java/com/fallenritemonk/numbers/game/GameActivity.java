@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.fallenritemonk.numbers.R;
 import com.fallenritemonk.numbers.db.InitDbAsyncTask;
@@ -22,6 +23,7 @@ import com.fallenritemonk.numbers.db.InitDbAsyncTask;
  */
 public class GameActivity extends AppCompatActivity {
     private static GameField gameField;
+    private static GameModeEnum gameMode = GameModeEnum.CLASSIC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +36,9 @@ public class GameActivity extends AppCompatActivity {
         FloatingActionButton addFieldsButton = (FloatingActionButton) findViewById(R.id.addFields);
         final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.game_drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.game_menu_drawer);
+        TextView headerGameMode = (TextView) findViewById(R.id.header_game_mode);
 
-        gameField = new GameField(this, addFieldsButton, GameModeEnum.CLASSIC);
+        gameField = new GameField(this, addFieldsButton, gameMode);
         gameFieldView.setAdapter(gameField);
 
         gameFieldView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -59,17 +62,20 @@ public class GameActivity extends AppCompatActivity {
 
                 if (id == R.id.action_hint) {
                     gameField.hint();
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    return true;
                 } else if (id == R.id.action_restart) {
                     restartDialog();
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    return true;
                 }
 
-                return false;
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
             }
         });
+
+        if (gameMode == GameModeEnum.CLASSIC) {
+            headerGameMode.setText(R.string.classic_game);
+        } else if (gameMode == GameModeEnum.RANDOM) {
+            headerGameMode.setText(R.string.random_game);
+        }
     }
 
     private void restartDialog() {
