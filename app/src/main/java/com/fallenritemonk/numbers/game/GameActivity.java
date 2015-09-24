@@ -16,22 +16,31 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.fallenritemonk.numbers.LudusApplication;
 import com.fallenritemonk.numbers.R;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 /**
  * Created by FallenRiteMonk on 9/19/15.
  */
 public class GameActivity extends AppCompatActivity {
     private static GameField gameField;
+    private static Tracker mTracker;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        LudusApplication application = (LudusApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
         Intent intent = getIntent();
         GameModeEnum gameMode = (GameModeEnum) intent.getSerializableExtra(getString(R.string.static_game_mode));
         Boolean resume = intent.getBooleanExtra(getString(R.string.static_game_resume), false);
+        name = gameMode.toString().toLowerCase();
 
         GridView gameFieldView = (GridView) findViewById(R.id.fieldGrid);
         FloatingActionButton addFieldsButton = (FloatingActionButton) findViewById(R.id.addFields);
@@ -80,6 +89,15 @@ public class GameActivity extends AppCompatActivity {
         } else if (gameMode == GameModeEnum.RANDOM) {
             headerGameMode.setText(R.string.random_game);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.d("GAME", "Setting screen name: " + name);
+        mTracker.setScreenName("Image~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     private void restartDialog() {
