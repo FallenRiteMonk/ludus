@@ -8,8 +8,8 @@ android {
         applicationId "com.fallenritemonk.numbers"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 104030
-        versionName "2.0.0-alpha-1"
+        versionCode 104031
+        versionName "2.0.0-alpha-1-fix"
     }
     buildTypes {
         release {

@@ -16,8 +16,6 @@ import com.fallenritemonk.numbers.db.InitDbAsyncTask;
 import com.fallenritemonk.numbers.game.GameActivity;
 import com.fallenritemonk.numbers.game.GameModeEnum;
 
-import org.w3c.dom.Text;
-
 public class MainMenu extends AppCompatActivity {
     private Button resumeButton;
 
