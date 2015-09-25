@@ -15,8 +15,9 @@ import com.fallenritemonk.numbers.db.DatabaseHelper;
 import com.fallenritemonk.numbers.db.InitDbAsyncTask;
 import com.fallenritemonk.numbers.game.GameActivity;
 import com.fallenritemonk.numbers.game.GameModeEnum;
+import com.fallenritemonk.numbers.services.GameServicesActivity;
 
-public class MainMenu extends AppCompatActivity {
+public class MainMenu extends GameServicesActivity {
     private Button resumeButton;
 
     @Override
