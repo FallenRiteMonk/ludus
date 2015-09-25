@@ -4,11 +4,15 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.fallenritemonk.numbers.BuildConfig;
+import com.fallenritemonk.numbers.R;
+import com.fallenritemonk.numbers.game.GameModeEnum;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -21,18 +25,21 @@ import com.google.android.gms.games.Games;
  */
 public class GameServicesActivity extends AppCompatActivity
         implements ConnectionCallbacks, OnConnectionFailedListener {
-    private GoogleApiClient mGoogleApiClient;
-    // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;
-    // Unique tag for the error dialog fragment
     private static final String DIALOG_ERROR = "dialog_error";
-    // Bool to track whether the app is already resolving an error
-    private boolean mResolvingError = false;
     private static final String STATE_RESOLVING_ERROR = "resolving_error";
+
+    protected GoogleApiClient mGoogleApiClient;
+    private boolean mResolvingError = false;
+    private boolean explicitSignOut;
+    private SharedPreferences persist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        persist = getSharedPreferences(getString(R.string.static_settings_file), 0);
+        explicitSignOut = persist.getBoolean(getString(R.string.static_explicit_logout), false);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this, this, this)
                 .addApi(Games.API)
@@ -52,7 +59,7 @@ public class GameServicesActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        if (!mResolvingError) {  // more about this later
+        if (!mResolvingError && !explicitSignOut) {  // more about this later
             mGoogleApiClient.connect();
         }
     }
@@ -65,17 +72,34 @@ public class GameServicesActivity extends AppCompatActivity
 
     @Override
     public void onConnected(Bundle bundle) {
-        Log.d("GAMES_SERVICES", "onConnected");
+        int tempClassic = persist.getInt(getString(R.string.achievements_persist_classic), 0);
+        if (tempClassic > 0) {
+            unlockClassicGame(tempClassic);
+        }
+
+        int tempRandom= persist.getInt(getString(R.string.achievements_persist_classic), 0);
+        if (tempRandom > 0) {
+            unlockClassicGame(tempRandom);
+        }
+
+        int tempMin= persist.getInt(getString(R.string.leaderboard_persist_minimal), -1);
+        if (tempMin > -1) {
+            submitScore(tempMin);
+        }
+
+        int tempMax= persist.getInt(getString(R.string.leaderboard_persist_maximal), -1);
+        if (tempMax > -1) {
+            submitScore(tempMax);
+        }
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        Log.d("GAMES_SERVICES", "onConnected");
+        if (BuildConfig.DEBUG) Log.d("GAMES_SERVICES", "onConnectionSuspended");
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult result) {
-        Log.d("GAMES_SERVICES", "onConnected: " + result);
         if (mResolvingError) {
             // Already attempting to resolve an error.
             return;
@@ -142,5 +166,99 @@ public class GameServicesActivity extends AppCompatActivity
                 }
             }
         }
+    }
+
+    protected void setExplicitSignOut(boolean explicitSignOut) {
+        this.explicitSignOut = explicitSignOut;
+        SharedPreferences.Editor editor = persist.edit();
+        editor.putBoolean(getString(R.string.static_explicit_logout), this.explicitSignOut);
+        editor.apply();
+    }
+
+    public void gameWon(GameModeEnum gameMode, int score) {
+        if (gameMode == GameModeEnum.CLASSIC) {
+            if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+                unlockClassicGame(1);
+            } else {
+                persistClassicGame(1);
+            }
+        } else if (gameMode == GameModeEnum.RANDOM) {
+            if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+                unlockRandomGame(1);
+            } else {
+                persistRandomGame(1);
+            }
+        }
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+            submitScore(score);
+        } else {
+            persistScore(score);
+        }
+    }
+
+    private void unlockClassicGame(int victories) {
+        Games.Achievements.unlock(mGoogleApiClient, getString(R.string.achievement_first_victory));
+        Games.Achievements.increment(mGoogleApiClient, getString(R.string.achievement_amateur_player), victories);
+        Games.Achievements.increment(mGoogleApiClient, getString(R.string.achievement_pro), victories);
+        Games.Achievements.increment(mGoogleApiClient, getString(R.string.achievement_game_master), victories);
+
+        SharedPreferences.Editor editor = persist.edit();
+        editor.putInt(getString(R.string.achievements_persist_classic), 0);
+        editor.apply();
+    }
+
+    private void persistClassicGame(int victories) {
+        int tempVictories = persist.getInt(getString(R.string.achievements_persist_classic), 0);
+        tempVictories += victories;
+
+        SharedPreferences.Editor editor = persist.edit();
+        editor.putInt(getString(R.string.achievements_persist_classic), tempVictories);
+        editor.apply();
+    }
+
+    private void unlockRandomGame(int victories) {
+        Games.Achievements.unlock(mGoogleApiClient, getString(R.string.achievement_first_random_victory));
+        Games.Achievements.increment(mGoogleApiClient, getString(R.string.achievement_amateur_random_player), victories);
+        Games.Achievements.increment(mGoogleApiClient, getString(R.string.achievement_random_pro), victories);
+        Games.Achievements.increment(mGoogleApiClient, getString(R.string.achievement_random_master), victories);
+
+        SharedPreferences.Editor editor = persist.edit();
+        editor.putInt(getString(R.string.achievements_persist_random), 0);
+        editor.apply();
+    }
+
+    private void persistRandomGame(int victories) {
+        int tempVictories = persist.getInt(getString(R.string.achievements_persist_random), 0);
+        tempVictories += victories;
+
+        SharedPreferences.Editor editor = persist.edit();
+        editor.putInt(getString(R.string.achievements_persist_random), tempVictories);
+        editor.apply();
+    }
+
+    private void submitScore(int score) {
+        Games.Leaderboards.submitScore(mGoogleApiClient, getString(R.string.leaderboard_combinations_to_victory), score);
+        Games.Leaderboards.submitScore(mGoogleApiClient, getString(R.string.leaderboard_minimalist), score);
+    }
+
+    private void persistScore(int score) {
+        int min = persist.getInt(getString(R.string.leaderboard_persist_minimal), -1);
+        int max = persist.getInt(getString(R.string.leaderboard_persist_maximal), -1);
+
+        if (min == -1) {
+            min = score;
+        } else if (score < min) {
+            min = score;
+        }
+        if (max == -1) {
+            max = score;
+        } else if (score > max) {
+            max = score;
+        }
+
+        SharedPreferences.Editor editor = persist.edit();
+        editor.putInt(getString(R.string.leaderboard_persist_minimal), min);
+        editor.putInt(getString(R.string.leaderboard_persist_maximal), max);
+        editor.apply();
     }
 }

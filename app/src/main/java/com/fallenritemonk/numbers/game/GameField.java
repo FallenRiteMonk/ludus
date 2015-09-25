@@ -52,7 +52,8 @@ class GameField extends BaseAdapter {
     public void newGame() {
         fieldArray = new ArrayList<>();
         fieldArray.add(new NumberField(1));
-        fieldArray.add(new NumberField(2));
+        fieldArray.add(new NumberField(1));
+        /*fieldArray.add(new NumberField(2));
         fieldArray.add(new NumberField(3));
         fieldArray.add(new NumberField(4));
         fieldArray.add(new NumberField(5));
@@ -77,7 +78,7 @@ class GameField extends BaseAdapter {
         fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(8));
         fieldArray.add(new NumberField(1));
-        fieldArray.add(new NumberField(9));
+        fieldArray.add(new NumberField(9));*/
 
         if (gameMode == GameModeEnum.RANDOM) {
             Collections.shuffle(fieldArray, new Random(System.nanoTime()));
@@ -270,6 +271,9 @@ class GameField extends BaseAdapter {
 
     private void won() {
         // increase order by one to save combinations as last state is not saved
+        stateOrder += 1;
+        activity.gameWon(gameMode, stateOrder);
+
         dbHelper.clearDB();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
