@@ -1,16 +1,14 @@
 package com.fallenritemonk.numbers.game;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fallenritemonk.numbers.R;
@@ -314,7 +312,7 @@ class GameField extends BaseAdapter {
             textView.setTextColor(Color.WHITE);
             textView.setTextSize(25);
             textView.setGravity(Gravity.CENTER_HORIZONTAL);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+            AbsListView.LayoutParams params = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.MATCH_PARENT);
             textView.setLayoutParams(params);
         } else {
             textView = (TextView) view;
