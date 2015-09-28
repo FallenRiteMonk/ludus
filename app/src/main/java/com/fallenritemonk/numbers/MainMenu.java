@@ -23,6 +23,8 @@ public class MainMenu extends GameServicesActivity {
     private Button signInButton;
     private Button signOutButton;
     private Button achievementsButton;
+    private Button combinationsButton;
+    private Button minimalistButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class MainMenu extends GameServicesActivity {
         signInButton = (Button) findViewById(R.id.sign_in_button);
         signOutButton = (Button) findViewById(R.id.sign_out_button);
         achievementsButton = (Button) findViewById(R.id.menu_button_achievements);
+        combinationsButton = (Button) findViewById(R.id.menu_button_combinations);
+        minimalistButton = (Button) findViewById(R.id.menu_button_minimalist);
         TextView appVersion = (TextView) findViewById(R.id.app_version);
 
         classicButton.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +88,8 @@ public class MainMenu extends GameServicesActivity {
                 signInButton.setVisibility(View.VISIBLE);
                 signOutButton.setVisibility(View.GONE);
                 achievementsButton.setVisibility(View.GONE);
+                combinationsButton.setVisibility(View.GONE);
+                minimalistButton.setVisibility(View.GONE);
             }
         });
         achievementsButton.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +97,20 @@ public class MainMenu extends GameServicesActivity {
             public void onClick(View v) {
                 startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient),
                         1002);
+            }
+        });
+        combinationsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mGoogleApiClient,
+                        getString(R.string.leaderboard_combinations_to_victory)), 1003);
+            }
+        });
+        minimalistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mGoogleApiClient,
+                        getString(R.string.leaderboard_minimalist)), 1004);
             }
         });
 
@@ -134,6 +154,8 @@ public class MainMenu extends GameServicesActivity {
         signInButton.setVisibility(View.GONE);
         signOutButton.setVisibility(View.VISIBLE);
         achievementsButton.setVisibility(View.VISIBLE);
+        combinationsButton.setVisibility(View.VISIBLE);
+        minimalistButton.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -143,5 +165,7 @@ public class MainMenu extends GameServicesActivity {
         signInButton.setVisibility(View.VISIBLE);
         signOutButton.setVisibility(View.GONE);
         achievementsButton.setVisibility(View.GONE);
+        combinationsButton.setVisibility(View.GONE);
+        minimalistButton.setVisibility(View.GONE);
     }
 }
