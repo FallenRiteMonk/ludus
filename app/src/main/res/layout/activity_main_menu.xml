@@ -15,28 +15,52 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/menu_button_classic_game"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/classic_game"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/white" />
-    <Button
-        android:id="@+id/menu_button_random_game"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/random_game"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/white" />
-    <Button
-        android:id="@+id/menu_button_resume"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/resume"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone"
-        android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/menu_button_classic_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/classic_game"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/menu_button_random_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/random_game"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/menu_button_resume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/resume"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/menu_button_achievements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/achievements"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/menu_button_combinations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/leaderboard_combiner"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/menu_button_minimalist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/leaderboard_minimal"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <TextView
@@ -47,4 +71,25 @@
         android:gravity="center"
         android:layout_alignParentBottom="true"
         android:textIsSelectable="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in"
+        android:id="@+id/sign_in_button"
+        android:layout_above="@+id/app_version"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_out"
+        android:id="@+id/sign_out_button"
+        android:layout_above="@+id/app_version"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:textColor="@android:color/white" />
 </RelativeLayout>

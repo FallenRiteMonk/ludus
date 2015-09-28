@@ -270,6 +270,9 @@ class GameField extends BaseAdapter {
 
     private void won() {
         // increase order by one to save combinations as last state is not saved
+        stateOrder += 1;
+        activity.gameWon(gameMode, stateOrder);
+
         dbHelper.clearDB();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -286,6 +289,7 @@ class GameField extends BaseAdapter {
             }
         });
         AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
         dialog.show();
     }
 
