@@ -47,4 +47,5 @@
     <string name="rate_cancel">No, Thanks</string>
     <string name="rate_later">Later</string>
     <string name="rate">Rate</string>
+    <string name="splash_screen">SplashScreen</string>
 </resources>

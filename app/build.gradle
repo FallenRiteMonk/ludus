@@ -35,7 +35,7 @@ android {
         // and abort the build (controlled by abortOnError above) if fatal issues are found
         checkReleaseBuilds true
 
-        ignore 'AllowBackup', 'UnusedResources', 'RtlEnabled', 'Overdraw'
+        ignore 'AllowBackup', 'UnusedResources', 'RtlEnabled', 'Overdraw', 'IconMissingDensityFolder', 'MissingTranslation'
     }
 }
 
