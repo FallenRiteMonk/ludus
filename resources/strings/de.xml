@@ -100,6 +100,11 @@
                     Kombinationen zum Sieg
                 </name>
             </combinations_to_victory>
+            <minimalist>
+                <name>
+                    Minimalist
+                </name>
+            </minimalist>
         </leaderboards>
     </play_services>
 </resources>
