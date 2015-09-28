@@ -52,7 +52,7 @@ class GameField extends BaseAdapter {
     public void newGame() {
         fieldArray = new ArrayList<>();
         fieldArray.add(new NumberField(1));
-        fieldArray.add(new NumberField(2));
+        /*fieldArray.add(new NumberField(2));
         fieldArray.add(new NumberField(3));
         fieldArray.add(new NumberField(4));
         fieldArray.add(new NumberField(5));
@@ -76,7 +76,7 @@ class GameField extends BaseAdapter {
         fieldArray.add(new NumberField(7));
         fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(8));
-        fieldArray.add(new NumberField(1));
+        fieldArray.add(new NumberField(1));*/
         fieldArray.add(new NumberField(9));
 
         if (gameMode == GameModeEnum.RANDOM) {
@@ -289,6 +289,7 @@ class GameField extends BaseAdapter {
             }
         });
         AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
         dialog.show();
     }
 
