@@ -8,7 +8,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,11 +15,12 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.fallenritemonk.numbers.R;
+import com.fallenritemonk.numbers.services.GameServicesActivity;
 
 /**
  * Created by FallenRiteMonk on 9/19/15.
  */
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends GameServicesActivity {
     private static GameField gameField;
 
     @Override
