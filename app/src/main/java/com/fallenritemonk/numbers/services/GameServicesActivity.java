@@ -164,6 +164,8 @@ public class GameServicesActivity extends AppCompatActivity
                         !mGoogleApiClient.isConnected()) {
                     mGoogleApiClient.connect();
                 }
+            } else if ((resultCode == RESULT_CANCELED)) {
+                setExplicitSignOut(true);
             }
         }
     }
