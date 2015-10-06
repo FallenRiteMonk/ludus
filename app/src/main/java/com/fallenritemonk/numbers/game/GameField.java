@@ -2,6 +2,7 @@ package com.fallenritemonk.numbers.game;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.fallenritemonk.numbers.R;
@@ -27,6 +29,7 @@ class GameField extends BaseAdapter {
     private final TextView headerCombos;
     private final GameModeEnum gameMode;
     private final DatabaseHelper dbHelper;
+    private GridView gameFieldView;
 
     private ArrayList<NumberField> fieldArray;
     private ArrayList<CombinePos> possibilities = new ArrayList<>();
@@ -39,6 +42,8 @@ class GameField extends BaseAdapter {
         this.addFieldsButton = addFieldsButton;
         this.headerCombos = headerCombos;
         this.gameMode = gameMode;
+
+        gameFieldView = activity.getGameFieldView();
 
         dbHelper = DatabaseHelper.getInstance(activity);
 
@@ -156,22 +161,23 @@ class GameField extends BaseAdapter {
         if (selectedField == -1) {
             selectedField = id;
             fieldArray.get(id).setState(NumberField.STATE.SELECTED);
+            notifyDataSetChanged();
         } else if (id == selectedField) {
             fieldArray.get(id).setState(NumberField.STATE.UNUSED);
             selectedField = -1;
+            notifyDataSetChanged();
         } else {
             combine(id);
         }
-
-        notifyDataSetChanged();
     }
 
     private void combine(int id) {
         boolean combined = false;
         for (CombinePos pos : possibilities) {
             if (pos.equals(new CombinePos(id, selectedField))) {
-                fieldArray.get(id).setState(NumberField.STATE.USED);
-                fieldArray.get(selectedField).setState(NumberField.STATE.USED);
+                setUsed(id);
+                setUsed(selectedField);
+
                 boolean won = reduceFields();
                 if (won) {
                     won();
@@ -188,6 +194,24 @@ class GameField extends BaseAdapter {
         if (!combined) {
             fieldArray.get(selectedField).setState(NumberField.STATE.UNUSED);
             selectedField = -1;
+        }
+    }
+
+    private void setUsed(int i) {
+        fieldArray.get(i).setState(NumberField.STATE.USED);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            final View view = gameFieldView.getChildAt(i);
+            view.animate().setDuration(500).alpha(0.2f)
+                    .withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            notifyDataSetChanged();
+                            view.setAlpha(1);
+                        }
+                    });
+        } else {
+            notifyDataSetChanged();
         }
     }
 
@@ -309,7 +333,7 @@ class GameField extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, final View view, ViewGroup viewGroup) {
         TextView textView;
         if (view == null) {
             textView = new TextView(activity);
@@ -325,8 +349,8 @@ class GameField extends BaseAdapter {
         textView.setText("" + fieldArray.get(i).getNumber());
 
         switch (fieldArray.get(i).getState()) {
+            case USED: textView.setAlpha(0.2f); textView.setText("");
             case UNUSED: textView.setBackgroundColor(Color.BLACK); break;
-            case USED: textView.setBackgroundColor(Color.LTGRAY); textView.setText(""); break;
             case SELECTED: textView.setBackgroundColor(Color.BLUE); break;
             case HINT: textView.setBackgroundColor(Color.GREEN); break;
         }
