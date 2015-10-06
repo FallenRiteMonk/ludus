@@ -24,6 +24,8 @@ import java.util.Random;
  * Created by FallenRiteMonk on 9/19/15.
  */
 class GameField extends BaseAdapter {
+    private static final int ANIMATION_DURATION = 500;
+
     private final GameActivity activity;
     private final FloatingActionButton addFieldsButton;
     private final TextView headerCombos;
@@ -202,7 +204,7 @@ class GameField extends BaseAdapter {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             final View view = gameFieldView.getChildAt(i);
-            view.animate().setDuration(500).alpha(0.2f)
+            view.animate().setDuration(ANIMATION_DURATION).alpha(0.2f)
                     .withEndAction(new Runnable() {
                         @Override
                         public void run() {
@@ -252,9 +254,26 @@ class GameField extends BaseAdapter {
         return left;
     }
 
-    private void deleteNine(int index) {
+    private void deleteNine(final int index) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            for (int i = 0; i < 9; i++) {
+                final View view = gameFieldView.getChildAt(index + i);
+                final NumberField field = fieldArray.get(index + i);
+                view.animate().setDuration(ANIMATION_DURATION).scaleY(0)
+                        .withEndAction(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyDataSetChanged();
+                                view.setScaleY(1);
+                            }
+                        });
+            }
+        }
         for (int i = 0; i < 9; i++) {
             fieldArray.remove(index);
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            notifyDataSetChanged();
         }
     }
 
@@ -347,6 +366,7 @@ class GameField extends BaseAdapter {
         }
 
         textView.setText("" + fieldArray.get(i).getNumber());
+        textView.setAlpha(1);
 
         switch (fieldArray.get(i).getState()) {
             case USED: textView.setAlpha(0.2f); textView.setText("");
