@@ -8,6 +8,10 @@ import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.ScaleAnimation;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -202,19 +206,31 @@ class GameField extends BaseAdapter {
     private void setUsed(int i) {
         fieldArray.get(i).setState(NumberField.STATE.USED);
 
+        final View view = gameFieldView.getChildAt(i);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            final View view = gameFieldView.getChildAt(i);
-            view.animate().setDuration(ANIMATION_DURATION).alpha(0.2f)
-                    .withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            notifyDataSetChanged();
-                            view.setAlpha(1);
-                        }
-                    });
-        } else {
-            notifyDataSetChanged();
+            view.setHasTransientState(true);
         }
+        Animation animation = new AlphaAnimation(1.0f, 0.2f);
+        animation.setDuration(ANIMATION_DURATION);
+        animation.setInterpolator(new LinearInterpolator());
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.clearAnimation();
+                notifyDataSetChanged();
+                view.setAlpha(1);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    view.setHasTransientState(false);
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        view.startAnimation(animation);
     }
 
     private boolean reduceFields() {
@@ -255,25 +271,37 @@ class GameField extends BaseAdapter {
     }
 
     private void deleteNine(final int index) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            for (int i = 0; i < 9; i++) {
-                final View view = gameFieldView.getChildAt(index + i);
-                final NumberField field = fieldArray.get(index + i);
-                view.animate().setDuration(ANIMATION_DURATION).scaleY(0)
-                        .withEndAction(new Runnable() {
-                            @Override
-                            public void run() {
-                                notifyDataSetChanged();
-                                view.setScaleY(1);
-                            }
-                        });
-            }
-        }
         for (int i = 0; i < 9; i++) {
-            fieldArray.remove(index);
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            notifyDataSetChanged();
+            final View view = gameFieldView.getChildAt(index + i);
+            final NumberField field = fieldArray.get(index + i);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                view.setHasTransientState(true);
+            }
+            Animation animation = new AlphaAnimation(1.0f, 0.0f);
+            animation.setDuration(ANIMATION_DURATION);
+            animation.setInterpolator(new LinearInterpolator());
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    view.clearAnimation();
+                    fieldArray.remove(field);
+                    notifyDataSetChanged();
+                    view.setAlpha(1);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        view.setHasTransientState(false);
+                    }
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+            view.startAnimation(animation);
         }
     }
 
@@ -312,7 +340,6 @@ class GameField extends BaseAdapter {
     }
 
     private void won() {
-        // increase order by one to save combinations as last state is not saved
         stateOrder += 1;
         activity.gameWon(gameMode, stateOrder);
 

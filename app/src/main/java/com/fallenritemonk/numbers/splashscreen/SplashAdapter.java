@@ -3,6 +3,7 @@ package com.fallenritemonk.numbers.splashscreen;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -32,6 +33,16 @@ public class SplashAdapter extends BaseAdapter {
     public SplashAdapter(final SplashActivity activity) {
         this.activity = activity;
         splashGrid = activity.getSplashGridView();
+        splashGrid.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    return true;
+                }
+                return false;
+            }
+        });
+
 
         Animation inAnim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         inAnim.setDuration(400);
@@ -57,7 +68,7 @@ public class SplashAdapter extends BaseAdapter {
         });
 
         LayoutAnimationController controller = new LayoutAnimationController(inAnim, 0.1f);
-        activity.getSplashGridView().setLayoutAnimation(controller);
+        splashGrid.setLayoutAnimation(controller);
 
         init();
     }
