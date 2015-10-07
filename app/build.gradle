@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.0"
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "com.fallenritemonk.numbers"
@@ -35,7 +35,7 @@ android {
         // and abort the build (controlled by abortOnError above) if fatal issues are found
         checkReleaseBuilds true
 
-        ignore 'AllowBackup', 'UnusedResources', 'RtlEnabled', 'Overdraw', 'IconMissingDensityFolder', 'MissingTranslation'
+        ignore 'AllowBackup', 'MissingTranslation', 'RtlEnabled', 'UnusedResources', 'Overdraw'
     }
 }
 
