@@ -43,7 +43,6 @@ public class SplashAdapter extends BaseAdapter {
             }
         });
 
-
         Animation inAnim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         inAnim.setDuration(400);
         inAnim.setInterpolator(new LinearInterpolator());
