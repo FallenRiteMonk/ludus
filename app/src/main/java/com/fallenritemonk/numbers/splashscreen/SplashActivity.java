@@ -16,6 +16,7 @@ public class SplashActivity extends Activity {
 
         splashGrid = (GridView) findViewById(R.id.splashGrid);
         splashGrid.setAdapter(new SplashAdapter(this));
+        splashGrid.setVerticalScrollBarEnabled(false);
     }
 
     public GridView getSplashGridView() {

@@ -306,12 +306,16 @@ class GameField extends BaseAdapter {
     }
 
     public void addFields() {
-        int fieldLength = fieldArray.size();
-        for (int i = 0; i < fieldLength; i++) {
-            if (fieldArray.get(i).getState() != NumberField.STATE.USED) {
-                fieldArray.add(new NumberField(fieldArray.get(i).getNumber()));
+        ArrayList<NumberField> tempField = new ArrayList<>();
+        for (NumberField field : fieldArray) {
+            if (field.getState() != NumberField.STATE.USED) {
+                tempField.add(new NumberField(field.getNumber()));
             }
         }
+        for (NumberField field : tempField) {
+            fieldArray.add(field);
+        }
+
         notifyDataSetChanged();
         findPossibilities();
     }
