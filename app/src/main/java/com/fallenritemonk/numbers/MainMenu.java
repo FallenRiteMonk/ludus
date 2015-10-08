@@ -17,6 +17,7 @@ import com.fallenritemonk.numbers.game.GameModeEnum;
 import com.fallenritemonk.numbers.services.GameServicesActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.games.Games;
+import com.tapfortap.sdk.TapForTap;
 
 public class MainMenu extends GameServicesActivity {
     private Button resumeButton;
@@ -30,6 +31,8 @@ public class MainMenu extends GameServicesActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        TapForTap.initialize(this, getString(R.string.tabfortab_api_key));
 
         new InitDbAsyncTask().execute(this);
 
