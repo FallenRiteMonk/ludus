@@ -29,6 +29,7 @@ public class SplashAdapter extends BaseAdapter {
     private GridView splashGrid;
     private ArrayList<String> splashList;
     private int runningAnimations;
+    private boolean finished = false;
 
     public SplashAdapter(final SplashActivity activity) {
         this.activity = activity;
@@ -36,9 +37,7 @@ public class SplashAdapter extends BaseAdapter {
         splashGrid.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    return true;
-                }
+                endSplash();
                 return false;
             }
         });
@@ -55,9 +54,7 @@ public class SplashAdapter extends BaseAdapter {
             @Override
             public void onAnimationEnd(Animation animation) {
                 if (--runningAnimations == 0) {
-                    Intent intent = new Intent(activity, MainMenu.class);
-                    activity.startActivity(intent);
-                    activity.finish();
+                    endSplash();
                 }
             }
 
@@ -146,6 +143,15 @@ public class SplashAdapter extends BaseAdapter {
             splashList.add(String.valueOf(random.nextInt(9) + 1));
         } else {
             splashList.add("");
+        }
+    }
+
+    private void endSplash() {
+        if (!finished) {
+            finished = true;
+            Intent intent = new Intent(activity, MainMenu.class);
+            activity.startActivity(intent);
+            activity.finish();
         }
     }
 }

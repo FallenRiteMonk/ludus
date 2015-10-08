@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.ScaleAnimation;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -272,8 +271,8 @@ class GameField extends BaseAdapter {
 
     private void deleteNine(final int index) {
         for (int i = 0; i < 9; i++) {
-            final View view = gameFieldView.getChildAt(index + i);
-            final NumberField field = fieldArray.get(index + i);
+            final View view = gameFieldView.getChildAt(index);
+            final NumberField field = fieldArray.get(index);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 view.setHasTransientState(true);
