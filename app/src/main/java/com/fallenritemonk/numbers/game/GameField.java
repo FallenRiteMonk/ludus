@@ -289,7 +289,6 @@ class GameField extends BaseAdapter {
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     view.clearAnimation();
-                    fieldArray.remove(field);
                     notifyDataSetChanged();
                     view.setAlpha(1);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -302,6 +301,8 @@ class GameField extends BaseAdapter {
                 }
             });
             view.startAnimation(animation);
+
+            fieldArray.remove(field);
         }
     }
 
