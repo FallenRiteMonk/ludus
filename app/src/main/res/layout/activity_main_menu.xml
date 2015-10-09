@@ -46,18 +46,10 @@
             android:visibility="gone"
             android:textColor="@android:color/white" />
         <Button
-            android:id="@+id/menu_button_combinations"
+            android:id="@+id/menu_button_leaderboards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/leaderboard_combiner"
-            android:layout_gravity="center_horizontal"
-            android:visibility="gone"
-            android:textColor="@android:color/white" />
-        <Button
-            android:id="@+id/menu_button_minimalist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/leaderboard_minimal"
+            android:text="@string/leaderboards"
             android:layout_gravity="center_horizontal"
             android:visibility="gone"
             android:textColor="@android:color/white" />

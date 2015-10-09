@@ -38,8 +38,6 @@
     <string name="signed_in_as">Logged in as:</string>
     <string name="achievements">Achievements</string>
     <string name="leaderboards">Leaderboards</string>
-    <string name="leaderboard_combiner">Combinations</string>
-    <string name="leaderboard_minimal">Minimalist</string>
     <string name="toast_exit">Click again to exit</string>
     <string name="toast_no_possibility">No more possibilities</string>
     <string name="toast_login_failed">Failed to log in</string>

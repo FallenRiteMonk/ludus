@@ -24,7 +24,6 @@
     <string name="guide_title">Spieleanleitung</string>
     <string name="guide_won">&#8230; oder alle Felder leer sind und man gewonnen hat!</string>
     <string name="hint">Hinweis</string>
-    <string name="leaderboard_combiner">Kombinationen</string>
     <string name="leaderboards">Bestenlisten</string>
     <string name="random_game">Random Spiel</string>
     <string name="rate">Bewerten</string>
@@ -45,5 +44,4 @@
     <string name="toast_exit">Zum Beenden erneut klicken</string>
     <string name="toast_no_possibility">Keine weiteren Möglichkeiten</string>
     <string name="toast_login_failed">Anmelden fehlgeschlagen</string>
-    <string name="leaderboard_minimal">Minimalist</string>
 </resources>
