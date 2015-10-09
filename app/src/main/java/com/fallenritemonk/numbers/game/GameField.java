@@ -2,18 +2,13 @@ package com.fallenritemonk.numbers.game;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.TextView;
 
 import com.fallenritemonk.numbers.R;
@@ -27,14 +22,12 @@ import java.util.Random;
  * Created by FallenRiteMonk on 9/19/15.
  */
 class GameField extends BaseAdapter {
-    private static final int ANIMATION_DURATION = 500;
 
     private final GameActivity activity;
     private final FloatingActionButton addFieldsButton;
     private final TextView headerCombos;
     private final GameModeEnum gameMode;
     private final DatabaseHelper dbHelper;
-    private GridView gameFieldView;
 
     private ArrayList<NumberField> fieldArray;
     private ArrayList<CombinePos> possibilities = new ArrayList<>();
@@ -47,8 +40,6 @@ class GameField extends BaseAdapter {
         this.addFieldsButton = addFieldsButton;
         this.headerCombos = headerCombos;
         this.gameMode = gameMode;
-
-        gameFieldView = activity.getGameFieldView();
 
         dbHelper = DatabaseHelper.getInstance(activity);
 
@@ -180,11 +171,10 @@ class GameField extends BaseAdapter {
         boolean combined = false;
         for (CombinePos pos : possibilities) {
             if (pos.equals(new CombinePos(id, selectedField))) {
-                setUsed(id);
-                setUsed(selectedField);
+                fieldArray.get(id).setState(NumberField.STATE.USED);
+                fieldArray.get(selectedField).setState(NumberField.STATE.USED);
 
-                boolean won = reduceFields();
-                if (won) {
+                if (reduceFields()) {
                     won();
                 } else {
                     saveState();
@@ -200,55 +190,22 @@ class GameField extends BaseAdapter {
             fieldArray.get(selectedField).setState(NumberField.STATE.UNUSED);
             selectedField = -1;
         }
-    }
-
-    private void setUsed(int i) {
-        fieldArray.get(i).setState(NumberField.STATE.USED);
-
-        final View view = gameFieldView.getChildAt(i);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            view.setHasTransientState(true);
-        }
-        Animation animation = new AlphaAnimation(1.0f, 0.2f);
-        animation.setDuration(ANIMATION_DURATION);
-        animation.setInterpolator(new LinearInterpolator());
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {}
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                view.clearAnimation();
-                notifyDataSetChanged();
-                view.setAlpha(1);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    view.setHasTransientState(false);
-                }
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {}
-        });
-        view.startAnimation(animation);
+        notifyDataSetChanged();
     }
 
     private boolean reduceFields() {
-        int fieldSize = fieldArray.size();
+        ArrayList<NumberField> deleteList = new ArrayList<>();
         int preLeft = -1;
         for (int i = 0; i < fieldArray.size(); i += 9) {
-            preLeft = reduceRow(i, preLeft);
-            if (fieldSize > fieldArray.size()) {
-                i -= 9;
-                fieldSize = fieldArray.size();
-            }
+            preLeft = reduceRow(i, preLeft, deleteList);
         }
-        if (fieldArray.size() == 0) {
-            return true;
-        }
-        return false;
+
+        fieldArray.removeAll(deleteList);
+
+        return fieldArray.isEmpty();
     }
 
-    private int reduceRow(int index, int preLeft) {
+    private int reduceRow(int index, int preLeft, ArrayList<NumberField> deleteList) {
         boolean empty = true;
         int left = -1;
         int right = -1;
@@ -260,49 +217,25 @@ class GameField extends BaseAdapter {
             }
         }
         if (empty && index + 8 < fieldArray.size()) {
-            deleteNine(index);
+            deleteNine(index, deleteList);
         } else if (preLeft != -1 && right > preLeft) {
-            deleteNine(index - 8 + preLeft);
+            deleteNine(index - 8 + preLeft, deleteList);
         } else if (empty && index == 0) {
             fieldArray.clear();
         }
         return left;
     }
 
-    private void deleteNine(final int index) {
+    private void deleteNine(int index, ArrayList<NumberField> deleteList) {
+        ArrayList<NumberField> tempList = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
-            final View view = gameFieldView.getChildAt(index);
-            final NumberField field = fieldArray.get(index);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                view.setHasTransientState(true);
+            if (deleteList.contains(fieldArray.get(index + i))) {
+                return;
+            } else {
+                tempList.add(fieldArray.get(index + i));
             }
-            Animation animation = new AlphaAnimation(1.0f, 0.0f);
-            animation.setDuration(ANIMATION_DURATION);
-            animation.setInterpolator(new LinearInterpolator());
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    view.clearAnimation();
-                    notifyDataSetChanged();
-                    view.setAlpha(1);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        view.setHasTransientState(false);
-                    }
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-            });
-            view.startAnimation(animation);
-
-            fieldArray.remove(field);
         }
+        deleteList.addAll(tempList);
     }
 
     public void addFields() {
@@ -312,9 +245,7 @@ class GameField extends BaseAdapter {
                 tempField.add(new NumberField(field.getNumber()));
             }
         }
-        for (NumberField field : tempField) {
-            fieldArray.add(field);
-        }
+        fieldArray.addAll(tempField);
 
         notifyDataSetChanged();
         findPossibilities();

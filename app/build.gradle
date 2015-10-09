@@ -24,8 +24,6 @@ android {
         ignoreWarnings false
         // if true, check all issues, including those that are off by default
         checkAllWarnings true
-        // if true, treat all warnings as errors
-        warningsAsErrors true
         // if true, show all locations for an error, do not truncate lists, etc.
         showAll true
         // if true, generate a text report of issues (false by default)
@@ -35,7 +33,7 @@ android {
         // and abort the build (controlled by abortOnError above) if fatal issues are found
         checkReleaseBuilds true
 
-        ignore 'AllowBackup', 'MissingTranslation', 'RtlEnabled', 'UnusedResources', 'Overdraw', 'ClickableViewAccessibility'
+        warning 'MissingTranslation', 'InvalidPackage'
     }
 }
 

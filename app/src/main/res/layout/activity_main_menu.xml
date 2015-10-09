@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:layout_above="@+id/tabfortab_banner"
+        android:layout_above="@+id/tapfortap_banner"
         android:textIsSelectable="true" />
 
     <Button
@@ -94,7 +94,7 @@
         android:textColor="@android:color/white" />
 
     <com.tapfortap.sdk.Banner
-        android:id="@+id/tabfortab_banner"
+        android:id="@+id/tapfortap_banner"
         android:layout_width="320dip"
         android:layout_height="50dip"
         android:layout_alignParentBottom="true"

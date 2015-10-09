@@ -98,8 +98,4 @@ public class GameActivity extends GameServicesActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
-    public GridView getGameFieldView() {
-        return gameFieldView;
-    }
 }
