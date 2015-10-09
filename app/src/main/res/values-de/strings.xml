@@ -44,4 +44,5 @@
     <string name="toast_exit">Zum Beenden erneut klicken</string>
     <string name="toast_no_possibility">Keine weiteren Möglichkeiten</string>
     <string name="toast_login_failed">Anmelden fehlgeschlagen</string>
+    <string name="undo">Rückgängig</string>
 </resources>

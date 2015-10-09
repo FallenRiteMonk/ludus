@@ -192,7 +192,6 @@ class GameField extends BaseAdapter {
         if (showAd && interstitial.isReadyToShow()) {
             interstitial.show();
         }
-
         try {
             interstitial = Interstitial.loadBreakInterstitial(activity, interstitialListener);
             showAd = true;
@@ -211,6 +210,22 @@ class GameField extends BaseAdapter {
         fieldArray.get(possibilities.get(hint).getId2()).setState(NumberField.STATE.HINT);
 
         notifyDataSetChanged();
+    }
+
+    public void undo() {
+        if (dbHelper.undo()) {
+            if (showAd && interstitial.isReadyToShow()) {
+                interstitial.show();
+            }
+            try {
+                interstitial = Interstitial.loadBreakInterstitial(activity, interstitialListener);
+                showAd = true;
+            } catch (Exception e) {
+                showAd = false;
+            }
+
+            resumeGame();
+        }
     }
 
     public void clicked(int id) {

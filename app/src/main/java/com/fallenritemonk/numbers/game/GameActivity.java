@@ -64,6 +64,8 @@ public class GameActivity extends GameServicesActivity {
 
                 if (id == R.id.action_hint) {
                     gameField.hint();
+                } else if (id == R.id.action_undo) {
+                    gameField.undo();
                 } else if (id == R.id.action_restart) {
                     restartDialog();
                 } else if (id == R.id.action_menu) {
