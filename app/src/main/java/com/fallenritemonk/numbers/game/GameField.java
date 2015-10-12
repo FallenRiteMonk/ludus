@@ -297,7 +297,7 @@ class GameField extends BaseAdapter {
             deleteNine(index, deleteList);
         } else if (preLeft != -1 && right > preLeft) {
             deleteNine(index - 8 + preLeft, deleteList);
-        } else if (empty && index == 0) {
+        } else if (empty && index == deleteList.size()) {
             fieldArray.clear();
         }
         return left;
