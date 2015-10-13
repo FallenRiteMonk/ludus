@@ -156,11 +156,7 @@ class GameField extends BaseAdapter {
     }
 
     private void findPossibilities() {
-        if (hint != -1) {
-            fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.UNUSED);
-            fieldArray.get(possibilities.get(hint).getId2()).setState(NumberField.STATE.UNUSED);
-            hint = -1;
-        }
+        hideHint();
 
         possibilities = new ArrayList<>();
         for (int i = 0; i < fieldArray.size() - 1; i++) {
@@ -186,6 +182,22 @@ class GameField extends BaseAdapter {
         if (possibilities.size() == 0)
             addFieldsButton.setVisibility(View.VISIBLE);
         else addFieldsButton.setVisibility(View.GONE);
+    }
+
+    private void hideHint() {
+        if (hint != -1) {
+            if (fieldArray.get(possibilities.get(hint).getId1()).getState() == NumberField.STATE.HINT) {
+                fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.UNUSED);
+            } else {
+                fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.USED);
+            }
+            if (fieldArray.get(possibilities.get(hint).getId2()).getState() == NumberField.STATE.HINT) {
+                fieldArray.get(possibilities.get(hint).getId2()).setState(NumberField.STATE.UNUSED);
+            } else {
+                fieldArray.get(possibilities.get(hint).getId2()).setState(NumberField.STATE.USED);
+            }
+            hint = -1;
+        }
     }
 
     private boolean canBeCombined(int id1, int id2) {
