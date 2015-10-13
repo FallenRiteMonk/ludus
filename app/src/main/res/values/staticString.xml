@@ -24,5 +24,6 @@
     <string name="leaderboard_combinations_to_victory" translatable="false">CgkI1OGV0bwTEAIQCQ</string>
     <string name="leaderboard_minimalist" translatable="false">CgkI1OGV0bwTEAIQCg</string>
 
+    <string name="analytics_api_key" translate="false">UA-62157119-5</string>
     <string name="tabfortab_api_key" translatable="false">c64bf29d62809f808b0839643ac0da27</string>
 </resources>

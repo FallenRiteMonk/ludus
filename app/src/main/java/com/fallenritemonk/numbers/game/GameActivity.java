@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.fallenritemonk.numbers.LudusApplication;
 import com.fallenritemonk.numbers.R;
 import com.fallenritemonk.numbers.services.GameServicesActivity;
 import com.google.android.gms.analytics.HitBuilders;
@@ -101,6 +102,15 @@ public class GameActivity extends GameServicesActivity {
 
         Log.d("GAME", "Setting screen name: " + name);
         mTracker.setScreenName("Image~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        Log.d("GAME", "Setting screen name: null");
+        mTracker.setScreenName(null);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
