@@ -8,8 +8,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,8 +17,6 @@ import android.widget.TextView;
 import com.fallenritemonk.numbers.LudusApplication;
 import com.fallenritemonk.numbers.R;
 import com.fallenritemonk.numbers.services.GameServicesActivity;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 
 /**
  * Created by FallenRiteMonk on 9/19/15.
@@ -28,9 +24,6 @@ import com.google.android.gms.analytics.Tracker;
 public class GameActivity extends GameServicesActivity {
     private static GameField gameField;
     private GridView gameFieldView;
-    
-    private static Tracker mTracker;
-    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +31,10 @@ public class GameActivity extends GameServicesActivity {
         setContentView(R.layout.activity_game);
 
         LudusApplication application = (LudusApplication) getApplication();
-        mTracker = application.getDefaultTracker();
 
         Intent intent = getIntent();
         GameModeEnum gameMode = (GameModeEnum) intent.getSerializableExtra(getString(R.string.static_game_mode));
         Boolean resume = intent.getBooleanExtra(getString(R.string.static_game_resume), false);
-        name = gameMode.toString().toLowerCase();
 
         gameFieldView = (GridView) findViewById(R.id.fieldGrid);
         FloatingActionButton addFieldsButton = (FloatingActionButton) findViewById(R.id.addFields);
@@ -94,24 +85,6 @@ public class GameActivity extends GameServicesActivity {
         } else if (gameMode == GameModeEnum.RANDOM) {
             headerGameMode.setText(R.string.random_game);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Log.d("GAME", "Setting screen name: " + name);
-        mTracker.setScreenName("Image~" + name);
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        Log.d("GAME", "Setting screen name: null");
-        mTracker.setScreenName(null);
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     private void restartDialog() {
