@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import com.fallenritemonk.numbers.LudusApplication;
 import com.fallenritemonk.numbers.R;
 import com.fallenritemonk.numbers.services.GameServicesActivity;
 
@@ -29,8 +28,6 @@ public class GameActivity extends GameServicesActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
-        LudusApplication application = (LudusApplication) getApplication();
 
         Intent intent = getIntent();
         GameModeEnum gameMode = (GameModeEnum) intent.getSerializableExtra(getString(R.string.static_game_mode));
