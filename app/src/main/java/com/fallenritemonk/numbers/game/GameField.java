@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.fallenritemonk.numbers.R;
 import com.fallenritemonk.numbers.db.DatabaseHelper;
 import com.tapfortap.sdk.Interstitial;
-import com.tapfortap.sdk.TapForTap;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -157,7 +156,12 @@ class GameField extends BaseAdapter {
     }
 
     private void findPossibilities() {
-        hint = -1;
+        if (hint != -1) {
+            fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.UNUSED);
+            fieldArray.get(possibilities.get(hint).getId2()).setState(NumberField.STATE.UNUSED);
+            hint = -1;
+        }
+
         possibilities = new ArrayList<>();
         for (int i = 0; i < fieldArray.size() - 1; i++) {
             if (fieldArray.get(i).getState() == NumberField.STATE.USED) continue;
@@ -272,9 +276,16 @@ class GameField extends BaseAdapter {
 
     private boolean reduceFields() {
         ArrayList<NumberField> deleteList = new ArrayList<>();
-        int preLeft = -1;
-        for (int i = 0; i < fieldArray.size(); i += 9) {
-            preLeft = reduceRow(i, preLeft, deleteList);
+        int usedCound = 0;
+        for (int i = 0; i < fieldArray.size(); i++) {
+            if (fieldArray.get(i).getState() == NumberField.STATE.USED) {
+                if (++usedCound == 9){
+                    deleteNine(i, deleteList);
+                    usedCound = 0;
+                }
+            } else {
+                usedCound = 0;
+            }
         }
 
         fieldArray.removeAll(deleteList);
@@ -282,34 +293,13 @@ class GameField extends BaseAdapter {
         return fieldArray.isEmpty();
     }
 
-    private int reduceRow(int index, int preLeft, ArrayList<NumberField> deleteList) {
-        boolean empty = true;
-        int left = -1;
-        int right = -1;
-        for (int ii = 0; ii < 9 && index + ii < fieldArray.size(); ii++) {
-            if (fieldArray.get(index + ii).getState() != NumberField.STATE.USED) {
-                empty = false;
-                left = ii;
-                if (right == -1) right = ii;
-            }
-        }
-        if (empty && index + 8 < fieldArray.size()) {
-            deleteNine(index, deleteList);
-        } else if (preLeft != -1 && right > preLeft) {
-            deleteNine(index - 8 + preLeft, deleteList);
-        } else if (empty && index == deleteList.size()) {
-            fieldArray.clear();
-        }
-        return left;
-    }
-
     private void deleteNine(int index, ArrayList<NumberField> deleteList) {
         ArrayList<NumberField> tempList = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
-            if (deleteList.contains(fieldArray.get(index + i))) {
+            if (deleteList.contains(fieldArray.get(index - i))) {
                 return;
             } else {
-                tempList.add(fieldArray.get(index + i));
+                tempList.add(fieldArray.get(index - i));
             }
         }
         deleteList.addAll(tempList);
@@ -404,7 +394,7 @@ class GameField extends BaseAdapter {
             textView = (TextView) view;
         }
 
-        textView.setText("" + fieldArray.get(i).getNumber());
+        textView.setText(String.valueOf(fieldArray.get(i).getNumber()));
         textView.setAlpha(1);
 
         switch (fieldArray.get(i).getState()) {
