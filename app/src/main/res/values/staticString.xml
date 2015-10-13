@@ -4,4 +4,25 @@
     <string name="static_last_game" translatable="false">LAST_GAME</string>
     <string name="static_game_mode" translatable="false">GAME_MODE</string>
     <string name="static_game_resume" translatable="false">GAME_RESUME</string>
+
+    <string name="static_explicit_logout" translatable="false">EXPLICIT_LOGOUT</string>
+
+    <string name="achievements_persist_classic" translatable="false">ACHIEVEMENTS_PERSIST_CLASSIC</string>
+    <string name="achievements_persist_random" translatable="false">ACHIEVEMENTS_PERSIST_RANDOM</string>
+    <string name="leaderboard_persist_minimal" translatable="false">LEADERBOARD_PERSIST_MINIMAL</string>
+    <string name="leaderboard_persist_maximal" translatable="false">LEADERBOARD_PERSIST_MAXIMAL</string>
+
+    <string name="app_id" translatable="false">669111382228</string>
+    <string name="achievement_first_victory" translatable="false">CgkI1OGV0bwTEAIQAQ</string>
+    <string name="achievement_amateur_player" translatable="false">CgkI1OGV0bwTEAIQAg</string>
+    <string name="achievement_pro" translatable="false">CgkI1OGV0bwTEAIQAw</string>
+    <string name="achievement_game_master" translatable="false">CgkI1OGV0bwTEAIQBA</string>
+    <string name="achievement_first_random_victory" translatable="false">CgkI1OGV0bwTEAIQBQ</string>
+    <string name="achievement_amateur_random_player" translatable="false">CgkI1OGV0bwTEAIQBg</string>
+    <string name="achievement_random_pro" translatable="false">CgkI1OGV0bwTEAIQBw</string>
+    <string name="achievement_random_master" translatable="false">CgkI1OGV0bwTEAIQCA</string>
+    <string name="leaderboard_combinations_to_victory" translatable="false">CgkI1OGV0bwTEAIQCQ</string>
+    <string name="leaderboard_minimalist" translatable="false">CgkI1OGV0bwTEAIQCg</string>
+
+    <string name="tabfortab_api_key" translatable="false">c64bf29d62809f808b0839643ac0da27</string>
 </resources>

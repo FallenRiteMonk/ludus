@@ -3,14 +3,14 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.0"
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "com.fallenritemonk.numbers"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 104030
-        versionName "2.0.0-alpha-1"
+        versionCode 104032
+        versionName "2.0.0-alpha-2"
     }
     buildTypes {
         release {
@@ -25,8 +25,6 @@ android {
         ignoreWarnings false
         // if true, check all issues, including those that are off by default
         checkAllWarnings true
-        // if true, treat all warnings as errors
-        warningsAsErrors true
         // if true, show all locations for an error, do not truncate lists, etc.
         showAll true
         // if true, generate a text report of issues (false by default)
@@ -36,7 +34,7 @@ android {
         // and abort the build (controlled by abortOnError above) if fatal issues are found
         checkReleaseBuilds true
 
-        ignore 'AllowBackup', 'UnusedResources', 'RtlEnabled', 'Overdraw'
+        warning 'MissingTranslation', 'InvalidPackage'
     }
 }
 
@@ -45,6 +43,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:support-v4:23.0.1'
     compile 'com.android.support:design:23.0.1'
+    compile 'com.google.android.gms:play-services-games:8.1.0'
+
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile project(":TapForTap")
     compile 'com.google.android.gms:play-services:7.8.0'
     compile 'com.google.android.gms:play-services-analytics:7.8.0'
 }

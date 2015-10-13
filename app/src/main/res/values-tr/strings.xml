@@ -35,7 +35,6 @@
     <string name="statistics_title">Oyun istatistikleri</string>
     <string name="guide_title">Nasıl oynanır</string>
     <string name="hint">İpucu</string>
-    <string name="leaderboard_combiner">Kombinasyonlar</string>
     <string name="leaderboards">Liderler</string>
     <string name="game_services">Oyun Servisleri</string>
     <string name="guide_combine_1">Aynı olan veya toplamı 10 yapan alanları birleştirin &#8230;</string>

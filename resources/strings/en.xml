@@ -97,9 +97,14 @@
         <leaderboards>
             <combinations_to_victory>
                 <name>
-                    Combinations to vicotry
+                    Combinations to victory
                 </name>
             </combinations_to_victory>
+            <minimalist>
+                <name>
+                    Minimalist
+                </name>
+            </minimalist>
         </leaderboards>
     </play_services>
 </resources>

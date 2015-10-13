@@ -1,6 +1,5 @@
 package com.fallenritemonk.numbers.game;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
@@ -9,12 +8,13 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fallenritemonk.numbers.R;
 import com.fallenritemonk.numbers.db.DatabaseHelper;
+import com.tapfortap.sdk.Interstitial;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +24,7 @@ import java.util.Random;
  * Created by FallenRiteMonk on 9/19/15.
  */
 class GameField extends BaseAdapter {
+
     private final GameActivity activity;
     private final FloatingActionButton addFieldsButton;
     private final TextView headerCombos;
@@ -36,7 +37,12 @@ class GameField extends BaseAdapter {
     private int hint;
     private int stateOrder;
 
-    public GameField(GameActivity activity, FloatingActionButton addFieldsButton, TextView headerCombos, GameModeEnum gameMode, Boolean resume) {
+    private Interstitial interstitial;
+    Interstitial.InterstitialListener interstitialListener;
+    private boolean showAd = true;
+    private int tryAdReload;
+
+    public GameField(final GameActivity activity, FloatingActionButton addFieldsButton, TextView headerCombos, GameModeEnum gameMode, Boolean resume) {
         this.activity = activity;
         this.addFieldsButton = addFieldsButton;
         this.headerCombos = headerCombos;
@@ -48,6 +54,49 @@ class GameField extends BaseAdapter {
             resumeGame();
         } else {
             newGame();
+        }
+
+        interstitialListener = new Interstitial.InterstitialListener() {
+            @Override
+            public void interstitialDidReceiveAd(Interstitial interstitial) {
+                Log.i("GAME_ADS", "interstitialDidReceiveAd");
+                tryAdReload = 0;
+            }
+
+            @Override
+            public void interstitialDidFail(Interstitial interstitial, String reason, Throwable throwable) {
+                Log.i("GAME_ADS", "interstitialDidFail because: " + reason);
+                if (tryAdReload++ < 5) {
+
+                    interstitial.load();
+                }
+            }
+
+            @Override
+            public void interstitialDidShow(Interstitial interstitial) {
+                Log.i("GAME_ADS", "interstitialDidShow");
+            }
+
+            @Override
+            public void interstitialWasTapped(Interstitial interstitial) {
+                Log.i("GAME_ADS", "interstitialWasTapped");
+            }
+
+            @Override
+            public void interstitialWasDismissed(Interstitial interstitial) {
+                Log.i("GAME_ADS", "interstitialWasDismissed");
+            }
+
+            @Override
+            public void interstitialAdWasRewarded(Interstitial interstitial) {
+                Log.i("GAME_ADS", "interstitialAdWasRewarded");
+            }
+        };
+        try {
+            interstitial = Interstitial.loadBreakInterstitial(activity, interstitialListener);
+            showAd = true;
+        } catch (Exception e) {
+            showAd = false;
         }
     }
 
@@ -107,7 +156,12 @@ class GameField extends BaseAdapter {
     }
 
     private void findPossibilities() {
-        hint = -1;
+        if (hint != -1) {
+            fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.UNUSED);
+            fieldArray.get(possibilities.get(hint).getId2()).setState(NumberField.STATE.UNUSED);
+            hint = -1;
+        }
+
         possibilities = new ArrayList<>();
         for (int i = 0; i < fieldArray.size() - 1; i++) {
             if (fieldArray.get(i).getState() == NumberField.STATE.USED) continue;
@@ -139,6 +193,16 @@ class GameField extends BaseAdapter {
     }
 
     public void hint() {
+        if (showAd && interstitial.isReadyToShow()) {
+            interstitial.show();
+        }
+        try {
+            interstitial = Interstitial.loadBreakInterstitial(activity, interstitialListener);
+            showAd = true;
+        } catch (Exception e) {
+            showAd = false;
+        }
+
         if (possibilities.size() == 0) return;
         if (hint >= 0) {
             fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.UNUSED);
@@ -152,20 +216,36 @@ class GameField extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void undo() {
+        if (dbHelper.undo()) {
+            if (showAd && interstitial.isReadyToShow()) {
+                interstitial.show();
+            }
+            try {
+                interstitial = Interstitial.loadBreakInterstitial(activity, interstitialListener);
+                showAd = true;
+            } catch (Exception e) {
+                showAd = false;
+            }
+
+            resumeGame();
+        }
+    }
+
     public void clicked(int id) {
         if (fieldArray.get(id).getState() == NumberField.STATE.USED) return;
 
         if (selectedField == -1) {
             selectedField = id;
             fieldArray.get(id).setState(NumberField.STATE.SELECTED);
+            notifyDataSetChanged();
         } else if (id == selectedField) {
             fieldArray.get(id).setState(NumberField.STATE.UNUSED);
             selectedField = -1;
+            notifyDataSetChanged();
         } else {
             combine(id);
         }
-
-        notifyDataSetChanged();
     }
 
     private void combine(int id) {
@@ -174,8 +254,8 @@ class GameField extends BaseAdapter {
             if (pos.equals(new CombinePos(id, selectedField))) {
                 fieldArray.get(id).setState(NumberField.STATE.USED);
                 fieldArray.get(selectedField).setState(NumberField.STATE.USED);
-                boolean won = reduceFields();
-                if (won) {
+
+                if (reduceFields()) {
                     won();
                 } else {
                     saveState();
@@ -191,58 +271,49 @@ class GameField extends BaseAdapter {
             fieldArray.get(selectedField).setState(NumberField.STATE.UNUSED);
             selectedField = -1;
         }
+        notifyDataSetChanged();
     }
 
     private boolean reduceFields() {
-        int fieldSize = fieldArray.size();
-        int preLeft = -1;
-        for (int i = 0; i < fieldArray.size(); i += 9) {
-            preLeft = reduceRow(i, preLeft);
-            if (fieldSize > fieldArray.size()) {
-                i -= 9;
-                fieldSize = fieldArray.size();
+        ArrayList<NumberField> deleteList = new ArrayList<>();
+        int usedCound = 0;
+        for (int i = 0; i < fieldArray.size(); i++) {
+            if (fieldArray.get(i).getState() == NumberField.STATE.USED) {
+                if (++usedCound == 9){
+                    deleteNine(i, deleteList);
+                    usedCound = 0;
+                }
+            } else {
+                usedCound = 0;
             }
         }
-        if (fieldArray.size() == 0) {
-            return true;
-        }
-        return false;
+
+        fieldArray.removeAll(deleteList);
+
+        return fieldArray.isEmpty();
     }
 
-    private int reduceRow(int index, int preLeft) {
-        boolean empty = true;
-        int left = -1;
-        int right = -1;
-        for (int ii = 0; ii < 9 && index + ii < fieldArray.size(); ii++) {
-            if (fieldArray.get(index + ii).getState() != NumberField.STATE.USED) {
-                empty = false;
-                left = ii;
-                if (right == -1) right = ii;
-            }
-        }
-        if (empty && index + 8 < fieldArray.size()) {
-            deleteNine(index);
-        } else if (preLeft != -1 && right > preLeft) {
-            deleteNine(index - 8 + preLeft);
-        } else if (empty && index == 0) {
-            fieldArray.clear();
-        }
-        return left;
-    }
-
-    private void deleteNine(int index) {
+    private void deleteNine(int index, ArrayList<NumberField> deleteList) {
+        ArrayList<NumberField> tempList = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
-            fieldArray.remove(index);
+            if (deleteList.contains(fieldArray.get(index - i))) {
+                return;
+            } else {
+                tempList.add(fieldArray.get(index - i));
+            }
         }
+        deleteList.addAll(tempList);
     }
 
     public void addFields() {
-        int fieldLength = fieldArray.size();
-        for (int i = 0; i < fieldLength; i++) {
-            if (fieldArray.get(i).getState() != NumberField.STATE.USED) {
-                fieldArray.add(new NumberField(fieldArray.get(i).getNumber()));
+        ArrayList<NumberField> tempField = new ArrayList<>();
+        for (NumberField field : fieldArray) {
+            if (field.getState() != NumberField.STATE.USED) {
+                tempField.add(new NumberField(field.getNumber()));
             }
         }
+        fieldArray.addAll(tempField);
+
         notifyDataSetChanged();
         findPossibilities();
     }
@@ -271,7 +342,9 @@ class GameField extends BaseAdapter {
     }
 
     private void won() {
-        // increase order by one to save combinations as last state is not saved
+        stateOrder += 1;
+        activity.gameWon(gameMode, stateOrder);
+
         dbHelper.clearDB();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -288,6 +361,7 @@ class GameField extends BaseAdapter {
             }
         });
         AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
         dialog.show();
     }
 
@@ -307,24 +381,25 @@ class GameField extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, final View view, ViewGroup viewGroup) {
         TextView textView;
         if (view == null) {
             textView = new TextView(activity);
             textView.setTextColor(Color.WHITE);
             textView.setTextSize(25);
             textView.setGravity(Gravity.CENTER_HORIZONTAL);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+            AbsListView.LayoutParams params = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.MATCH_PARENT);
             textView.setLayoutParams(params);
         } else {
             textView = (TextView) view;
         }
 
-        textView.setText("" + fieldArray.get(i).getNumber());
+        textView.setText(String.valueOf(fieldArray.get(i).getNumber()));
+        textView.setAlpha(1);
 
         switch (fieldArray.get(i).getState()) {
+            case USED: textView.setAlpha(0.2f); textView.setText("");
             case UNUSED: textView.setBackgroundColor(Color.BLACK); break;
-            case USED: textView.setBackgroundColor(Color.LTGRAY); textView.setText(""); break;
             case SELECTED: textView.setBackgroundColor(Color.BLUE); break;
             case HINT: textView.setBackgroundColor(Color.GREEN); break;
         }

@@ -16,16 +16,18 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import com.fallenritemonk.numbers.LudusApplication;
 import com.fallenritemonk.numbers.R;
+import com.fallenritemonk.numbers.services.GameServicesActivity;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 /**
  * Created by FallenRiteMonk on 9/19/15.
  */
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends GameServicesActivity {
     private static GameField gameField;
+    private GridView gameFieldView;
+    
     private static Tracker mTracker;
     private String name;
 
@@ -42,7 +44,7 @@ public class GameActivity extends AppCompatActivity {
         Boolean resume = intent.getBooleanExtra(getString(R.string.static_game_resume), false);
         name = gameMode.toString().toLowerCase();
 
-        GridView gameFieldView = (GridView) findViewById(R.id.fieldGrid);
+        gameFieldView = (GridView) findViewById(R.id.fieldGrid);
         FloatingActionButton addFieldsButton = (FloatingActionButton) findViewById(R.id.addFields);
         final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.game_drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.game_menu_drawer);
@@ -73,6 +75,8 @@ public class GameActivity extends AppCompatActivity {
 
                 if (id == R.id.action_hint) {
                     gameField.hint();
+                } else if (id == R.id.action_undo) {
+                    gameField.undo();
                 } else if (id == R.id.action_restart) {
                     restartDialog();
                 } else if (id == R.id.action_menu) {

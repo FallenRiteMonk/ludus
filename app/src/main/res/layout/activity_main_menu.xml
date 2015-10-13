@@ -15,28 +15,44 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/menu_button_classic_game"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/classic_game"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/white" />
-    <Button
-        android:id="@+id/menu_button_random_game"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/random_game"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/white" />
-    <Button
-        android:id="@+id/menu_button_resume"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/resume"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone"
-        android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/menu_button_classic_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/classic_game"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/menu_button_random_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/random_game"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/menu_button_resume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/resume"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/menu_button_achievements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/achievements"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/menu_button_leaderboards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/leaderboards"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <TextView
@@ -45,6 +61,34 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/tapfortap_banner"
         android:textIsSelectable="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in"
+        android:id="@+id/sign_in_button"
+        android:layout_above="@+id/app_version"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_out"
+        android:id="@+id/sign_out_button"
+        android:layout_above="@+id/app_version"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:textColor="@android:color/white" />
+
+    <com.tapfortap.sdk.Banner
+        android:id="@+id/tapfortap_banner"
+        android:layout_width="320dip"
+        android:layout_height="50dip"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

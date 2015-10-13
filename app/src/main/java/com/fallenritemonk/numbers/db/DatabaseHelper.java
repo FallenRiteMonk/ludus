@@ -143,4 +143,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return fieldArray;
     }
+
+    public boolean undo() {
+        int order = getLastStateOrder();
+        if (order > 0) {
+            SQLiteDatabase db = getWritableDatabase();
+            db.beginTransaction();
+            try {
+                db.delete(TABLE_STATES, KEY_STATES_ID + "=" + order, null);
+                db.setTransactionSuccessful();
+                return true;
+            } catch (Exception e) {
+                Log.d(TAG, "Error while trying to undo");
+            } finally {
+                db.endTransaction();
+            }
+        }
+        return false;
+    }
 }
