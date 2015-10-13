@@ -31,6 +31,9 @@ public class MainMenu extends GameServicesActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        LudusApplication application = (LudusApplication) getApplication();
+        application.getAnalyticsTracker();
+
         TapForTap.initialize(this, getString(R.string.tabfortab_api_key));
 
         new InitDbAsyncTask().execute(this);
