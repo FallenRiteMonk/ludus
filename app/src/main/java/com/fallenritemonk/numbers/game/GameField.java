@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.fallenritemonk.numbers.R;
 import com.fallenritemonk.numbers.db.DatabaseHelper;
-import com.tapfortap.sdk.Interstitial;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,11 +36,6 @@ class GameField extends BaseAdapter {
     private int hint;
     private int stateOrder;
 
-    private Interstitial interstitial;
-    Interstitial.InterstitialListener interstitialListener;
-    private boolean showAd = true;
-    private int tryAdReload;
-
     public GameField(final GameActivity activity, FloatingActionButton addFieldsButton, TextView headerCombos, GameModeEnum gameMode, Boolean resume) {
         this.activity = activity;
         this.addFieldsButton = addFieldsButton;
@@ -54,49 +48,6 @@ class GameField extends BaseAdapter {
             resumeGame();
         } else {
             newGame();
-        }
-
-        interstitialListener = new Interstitial.InterstitialListener() {
-            @Override
-            public void interstitialDidReceiveAd(Interstitial interstitial) {
-                Log.i("GAME_ADS", "interstitialDidReceiveAd");
-                tryAdReload = 0;
-            }
-
-            @Override
-            public void interstitialDidFail(Interstitial interstitial, String reason, Throwable throwable) {
-                Log.i("GAME_ADS", "interstitialDidFail because: " + reason);
-                if (tryAdReload++ < 5) {
-
-                    interstitial.load();
-                }
-            }
-
-            @Override
-            public void interstitialDidShow(Interstitial interstitial) {
-                Log.i("GAME_ADS", "interstitialDidShow");
-            }
-
-            @Override
-            public void interstitialWasTapped(Interstitial interstitial) {
-                Log.i("GAME_ADS", "interstitialWasTapped");
-            }
-
-            @Override
-            public void interstitialWasDismissed(Interstitial interstitial) {
-                Log.i("GAME_ADS", "interstitialWasDismissed");
-            }
-
-            @Override
-            public void interstitialAdWasRewarded(Interstitial interstitial) {
-                Log.i("GAME_ADS", "interstitialAdWasRewarded");
-            }
-        };
-        try {
-            interstitial = Interstitial.loadBreakInterstitial(activity, interstitialListener);
-            showAd = true;
-        } catch (Exception e) {
-            showAd = false;
         }
     }
 
@@ -205,16 +156,6 @@ class GameField extends BaseAdapter {
     }
 
     public void hint() {
-        if (showAd && interstitial.isReadyToShow()) {
-            interstitial.show();
-        }
-        try {
-            interstitial = Interstitial.loadBreakInterstitial(activity, interstitialListener);
-            showAd = true;
-        } catch (Exception e) {
-            showAd = false;
-        }
-
         if (possibilities.size() == 0) return;
         if (hint >= 0) {
             fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.UNUSED);
@@ -230,16 +171,6 @@ class GameField extends BaseAdapter {
 
     public void undo() {
         if (dbHelper.undo()) {
-            if (showAd && interstitial.isReadyToShow()) {
-                interstitial.show();
-            }
-            try {
-                interstitial = Interstitial.loadBreakInterstitial(activity, interstitialListener);
-                showAd = true;
-            } catch (Exception e) {
-                showAd = false;
-            }
-
             resumeGame();
         }
     }
