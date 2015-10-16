@@ -16,7 +16,6 @@ public class LudusApplication extends Application {
     private static boolean DEBUG_MODE = BuildConfig.DEBUG;
     private static String CLIENT_ID;
     private static String CLIENT_LANG;
-    private static String CLIENT_LOCATION;
 
     private Tracker mTracker;
 
@@ -35,7 +34,6 @@ public class LudusApplication extends Application {
             }
 
             CLIENT_LANG = Locale.getDefault().getDisplayLanguage();
-            CLIENT_LOCATION = Locale.getDefault().getCountry();
             CLIENT_ID = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 
             mTracker.setAppId(APP_ID);
@@ -44,7 +42,6 @@ public class LudusApplication extends Application {
             mTracker.enableExceptionReporting(true);
             mTracker.setClientId(CLIENT_ID);
             mTracker.setLanguage(CLIENT_LANG);
-            mTracker.setLocation(CLIENT_LOCATION);
         }
         return mTracker;
     }
