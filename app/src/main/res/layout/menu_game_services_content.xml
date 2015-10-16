@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/game_services_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:hint="@string/sign_in"
+        android:background="@android:color/black"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/game_services_achievements"
+        android:layout_below="@+id/game_services_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:hint="@string/achievements"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="1dip"
+        android:visibility="gone"
+        android:background="#c0392b"/>
+
+    <TextView
+        android:id="@+id/game_services_leaderboards"
+        android:layout_below="@+id/game_services_achievements"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:hint="@string/leaderboards"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="1dip"
+        android:visibility="gone"
+        android:background="#c0392b"/>
+
+    <TextView
+        android:id="@+id/game_services_sign_out"
+        android:layout_below="@+id/game_services_leaderboards"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:hint="@string/sign_out"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="1dip"
+        android:visibility="gone"
+        android:background="#c0392b"/>
+</RelativeLayout>

@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.fallenritemonk.numbers.db.DatabaseHelper;
@@ -19,11 +18,11 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.games.Games;
 
 public class MainMenu extends GameServicesActivity {
-    private Button resumeButton;
-    private Button signInButton;
-    private Button signOutButton;
-    private Button achievementsButton;
-    private Button leaderboardsButton;
+    private TextView resume;
+    private TextView signIn;
+    private TextView signOut;
+    private TextView achievements;
+    private TextView leaderboards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,28 +34,29 @@ public class MainMenu extends GameServicesActivity {
 
         new InitDbAsyncTask().execute(this);
 
-        Button classicButton = (Button) findViewById(R.id.menu_button_classic_game);
-        Button randomButton = (Button) findViewById(R.id.menu_button_random_game);
-        resumeButton = (Button) findViewById(R.id.menu_button_resume);
-        signInButton = (Button) findViewById(R.id.sign_in_button);
-        signOutButton = (Button) findViewById(R.id.sign_out_button);
-        achievementsButton = (Button) findViewById(R.id.menu_button_achievements);
-        leaderboardsButton = (Button) findViewById(R.id.menu_button_leaderboards);
+        TextView newClassic = (TextView) findViewById(R.id.new_classic_game);
+        TextView newRandom = (TextView) findViewById(R.id.new_random_game);
+        resume = (TextView) findViewById(R.id.resume_game);
+        signIn = (TextView) findViewById(R.id.game_services_sign_in);
+        signOut = (TextView) findViewById(R.id.game_services_sign_out);
+        achievements = (TextView) findViewById(R.id.game_services_achievements);
+        leaderboards = (TextView) findViewById(R.id.game_services_leaderboards);
+
         TextView appVersion = (TextView) findViewById(R.id.app_version);
 
-        classicButton.setOnClickListener(new View.OnClickListener() {
+        newClassic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchGame(GameModeEnum.CLASSIC, false);
             }
         });
-        randomButton.setOnClickListener(new View.OnClickListener() {
+        newRandom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchGame(GameModeEnum.RANDOM, false);
             }
         });
-        resumeButton.setOnClickListener(new View.OnClickListener() {
+        resume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences settings = getSharedPreferences(getString(R.string.static_settings_file), 0);
@@ -71,14 +71,14 @@ public class MainMenu extends GameServicesActivity {
                 }
             }
         });
-        signInButton.setOnClickListener(new View.OnClickListener() {
+        signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setExplicitSignOut(false);
                 mGoogleApiClient.connect();
             }
         });
-        signOutButton.setOnClickListener(new View.OnClickListener() {
+        signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setExplicitSignOut(true);
@@ -86,33 +86,27 @@ public class MainMenu extends GameServicesActivity {
                 mGoogleApiClient.disconnect();
 
                 // show sign-in button, hide the sign-out button
-                signInButton.setVisibility(View.VISIBLE);
-                signOutButton.setVisibility(View.GONE);
-                achievementsButton.setVisibility(View.GONE);
-                leaderboardsButton.setVisibility(View.GONE);
+                signIn.setVisibility(View.VISIBLE);
+                signOut.setVisibility(View.GONE);
+                achievements.setVisibility(View.GONE);
+                leaderboards.setVisibility(View.GONE);
             }
         });
-        achievementsButton.setOnClickListener(new View.OnClickListener() {
+        achievements.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient),
                         1002);
             }
         });
-        leaderboardsButton.setOnClickListener(new View.OnClickListener() {
+        leaderboards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(mGoogleApiClient), 1003);
             }
         });
 
-        PackageInfo pInfo = null;
-        try {
-            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            appVersion.setText(getString(R.string.app_version) + " " + pInfo.versionName);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        appVersion.setText(getString(R.string.app_version) + " " + application.getAppVersion());
     }
 
     @Override
@@ -123,7 +117,7 @@ public class MainMenu extends GameServicesActivity {
         int resumable = dbHelper.getLastStateOrder();
 
         if (resumable > 0) {
-            resumeButton.setVisibility(View.VISIBLE);
+            resume.setVisibility(View.VISIBLE);
         }
     }
 
@@ -143,19 +137,19 @@ public class MainMenu extends GameServicesActivity {
     public void onConnected(Bundle bundle) {
         super.onConnected(bundle);
 
-        signInButton.setVisibility(View.GONE);
-        signOutButton.setVisibility(View.VISIBLE);
-        achievementsButton.setVisibility(View.VISIBLE);
-        leaderboardsButton.setVisibility(View.VISIBLE);
+        signIn.setVisibility(View.GONE);
+        signOut.setVisibility(View.VISIBLE);
+        achievements.setVisibility(View.VISIBLE);
+        leaderboards.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         super.onConnectionFailed(result);
 
-        signInButton.setVisibility(View.VISIBLE);
-        signOutButton.setVisibility(View.GONE);
-        achievementsButton.setVisibility(View.GONE);
-        leaderboardsButton.setVisibility(View.GONE);
+        signIn.setVisibility(View.VISIBLE);
+        signOut.setVisibility(View.GONE);
+        achievements.setVisibility(View.GONE);
+        leaderboards.setVisibility(View.GONE);
     }
 }

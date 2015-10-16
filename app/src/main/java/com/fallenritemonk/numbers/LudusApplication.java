@@ -45,4 +45,8 @@ public class LudusApplication extends Application {
         }
         return mTracker;
     }
+
+    public String getAppVersion() {
+        return APP_VERSION;
+    }
 }

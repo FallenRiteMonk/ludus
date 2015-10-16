@@ -44,4 +44,6 @@ dependencies {
     compile 'com.android.support:design:23.0.1'
     compile 'com.google.android.gms:play-services-games:8.1.0'
     compile 'com.google.android.gms:play-services-analytics:8.1.0'
+
+    compile 'com.github.traex.expandablelayout:library:1.3'
 }

@@ -3,7 +3,7 @@
     <string name="menu">Menü</string>
     <string name="game_won">GEWONNEN!</string>
     <string name="achievements">Erfolge</string>
-    <string name="app_version">App-Version</string>
+    <string name="app_version">App-Version:&#160;</string>
     <string name="back">Zurück</string>
     <string name="bug_report">Fehler Melden</string>
     <string name="classic_game">Klassisches Spiel</string>

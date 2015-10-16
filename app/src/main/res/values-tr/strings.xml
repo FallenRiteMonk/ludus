@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_version">Uygulama Versiyonu</string>
+    <string name="app_version">Uygulama Versiyonu:&#160;</string>
     <string name="back">Geri</string>
     <string name="bug_report">Hata Raporla</string>
     <string name="cancel">Vazgeç</string>
