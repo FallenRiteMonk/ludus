@@ -102,7 +102,7 @@ class GameField extends BaseAdapter {
 
     public void newGame() {
         fieldArray = new ArrayList<>();
-        /*fieldArray.add(new NumberField(1));
+        fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(2));
         fieldArray.add(new NumberField(3));
         fieldArray.add(new NumberField(4));
@@ -128,13 +128,7 @@ class GameField extends BaseAdapter {
         fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(8));
         fieldArray.add(new NumberField(1));
-        fieldArray.add(new NumberField(9));*/
-        fieldArray.add(new NumberField(1));fieldArray.add(new NumberField(1));
-        fieldArray.add(new NumberField(1));fieldArray.add(new NumberField(1));
-        fieldArray.add(new NumberField(1));fieldArray.add(new NumberField(1));
-        fieldArray.add(new NumberField(1));fieldArray.add(new NumberField(1));
-        fieldArray.add(new NumberField(1));fieldArray.add(new NumberField(1));
-        fieldArray.add(new NumberField(1));fieldArray.add(new NumberField(1));
+        fieldArray.add(new NumberField(9));
 
         if (gameMode == GameModeEnum.RANDOM) {
             Collections.shuffle(fieldArray, new Random(System.nanoTime()));
