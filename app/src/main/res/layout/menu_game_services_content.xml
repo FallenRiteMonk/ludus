@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:hint="@string/sign_in"
-        android:background="@android:color/black"
+        android:text="@string/sign_in"
+        android:background="@color/dark_gray"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -19,11 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:hint="@string/achievements"
+        android:text="@string/achievements"
         android:textColor="@android:color/white"
         android:layout_marginTop="1dip"
         android:visibility="gone"
-        android:background="#c0392b"/>
+        android:background="@color/dark_gray" />
 
     <TextView
         android:id="@+id/game_services_leaderboards"
@@ -31,11 +31,11 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:hint="@string/leaderboards"
+        android:text="@string/leaderboards"
         android:textColor="@android:color/white"
         android:layout_marginTop="1dip"
         android:visibility="gone"
-        android:background="#c0392b"/>
+        android:background="@color/dark_gray" />
 
     <TextView
         android:id="@+id/game_services_sign_out"
@@ -43,9 +43,9 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:hint="@string/sign_out"
+        android:text="@string/sign_out"
         android:textColor="@android:color/white"
         android:layout_marginTop="1dip"
         android:visibility="gone"
-        android:background="#c0392b"/>
+        android:background="@color/dark_gray" />
 </RelativeLayout>

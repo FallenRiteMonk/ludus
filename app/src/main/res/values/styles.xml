@@ -6,4 +6,6 @@
         <item name="colorButtonNormal">@android:color/black</item>
     </style>
 
+    <color name="dark_gray">#343434</color>
+
 </resources>

@@ -16,8 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:hint="@string/resume"
-        android:background="#e74c3c" />
+        android:text="@string/resume"
+        android:background="@android:color/black"
+        android:textColor="@android:color/white" />
 
     <com.andexert.expandablelayout.library.ExpandableLayout
         android:id="@+id/new_game"
@@ -27,7 +28,8 @@
         expandable:el_headerLayout="@layout/menu_new_game_header"
         expandable:el_contentLayout="@layout/menu_new_game_content"
         android:layout_marginTop="5dip"
-        android:background="#e74c3c" />
+        android:padding="1dip"
+        android:background="@android:color/black" />
 
     <com.andexert.expandablelayout.library.ExpandableLayout
         android:id="@+id/game_services"
@@ -37,7 +39,8 @@
         expandable:el_headerLayout="@layout/menu_game_services_header"
         expandable:el_contentLayout="@layout/menu_game_services_content"
         android:layout_marginTop="5dip"
-        android:background="#e74c3c" />
+        android:padding="1dip"
+        android:background="@android:color/black" />
 
     <TextView
         android:id="@+id/app_version"

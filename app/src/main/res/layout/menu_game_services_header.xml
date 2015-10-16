@@ -10,6 +10,7 @@
         android:padding="10dp"
         android:textColor="@android:color/white"
         android:text="@string/game_services"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

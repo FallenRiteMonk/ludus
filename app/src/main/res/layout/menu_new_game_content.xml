@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:hint="@string/classic_game"
+        android:text="@string/classic_game"
         android:textColor="@android:color/white"
-        android:background="#c0392b"/>
+        android:background="@color/dark_gray" />
 
     <TextView
         android:id="@+id/new_random_game"
@@ -19,9 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:hint="@string/random_game"
+        android:text="@string/random_game"
         android:textColor="@android:color/white"
         android:layout_marginTop="1dip"
-        android:background="#c0392b"/>
+        android:background="@color/dark_gray" />
 
 </RelativeLayout>
