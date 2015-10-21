@@ -37,12 +37,6 @@
     <string name="hint">İpucu</string>
     <string name="leaderboards">Liderler</string>
     <string name="game_services">Oyun Servisleri</string>
-    <string name="guide_combine_1">Aynı olan veya toplamı 10 yapan alanları birleştirin &#8230;</string>
-    <string name="guide_combine_2">&#8230; yan yana ya da alt alta olanı &#8230;</string>
-    <string name="guide_empty_fields">&#8230; aralarında boş alan olanı &#8230;</string>
-    <string name="guide_add_fields">&#8230; ekle butonu görünene kadar &#8230;</string>
-    <string name="guide_won">&#8230; bütün alanları temizleyin ve kazanın!</string>
     <string name="signed_out">Giriş yapılmadı</string>
-    <string name="guide_new_line">&#8230; önceki kurallar dahilinde bir satır da olabilir&#8230;</string>
 </resources>
 

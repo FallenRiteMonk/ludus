@@ -29,6 +29,9 @@ public class MainMenu extends GameServicesActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        Intent intent = new Intent(this, Tutorial.class);
+        startActivity(intent);
+
         LudusApplication application = (LudusApplication) getApplication();
         application.getAnalyticsTracker();
 
