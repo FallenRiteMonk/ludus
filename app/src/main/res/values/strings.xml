@@ -28,7 +28,9 @@
     <string name="guide_empty_fields">&#8230; over empty fields&#8230;</string>
     <string name="guide_new_line">&#8230; or line breaks&#8230;</string>
     <string name="guide_add_fields">&#8230; until the + button appears&#8230;</string>
-    <string name="guide_won">&#8230; or removed all!</string>
+    <string name="guide_won">&#8230; or you combined all!</string>
+    <string name="guide_drawer_1">Slide in the menu&#8230;</string>
+    <string name="guide_drawer_2">&#8230; to undo or for hint!</string>
     <string name="app_version">App-Version:&#160;</string>
     <string name="signed_in">Logged in</string>
     <string name="signed_out">Not legged in</string>

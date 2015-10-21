@@ -13,10 +13,11 @@ public class Tutorial extends AppIntro2 {
 
     @Override
     public void init(Bundle savedInstanceState) {
-        addSlide(AppIntroFragment.newInstance(getString(R.string.guide), getString(R.string.guide_title), R.mipmap.icon, Color.RED));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.guide), getString(R.string.guide_combine_1) + "\n" + getString(R.string.guide_combine_2), R.drawable.common_signin_btn_icon_light, Color.parseColor("#FF8000")));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.guide), getString(R.string.guide_empty_fields) + "\n" + getString(R.string.guide_new_line), R.drawable.common_signin_btn_icon_light, Color.parseColor("#D7DF01")));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.guide), getString(R.string.guide_add_fields) + "\n" + getString(R.string.guide_won), R.drawable.common_signin_btn_icon_light, Color.parseColor("#04B404")));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.guide), getString(R.string.guide_title), R.drawable.tut_initial, Color.RED));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.guide), getString(R.string.guide_combine_1) + "\n" + getString(R.string.guide_combine_2), R.drawable.tut_combine, Color.parseColor("#FF8000")));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.guide), getString(R.string.guide_empty_fields) + "\n" + getString(R.string.guide_new_line), R.drawable.tut_empty, Color.parseColor("#D7DF01")));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.guide), getString(R.string.guide_add_fields) + "\n" + getString(R.string.guide_won), R.drawable.tut_add, Color.parseColor("#04B404")));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.guide), getString(R.string.guide_drawer_1) + "\n" + getString(R.string.guide_drawer_2), R.drawable.tut_drawer, Color.GRAY));
 
         setZoomAnimation();
     }

@@ -22,7 +22,7 @@
     <string name="guide_empty_fields">&#8230; über leere Felder&#8230;</string>
     <string name="guide_new_line">&#8230; oder Zeilenumbruch&#8230;</string>
     <string name="guide_title">Spieleanleitung</string>
-    <string name="guide_won">&#8230; oder alle entfernt wurden!</string>
+    <string name="guide_won">&#8230; oder du alle kombiniert hast!</string>
     <string name="hint">Hinweis</string>
     <string name="leaderboards">Bestenlisten</string>
     <string name="random_game">Random Spiel</string>
@@ -45,4 +45,6 @@
     <string name="toast_no_possibility">Keine weiteren Möglichkeiten</string>
     <string name="toast_login_failed">Anmelden fehlgeschlagen</string>
     <string name="undo">Rückgängig</string>
+    <string name="guide_drawer_1">Öffne das Menü&#8230;</string>
+    <string name="guide_drawer_2">&#8230; für rückgängig oder einen Hinweis!</string>
 </resources>
