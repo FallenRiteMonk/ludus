@@ -31,8 +31,7 @@ public class MainMenu extends GameServicesActivity {
 
         SharedPreferences persist = getSharedPreferences(getString(R.string.static_settings_file), 0);
         if (persist.getBoolean(getString(R.string.static_first_launch), true)) {
-            Intent intent = new Intent(this, Tutorial.class);
-            startActivity(intent);
+            showTutorial();
         }
 
         LudusApplication application = (LudusApplication) getApplication();
@@ -47,6 +46,7 @@ public class MainMenu extends GameServicesActivity {
         signOut = (TextView) findViewById(R.id.game_services_sign_out);
         achievements = (TextView) findViewById(R.id.game_services_achievements);
         leaderboards = (TextView) findViewById(R.id.game_services_leaderboards);
+        TextView tutorial = (TextView) findViewById(R.id.tutorial);
 
         TextView appVersion = (TextView) findViewById(R.id.app_version);
 
@@ -111,8 +111,19 @@ public class MainMenu extends GameServicesActivity {
                 startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(mGoogleApiClient), 1003);
             }
         });
+        tutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTutorial();
+            }
+        });
 
         appVersion.setText(getString(R.string.app_version) + " " + application.getAppVersion());
+    }
+
+    private void showTutorial() {
+        Intent intent = new Intent(this, Tutorial.class);
+        startActivity(intent);
     }
 
     @Override
