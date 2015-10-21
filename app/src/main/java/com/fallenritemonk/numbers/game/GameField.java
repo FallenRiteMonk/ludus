@@ -101,6 +101,7 @@ class GameField extends BaseAdapter {
         selectedField = -1;
         hint = -1;
         stateOrder = dbHelper.getLastStateOrder();
+        headerCombos.setText(String.valueOf(stateOrder));
 
         findPossibilities();
     }
