@@ -17,6 +17,7 @@
         android:layout_height="48dp"
         android:gravity="center"
         android:text="@string/resume"
+        android:visibility="gone"
         android:padding="1dip"
         android:background="@android:color/black"
         android:textColor="@android:color/white" />

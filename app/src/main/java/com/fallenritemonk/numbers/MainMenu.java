@@ -135,6 +135,8 @@ public class MainMenu extends GameServicesActivity {
 
         if (resumable > 0) {
             resume.setVisibility(View.VISIBLE);
+        } else {
+            resume.setVisibility(View.GONE);
         }
     }
 
