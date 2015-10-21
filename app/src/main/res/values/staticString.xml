@@ -5,6 +5,7 @@
     <string name="static_game_mode" translatable="false">GAME_MODE</string>
     <string name="static_game_resume" translatable="false">GAME_RESUME</string>
 
+    <string name="static_first_launch" translatable="false">FIRST_LAUNCH</string>
     <string name="static_explicit_logout" translatable="false">EXPLICIT_LOGOUT</string>
 
     <string name="achievements_persist_classic" translatable="false">ACHIEVEMENTS_PERSIST_CLASSIC</string>

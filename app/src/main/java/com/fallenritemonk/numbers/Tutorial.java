@@ -1,5 +1,6 @@
 package com.fallenritemonk.numbers;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -24,6 +25,10 @@ public class Tutorial extends AppIntro2 {
 
     @Override
     public void onDonePressed() {
+        SharedPreferences persist = getSharedPreferences(getString(R.string.static_settings_file), 0);
+        SharedPreferences.Editor editor = persist.edit();
+        editor.putBoolean(getString(R.string.static_first_launch), false);
+        editor.apply();
         finish();
     }
 }
