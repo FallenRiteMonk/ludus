@@ -20,15 +20,15 @@ public class SplashScreen extends AwesomeSplash {
 
         //Customize Logo
         configSplash.setLogoSplash(R.drawable.icon); //or any other drawable
-        configSplash.setAnimLogoSplashDuration(2000); //int ms
+        configSplash.setAnimLogoSplashDuration(1000); //int ms
         configSplash.setAnimLogoSplashTechnique(Techniques.FadeIn); //choose one form Techniques (ref: https://github.com/daimajia/AndroidViewAnimations)
 
         //Customize Title
         configSplash.setTitleSplash(getString(R.string.app_name));
         configSplash.setTitleTextColor(R.color.white);
-        configSplash.setTitleTextSize(30f); //float value
-        configSplash.setAnimTitleDuration(3000);
-        configSplash.setAnimTitleTechnique(Techniques.Landing);
+        configSplash.setTitleTextSize(50f); //float value
+        configSplash.setAnimTitleDuration(1000);
+        configSplash.setAnimTitleTechnique(Techniques.SlideInUp);
     }
 
     @Override
