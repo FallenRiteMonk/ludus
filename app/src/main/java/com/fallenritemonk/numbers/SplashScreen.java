@@ -1,25 +1,40 @@
 package com.fallenritemonk.numbers;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
+import android.graphics.Color;
+import android.util.Log;
 
-public class SplashScreen extends Activity {
-    private static int SPLASH_TIME_OUT = 3000;
+import com.daimajia.androidanimations.library.Techniques;
+import com.viksaa.sssplash.lib.activity.AwesomeSplash;
+import com.viksaa.sssplash.lib.model.ConfigSplash;
+
+/**
+ * Created by FallenRiteMonk on 10/21/15.
+ */
+public class SplashScreen extends AwesomeSplash {
+    @Override
+    public void initSplash(ConfigSplash configSplash) {
+        configSplash.setBackgroundColor(R.color.dark_gray);
+
+        //Choose LOGO OR PATH; if you don't provide String value for path it's logo by default
+
+        //Customize Logo
+        configSplash.setLogoSplash(R.drawable.icon); //or any other drawable
+        configSplash.setAnimLogoSplashDuration(1000); //int ms
+        configSplash.setAnimLogoSplashTechnique(Techniques.FadeIn); //choose one form Techniques (ref: https://github.com/daimajia/AndroidViewAnimations)
+
+        //Customize Title
+        configSplash.setTitleSplash(getString(R.string.app_name));
+        configSplash.setTitleTextColor(R.color.white);
+        configSplash.setTitleTextSize(50f); //float value
+        configSplash.setAnimTitleDuration(1000);
+        configSplash.setAnimTitleTechnique(Techniques.SlideInUp);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashScreen.this, MainMenu.class);
-                startActivity(intent);
-                finish();
-            }
-        }, SPLASH_TIME_OUT);
+    public void animationsFinished() {
+        Intent intent = new Intent(this, MainMenu.class);
+        startActivity(intent);
+        finish();
     }
 }

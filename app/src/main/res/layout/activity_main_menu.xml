@@ -1,6 +1,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:expandable="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -10,58 +11,50 @@
     android:layout_centerHorizontal="true"
     tools:context="com.fallenritemonk.numbers.MainMenu" >
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/resume_game"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="@string/resume"
+        android:visibility="gone"
+        android:padding="1dip"
+        android:background="@android:color/black"
+        android:textColor="@android:color/white" />
+
+    <com.andexert.expandablelayout.library.ExpandableLayout
+        android:id="@+id/new_game"
+        android:layout_below="@+id/resume_game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        expandable:el_headerLayout="@layout/menu_new_game_header"
+        expandable:el_contentLayout="@layout/menu_new_game_content"
+        android:layout_marginTop="5dip"
+        android:padding="1dip"
+        android:background="@android:color/black" />
 
-        <Button
-            android:id="@+id/menu_button_classic_game"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/classic_game"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@android:color/white" />
-        <Button
-            android:id="@+id/menu_button_random_game"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/random_game"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@android:color/white" />
-        <Button
-            android:id="@+id/menu_button_resume"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/resume"
-            android:layout_gravity="center_horizontal"
-            android:visibility="gone"
-            android:textColor="@android:color/white" />
-        <Button
-            android:id="@+id/menu_button_achievements"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/achievements"
-            android:layout_gravity="center_horizontal"
-            android:visibility="gone"
-            android:textColor="@android:color/white" />
-        <Button
-            android:id="@+id/menu_button_combinations"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/leaderboard_combiner"
-            android:layout_gravity="center_horizontal"
-            android:visibility="gone"
-            android:textColor="@android:color/white" />
-        <Button
-            android:id="@+id/menu_button_minimalist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/leaderboard_minimal"
-            android:layout_gravity="center_horizontal"
-            android:visibility="gone"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
+    <com.andexert.expandablelayout.library.ExpandableLayout
+        android:id="@+id/game_services"
+        android:layout_below="@+id/new_game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        expandable:el_headerLayout="@layout/menu_game_services_header"
+        expandable:el_contentLayout="@layout/menu_game_services_content"
+        android:layout_marginTop="5dip"
+        android:padding="1dip"
+        android:background="@android:color/black" />
+
+    <TextView
+        android:id="@+id/tutorial"
+        android:layout_below="@+id/game_services"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="@string/guide"
+        android:layout_marginTop="5dip"
+        android:padding="1dip"
+        android:background="@android:color/black"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/app_version"
@@ -71,25 +64,4 @@
         android:gravity="center"
         android:layout_alignParentBottom="true"
         android:textIsSelectable="true" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_in"
-        android:id="@+id/sign_in_button"
-        android:layout_above="@+id/app_version"
-        android:layout_centerHorizontal="true"
-        android:textColor="@android:color/white" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_out"
-        android:id="@+id/sign_out_button"
-        android:layout_above="@+id/app_version"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"
-        android:textColor="@android:color/white" />
 </RelativeLayout>

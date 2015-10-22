@@ -5,6 +5,7 @@
     <string name="static_game_mode" translatable="false">GAME_MODE</string>
     <string name="static_game_resume" translatable="false">GAME_RESUME</string>
 
+    <string name="static_first_launch" translatable="false">FIRST_LAUNCH</string>
     <string name="static_explicit_logout" translatable="false">EXPLICIT_LOGOUT</string>
 
     <string name="achievements_persist_classic" translatable="false">ACHIEVEMENTS_PERSIST_CLASSIC</string>
@@ -23,4 +24,7 @@
     <string name="achievement_random_master" translatable="false">CgkI1OGV0bwTEAIQCA</string>
     <string name="leaderboard_combinations_to_victory" translatable="false">CgkI1OGV0bwTEAIQCQ</string>
     <string name="leaderboard_minimalist" translatable="false">CgkI1OGV0bwTEAIQCg</string>
+
+    <string name="analytics_api_key" translatable="false">UA-62157119-5</string>
+    <string name="analytics_debug_api_key" translatable="false">UA-62157119-1</string>
 </resources>

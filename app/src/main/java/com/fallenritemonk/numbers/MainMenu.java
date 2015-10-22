@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.fallenritemonk.numbers.db.DatabaseHelper;
@@ -19,43 +18,51 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.games.Games;
 
 public class MainMenu extends GameServicesActivity {
-    private Button resumeButton;
-    private Button signInButton;
-    private Button signOutButton;
-    private Button achievementsButton;
-    private Button combinationsButton;
-    private Button minimalistButton;
+    private TextView resume;
+    private TextView signIn;
+    private TextView signOut;
+    private TextView achievements;
+    private TextView leaderboards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        SharedPreferences persist = getSharedPreferences(getString(R.string.static_settings_file), 0);
+        if (persist.getBoolean(getString(R.string.static_first_launch), true)) {
+            showTutorial();
+        }
+
+        LudusApplication application = (LudusApplication) getApplication();
+        application.getAnalyticsTracker();
+
         new InitDbAsyncTask().execute(this);
 
-        Button classicButton = (Button) findViewById(R.id.menu_button_classic_game);
-        Button randomButton = (Button) findViewById(R.id.menu_button_random_game);
-        resumeButton = (Button) findViewById(R.id.menu_button_resume);
-        signInButton = (Button) findViewById(R.id.sign_in_button);
-        signOutButton = (Button) findViewById(R.id.sign_out_button);
-        achievementsButton = (Button) findViewById(R.id.menu_button_achievements);
-        combinationsButton = (Button) findViewById(R.id.menu_button_combinations);
-        minimalistButton = (Button) findViewById(R.id.menu_button_minimalist);
+        TextView newClassic = (TextView) findViewById(R.id.new_classic_game);
+        TextView newRandom = (TextView) findViewById(R.id.new_random_game);
+        resume = (TextView) findViewById(R.id.resume_game);
+        signIn = (TextView) findViewById(R.id.game_services_sign_in);
+        signOut = (TextView) findViewById(R.id.game_services_sign_out);
+        achievements = (TextView) findViewById(R.id.game_services_achievements);
+        leaderboards = (TextView) findViewById(R.id.game_services_leaderboards);
+        TextView tutorial = (TextView) findViewById(R.id.tutorial);
+
         TextView appVersion = (TextView) findViewById(R.id.app_version);
 
-        classicButton.setOnClickListener(new View.OnClickListener() {
+        newClassic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchGame(GameModeEnum.CLASSIC, false);
             }
         });
-        randomButton.setOnClickListener(new View.OnClickListener() {
+        newRandom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchGame(GameModeEnum.RANDOM, false);
             }
         });
-        resumeButton.setOnClickListener(new View.OnClickListener() {
+        resume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences settings = getSharedPreferences(getString(R.string.static_settings_file), 0);
@@ -70,14 +77,14 @@ public class MainMenu extends GameServicesActivity {
                 }
             }
         });
-        signInButton.setOnClickListener(new View.OnClickListener() {
+        signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setExplicitSignOut(false);
                 mGoogleApiClient.connect();
             }
         });
-        signOutButton.setOnClickListener(new View.OnClickListener() {
+        signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setExplicitSignOut(true);
@@ -85,42 +92,38 @@ public class MainMenu extends GameServicesActivity {
                 mGoogleApiClient.disconnect();
 
                 // show sign-in button, hide the sign-out button
-                signInButton.setVisibility(View.VISIBLE);
-                signOutButton.setVisibility(View.GONE);
-                achievementsButton.setVisibility(View.GONE);
-                combinationsButton.setVisibility(View.GONE);
-                minimalistButton.setVisibility(View.GONE);
+                signIn.setVisibility(View.VISIBLE);
+                signOut.setVisibility(View.GONE);
+                achievements.setVisibility(View.GONE);
+                leaderboards.setVisibility(View.GONE);
             }
         });
-        achievementsButton.setOnClickListener(new View.OnClickListener() {
+        achievements.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient),
                         1002);
             }
         });
-        combinationsButton.setOnClickListener(new View.OnClickListener() {
+        leaderboards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mGoogleApiClient,
-                        getString(R.string.leaderboard_combinations_to_victory)), 1003);
+                startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(mGoogleApiClient), 1003);
             }
         });
-        minimalistButton.setOnClickListener(new View.OnClickListener() {
+        tutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mGoogleApiClient,
-                        getString(R.string.leaderboard_minimalist)), 1004);
+                showTutorial();
             }
         });
 
-        PackageInfo pInfo = null;
-        try {
-            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            appVersion.setText(getString(R.string.app_version) + " " + pInfo.versionName);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        appVersion.setText(getString(R.string.app_version) + " " + application.getAppVersion());
+    }
+
+    private void showTutorial() {
+        Intent intent = new Intent(this, Tutorial.class);
+        startActivity(intent);
     }
 
     @Override
@@ -131,7 +134,9 @@ public class MainMenu extends GameServicesActivity {
         int resumable = dbHelper.getLastStateOrder();
 
         if (resumable > 0) {
-            resumeButton.setVisibility(View.VISIBLE);
+            resume.setVisibility(View.VISIBLE);
+        } else {
+            resume.setVisibility(View.GONE);
         }
     }
 
@@ -151,21 +156,19 @@ public class MainMenu extends GameServicesActivity {
     public void onConnected(Bundle bundle) {
         super.onConnected(bundle);
 
-        signInButton.setVisibility(View.GONE);
-        signOutButton.setVisibility(View.VISIBLE);
-        achievementsButton.setVisibility(View.VISIBLE);
-        combinationsButton.setVisibility(View.VISIBLE);
-        minimalistButton.setVisibility(View.VISIBLE);
+        signIn.setVisibility(View.GONE);
+        signOut.setVisibility(View.VISIBLE);
+        achievements.setVisibility(View.VISIBLE);
+        leaderboards.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         super.onConnectionFailed(result);
 
-        signInButton.setVisibility(View.VISIBLE);
-        signOutButton.setVisibility(View.GONE);
-        achievementsButton.setVisibility(View.GONE);
-        combinationsButton.setVisibility(View.GONE);
-        minimalistButton.setVisibility(View.GONE);
+        signIn.setVisibility(View.VISIBLE);
+        signOut.setVisibility(View.GONE);
+        achievements.setVisibility(View.GONE);
+        leaderboards.setVisibility(View.GONE);
     }
 }

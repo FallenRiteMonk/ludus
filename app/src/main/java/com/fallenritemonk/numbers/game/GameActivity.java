@@ -22,6 +22,7 @@ import com.fallenritemonk.numbers.services.GameServicesActivity;
  */
 public class GameActivity extends GameServicesActivity {
     private static GameField gameField;
+    private GridView gameFieldView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class GameActivity extends GameServicesActivity {
         GameModeEnum gameMode = (GameModeEnum) intent.getSerializableExtra(getString(R.string.static_game_mode));
         Boolean resume = intent.getBooleanExtra(getString(R.string.static_game_resume), false);
 
-        GridView gameFieldView = (GridView) findViewById(R.id.fieldGrid);
+        gameFieldView = (GridView) findViewById(R.id.fieldGrid);
         FloatingActionButton addFieldsButton = (FloatingActionButton) findViewById(R.id.addFields);
         final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.game_drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.game_menu_drawer);
@@ -63,6 +64,8 @@ public class GameActivity extends GameServicesActivity {
 
                 if (id == R.id.action_hint) {
                     gameField.hint();
+                } else if (id == R.id.action_undo) {
+                    gameField.undo();
                 } else if (id == R.id.action_restart) {
                     restartDialog();
                 } else if (id == R.id.action_menu) {

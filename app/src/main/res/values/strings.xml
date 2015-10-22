@@ -23,13 +23,15 @@
     <string name="combos">Combos:</string>
     <string name="guide">Tutorial</string>
     <string name="guide_title">How to play</string>
-    <string name="guide_combine_1">Combine same or fields with sum 10&#8230;</string>
-    <string name="guide_combine_2">&#8230; which are next to or above each other&#8230;</string>
-    <string name="guide_empty_fields">&#8230; have empty fields in between&#8230;</string>
-    <string name="guide_new_line">&#8230; over new lines&#8230;</string>
-    <string name="guide_add_fields">&#8230; until the add button appears&#8230;</string>
-    <string name="guide_won">&#8230; or you remove all fields and win!</string>
-    <string name="app_version">App-Version</string>
+    <string name="guide_combine_1">Combine same or sum 10&#8230;</string>
+    <string name="guide_combine_2">&#8230; next or above each other&#8230;</string>
+    <string name="guide_empty_fields">&#8230; over empty fields&#8230;</string>
+    <string name="guide_new_line">&#8230; or line breaks&#8230;</string>
+    <string name="guide_add_fields">&#8230; until the + button appears&#8230;</string>
+    <string name="guide_won">&#8230; or you combined all!</string>
+    <string name="guide_drawer_1">Slide in the menu&#8230;</string>
+    <string name="guide_drawer_2">&#8230; to undo or for hint!</string>
+    <string name="app_version">App-Version:&#160;</string>
     <string name="signed_in">Logged in</string>
     <string name="signed_out">Not legged in</string>
     <string name="sign_in">Log in</string>
@@ -38,8 +40,6 @@
     <string name="signed_in_as">Logged in as:</string>
     <string name="achievements">Achievements</string>
     <string name="leaderboards">Leaderboards</string>
-    <string name="leaderboard_combiner">Combinations</string>
-    <string name="leaderboard_minimal">Minimalist</string>
     <string name="toast_exit">Click again to exit</string>
     <string name="toast_no_possibility">No more possibilities</string>
     <string name="toast_login_failed">Failed to log in</string>
@@ -48,5 +48,5 @@
     <string name="rate_cancel">No, Thanks</string>
     <string name="rate_later">Later</string>
     <string name="rate">Rate</string>
-    <string name="splash_screen">Splash Screen</string>
+    <string name="undo">Undo</string>
 </resources>

@@ -22,6 +22,7 @@ import java.util.Random;
  * Created by FallenRiteMonk on 9/19/15.
  */
 class GameField extends BaseAdapter {
+
     private final GameActivity activity;
     private final FloatingActionButton addFieldsButton;
     private final TextView headerCombos;
@@ -34,7 +35,7 @@ class GameField extends BaseAdapter {
     private int hint;
     private int stateOrder;
 
-    public GameField(GameActivity activity, FloatingActionButton addFieldsButton, TextView headerCombos, GameModeEnum gameMode, Boolean resume) {
+    public GameField(final GameActivity activity, FloatingActionButton addFieldsButton, TextView headerCombos, GameModeEnum gameMode, Boolean resume) {
         this.activity = activity;
         this.addFieldsButton = addFieldsButton;
         this.headerCombos = headerCombos;
@@ -100,12 +101,14 @@ class GameField extends BaseAdapter {
         selectedField = -1;
         hint = -1;
         stateOrder = dbHelper.getLastStateOrder();
+        headerCombos.setText(String.valueOf(stateOrder));
 
         findPossibilities();
     }
 
     private void findPossibilities() {
-        hint = -1;
+        hideHint();
+
         possibilities = new ArrayList<>();
         for (int i = 0; i < fieldArray.size() - 1; i++) {
             if (fieldArray.get(i).getState() == NumberField.STATE.USED) continue;
@@ -132,6 +135,22 @@ class GameField extends BaseAdapter {
         else addFieldsButton.setVisibility(View.GONE);
     }
 
+    private void hideHint() {
+        if (hint != -1) {
+            if (fieldArray.get(possibilities.get(hint).getId1()).getState() == NumberField.STATE.HINT) {
+                fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.UNUSED);
+            } else {
+                fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.USED);
+            }
+            if (fieldArray.get(possibilities.get(hint).getId2()).getState() == NumberField.STATE.HINT) {
+                fieldArray.get(possibilities.get(hint).getId2()).setState(NumberField.STATE.UNUSED);
+            } else {
+                fieldArray.get(possibilities.get(hint).getId2()).setState(NumberField.STATE.USED);
+            }
+            hint = -1;
+        }
+    }
+
     private boolean canBeCombined(int id1, int id2) {
         return id1 != id2 && !(fieldArray.get(id1).getNumber() + fieldArray.get(id2).getNumber() != 10 && fieldArray.get(id1).getNumber() != fieldArray.get(id2).getNumber());
     }
@@ -150,20 +169,26 @@ class GameField extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void undo() {
+        if (dbHelper.undo()) {
+            resumeGame();
+        }
+    }
+
     public void clicked(int id) {
         if (fieldArray.get(id).getState() == NumberField.STATE.USED) return;
 
         if (selectedField == -1) {
             selectedField = id;
             fieldArray.get(id).setState(NumberField.STATE.SELECTED);
+            notifyDataSetChanged();
         } else if (id == selectedField) {
             fieldArray.get(id).setState(NumberField.STATE.UNUSED);
             selectedField = -1;
+            notifyDataSetChanged();
         } else {
             combine(id);
         }
-
-        notifyDataSetChanged();
     }
 
     private void combine(int id) {
@@ -172,8 +197,8 @@ class GameField extends BaseAdapter {
             if (pos.equals(new CombinePos(id, selectedField))) {
                 fieldArray.get(id).setState(NumberField.STATE.USED);
                 fieldArray.get(selectedField).setState(NumberField.STATE.USED);
-                boolean won = reduceFields();
-                if (won) {
+
+                if (reduceFields()) {
                     won();
                 } else {
                     saveState();
@@ -189,58 +214,53 @@ class GameField extends BaseAdapter {
             fieldArray.get(selectedField).setState(NumberField.STATE.UNUSED);
             selectedField = -1;
         }
+        notifyDataSetChanged();
     }
 
     private boolean reduceFields() {
-        int fieldSize = fieldArray.size();
-        int preLeft = -1;
-        for (int i = 0; i < fieldArray.size(); i += 9) {
-            preLeft = reduceRow(i, preLeft);
-            if (fieldSize > fieldArray.size()) {
-                i -= 9;
-                fieldSize = fieldArray.size();
+        ArrayList<NumberField> deleteList = new ArrayList<>();
+        int usedCound = 0;
+        for (int i = 0; i < fieldArray.size(); i++) {
+            if (fieldArray.get(i).getState() == NumberField.STATE.USED) {
+                if (++usedCound == 9){
+                    deleteNine(i, deleteList);
+                    usedCound = 0;
+                }
+            } else {
+                usedCound = 0;
             }
         }
-        if (fieldArray.size() == 0) {
-            return true;
-        }
-        return false;
-    }
 
-    private int reduceRow(int index, int preLeft) {
-        boolean empty = true;
-        int left = -1;
-        int right = -1;
-        for (int ii = 0; ii < 9 && index + ii < fieldArray.size(); ii++) {
-            if (fieldArray.get(index + ii).getState() != NumberField.STATE.USED) {
-                empty = false;
-                left = ii;
-                if (right == -1) right = ii;
-            }
-        }
-        if (empty && index + 8 < fieldArray.size()) {
-            deleteNine(index);
-        } else if (preLeft != -1 && right > preLeft) {
-            deleteNine(index - 8 + preLeft);
-        } else if (empty && index == 0) {
+        fieldArray.removeAll(deleteList);
+
+        if (usedCound == fieldArray.size()) {
             fieldArray.clear();
         }
-        return left;
+
+        return fieldArray.isEmpty();
     }
 
-    private void deleteNine(int index) {
+    private void deleteNine(int index, ArrayList<NumberField> deleteList) {
+        ArrayList<NumberField> tempList = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
-            fieldArray.remove(index);
+            if (deleteList.contains(fieldArray.get(index - i))) {
+                return;
+            } else {
+                tempList.add(fieldArray.get(index - i));
+            }
         }
+        deleteList.addAll(tempList);
     }
 
     public void addFields() {
-        int fieldLength = fieldArray.size();
-        for (int i = 0; i < fieldLength; i++) {
-            if (fieldArray.get(i).getState() != NumberField.STATE.USED) {
-                fieldArray.add(new NumberField(fieldArray.get(i).getNumber()));
+        ArrayList<NumberField> tempField = new ArrayList<>();
+        for (NumberField field : fieldArray) {
+            if (field.getState() != NumberField.STATE.USED) {
+                tempField.add(new NumberField(field.getNumber()));
             }
         }
+        fieldArray.addAll(tempField);
+
         notifyDataSetChanged();
         findPossibilities();
     }
@@ -269,7 +289,6 @@ class GameField extends BaseAdapter {
     }
 
     private void won() {
-        // increase order by one to save combinations as last state is not saved
         stateOrder += 1;
         activity.gameWon(gameMode, stateOrder);
 
@@ -309,7 +328,7 @@ class GameField extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, final View view, ViewGroup viewGroup) {
         TextView textView;
         if (view == null) {
             textView = new TextView(activity);
@@ -322,11 +341,12 @@ class GameField extends BaseAdapter {
             textView = (TextView) view;
         }
 
-        textView.setText("" + fieldArray.get(i).getNumber());
+        textView.setText(String.valueOf(fieldArray.get(i).getNumber()));
+        textView.setAlpha(1);
 
         switch (fieldArray.get(i).getState()) {
+            case USED: textView.setAlpha(0.2f); textView.setText("");
             case UNUSED: textView.setBackgroundColor(Color.BLACK); break;
-            case USED: textView.setBackgroundColor(Color.LTGRAY); textView.setText(""); break;
             case SELECTED: textView.setBackgroundColor(Color.BLUE); break;
             case HINT: textView.setBackgroundColor(Color.GREEN); break;
         }
