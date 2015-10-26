@@ -77,7 +77,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("market://details?id=com.fallenritemonk.numbers"));
+                intent.setData(Uri.parse("market://details?id=com.fallenritemonk.ludus"));
                 startActivity(intent);
             }
         });
