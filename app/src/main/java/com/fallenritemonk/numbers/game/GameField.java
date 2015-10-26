@@ -165,12 +165,6 @@ class GameField extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void undo() {
-        if (dbHelper.undo()) {
-            resumeGame();
-        }
-    }
-
     public void clicked(int id) {
         if (fieldArray.get(id).getState() == NumberField.STATE.USED) return;
 
@@ -286,7 +280,6 @@ class GameField extends BaseAdapter {
 
     private void won() {
         stateOrder += 1;
-        activity.gameWon(gameMode, stateOrder);
 
         dbHelper.clearDB();
 

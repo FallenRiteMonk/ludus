@@ -33,20 +33,9 @@
         android:padding="1dip"
         android:background="@android:color/black" />
 
-    <com.andexert.expandablelayout.library.ExpandableLayout
-        android:id="@+id/game_services"
-        android:layout_below="@+id/new_game"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        expandable:el_headerLayout="@layout/menu_game_services_header"
-        expandable:el_contentLayout="@layout/menu_game_services_content"
-        android:layout_marginTop="5dip"
-        android:padding="1dip"
-        android:background="@android:color/black" />
-
     <TextView
         android:id="@+id/tutorial"
-        android:layout_below="@+id/game_services"
+        android:layout_below="@+id/new_game"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
