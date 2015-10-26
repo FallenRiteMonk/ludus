@@ -139,13 +139,9 @@ class GameField extends BaseAdapter {
         if (hint != -1) {
             if (fieldArray.get(possibilities.get(hint).getId1()).getState() == NumberField.STATE.HINT) {
                 fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.UNUSED);
-            } else {
-                fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.USED);
             }
             if (fieldArray.get(possibilities.get(hint).getId2()).getState() == NumberField.STATE.HINT) {
                 fieldArray.get(possibilities.get(hint).getId2()).setState(NumberField.STATE.UNUSED);
-            } else {
-                fieldArray.get(possibilities.get(hint).getId2()).setState(NumberField.STATE.USED);
             }
             hint = -1;
         }
