@@ -3,9 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorAccent">@android:color/holo_green_dark</item>
-        <item name="colorButtonNormal">@android:color/black</item>
+        <item name="colorButtonNormal">@color/light_green</item>
     </style>
-
-    <color name="dark_gray">#343434</color>
-
 </resources>
