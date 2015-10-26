@@ -49,4 +49,6 @@
     <string name="rate_later">Later</string>
     <string name="rate">Rate</string>
     <string name="undo">Undo</string>
+
+    <string name="preview">Download the new full version from the play store by clicking on me!</string>
 </resources>

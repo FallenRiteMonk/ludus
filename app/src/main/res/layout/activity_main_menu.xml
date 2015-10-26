@@ -46,6 +46,18 @@
         android:textColor="@android:color/white" />
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/preview"
+        android:id="@+id/preview_text"
+        android:layout_above="@+id/app_version"
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:background="@android:color/holo_green_light"
+        android:textColor="@android:color/holo_red_dark" />
+
+    <TextView
         android:id="@+id/app_version"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
