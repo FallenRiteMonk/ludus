@@ -1,4 +1,4 @@
-package com.fallenritemonk.numbers.game;
+package com.fallenritemonk.ludus.game;
 
 /**
  * Created by FallenRiteMonk on 9/23/15.

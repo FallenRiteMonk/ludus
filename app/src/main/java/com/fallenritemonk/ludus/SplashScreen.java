@@ -1,8 +1,6 @@
-package com.fallenritemonk.numbers;
+package com.fallenritemonk.ludus;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.util.Log;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.viksaa.sssplash.lib.activity.AwesomeSplash;

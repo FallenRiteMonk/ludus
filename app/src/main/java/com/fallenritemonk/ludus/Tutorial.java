@@ -1,4 +1,4 @@
-package com.fallenritemonk.numbers;
+package com.fallenritemonk.ludus;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;

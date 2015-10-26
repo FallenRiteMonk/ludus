@@ -1,19 +1,17 @@
-package com.fallenritemonk.numbers;
+package com.fallenritemonk.ludus;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.fallenritemonk.numbers.db.DatabaseHelper;
-import com.fallenritemonk.numbers.db.InitDbAsyncTask;
-import com.fallenritemonk.numbers.game.GameActivity;
-import com.fallenritemonk.numbers.game.GameModeEnum;
-import com.fallenritemonk.numbers.services.GameServicesActivity;
+import com.fallenritemonk.ludus.db.DatabaseHelper;
+import com.fallenritemonk.ludus.db.InitDbAsyncTask;
+import com.fallenritemonk.ludus.game.GameActivity;
+import com.fallenritemonk.ludus.game.GameModeEnum;
+import com.fallenritemonk.ludus.services.GameServicesActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.games.Games;
 

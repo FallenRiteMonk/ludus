@@ -1,4 +1,4 @@
-package com.fallenritemonk.numbers.db;
+package com.fallenritemonk.ludus.db;
 
 import android.content.Context;
 import android.os.AsyncTask;

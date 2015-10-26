@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:layout_centerHorizontal="true"
-    tools:context="com.fallenritemonk.numbers.MainMenu" >
+    tools:context="com.fallenritemonk.ludus.MainMenu" >
 
     <TextView
         android:id="@+id/resume_game"

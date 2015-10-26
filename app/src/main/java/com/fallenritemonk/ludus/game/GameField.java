@@ -1,4 +1,4 @@
-package com.fallenritemonk.numbers.game;
+package com.fallenritemonk.ludus.game;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -11,8 +11,8 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.fallenritemonk.numbers.R;
-import com.fallenritemonk.numbers.db.DatabaseHelper;
+import com.fallenritemonk.ludus.R;
+import com.fallenritemonk.ludus.db.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;

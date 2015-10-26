@@ -1,4 +1,4 @@
-package com.fallenritemonk.numbers.game;
+package com.fallenritemonk.ludus.game;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,8 +14,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import com.fallenritemonk.numbers.R;
-import com.fallenritemonk.numbers.services.GameServicesActivity;
+import com.fallenritemonk.ludus.R;
+import com.fallenritemonk.ludus.services.GameServicesActivity;
 
 /**
  * Created by FallenRiteMonk on 9/19/15.

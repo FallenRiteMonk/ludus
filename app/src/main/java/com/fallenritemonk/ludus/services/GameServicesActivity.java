@@ -1,4 +1,4 @@
-package com.fallenritemonk.numbers.services;
+package com.fallenritemonk.ludus.services;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,9 +10,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.fallenritemonk.numbers.BuildConfig;
-import com.fallenritemonk.numbers.R;
-import com.fallenritemonk.numbers.game.GameModeEnum;
+import com.fallenritemonk.ludus.BuildConfig;
+import com.fallenritemonk.ludus.R;
+import com.fallenritemonk.ludus.game.GameModeEnum;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
