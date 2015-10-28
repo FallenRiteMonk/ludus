@@ -22,7 +22,6 @@ import com.fallenritemonk.ludus.services.GameServicesActivity;
  */
 public class GameActivity extends GameServicesActivity {
     private static GameField gameField;
-    private GridView gameFieldView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,7 @@ public class GameActivity extends GameServicesActivity {
         GameModeEnum gameMode = (GameModeEnum) intent.getSerializableExtra(getString(R.string.static_game_mode));
         Boolean resume = intent.getBooleanExtra(getString(R.string.static_game_resume), false);
 
-        gameFieldView = (GridView) findViewById(R.id.fieldGrid);
+        GridView gameFieldView = (GridView) findViewById(R.id.fieldGrid);
         FloatingActionButton addFieldsButton = (FloatingActionButton) findViewById(R.id.addFields);
         final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.game_drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.game_menu_drawer);

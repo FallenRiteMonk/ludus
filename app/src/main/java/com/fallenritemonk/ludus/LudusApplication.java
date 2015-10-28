@@ -11,9 +11,9 @@ import java.util.Locale;
  * Created by FallenRiteMonk on 9/24/15.
  */
 public class LudusApplication extends Application {
-    private static String APP_ID = BuildConfig.APPLICATION_ID;
-    private static String APP_VERSION = BuildConfig.VERSION_NAME;
-    private static boolean DEBUG_MODE = BuildConfig.DEBUG;
+    private final static String APP_ID = BuildConfig.APPLICATION_ID;
+    private final static String APP_VERSION = BuildConfig.VERSION_NAME;
+    private final static boolean DEBUG_MODE = BuildConfig.DEBUG;
     private static String CLIENT_ID;
     private static String CLIENT_LANG;
 

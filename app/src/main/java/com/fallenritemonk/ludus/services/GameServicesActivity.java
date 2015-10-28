@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,7 +24,7 @@ import com.google.android.gms.games.Games;
 /**
  * Created by FallenRiteMonk on 9/25/15.
  */
-public class GameServicesActivity extends AppCompatActivity
+public abstract class GameServicesActivity extends AppCompatActivity
         implements ConnectionCallbacks, OnConnectionFailedListener {
     private static final int REQUEST_RESOLVE_ERROR = 1001;
     private static final String DIALOG_ERROR = "dialog_error";
@@ -79,7 +80,7 @@ public class GameServicesActivity extends AppCompatActivity
 
         int tempRandom= persist.getInt(getString(R.string.achievements_persist_classic), 0);
         if (tempRandom > 0) {
-            unlockClassicGame(tempRandom);
+            unlockRandomGame(tempRandom);
         }
 
         int tempMin= persist.getInt(getString(R.string.leaderboard_persist_minimal), -1);
@@ -132,7 +133,7 @@ public class GameServicesActivity extends AppCompatActivity
     }
 
     /* Called from ErrorDialogFragment when the dialog is dismissed. */
-    public void onDialogDismissed() {
+    private void onDialogDismissed() {
         mResolvingError = false;
     }
 
@@ -140,6 +141,7 @@ public class GameServicesActivity extends AppCompatActivity
     public static class ErrorDialogFragment extends DialogFragment {
         public ErrorDialogFragment() { }
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Get the error code and retrieve the appropriate dialog
@@ -182,13 +184,13 @@ public class GameServicesActivity extends AppCompatActivity
             if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
                 unlockClassicGame(1);
             } else {
-                persistClassicGame(1);
+                persistClassicGame();
             }
         } else if (gameMode == GameModeEnum.RANDOM) {
             if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
                 unlockRandomGame(1);
             } else {
-                persistRandomGame(1);
+                persistRandomGame();
             }
         }
         if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
@@ -209,9 +211,9 @@ public class GameServicesActivity extends AppCompatActivity
         editor.apply();
     }
 
-    private void persistClassicGame(int victories) {
+    private void persistClassicGame() {
         int tempVictories = persist.getInt(getString(R.string.achievements_persist_classic), 0);
-        tempVictories += victories;
+        tempVictories += 1;
 
         SharedPreferences.Editor editor = persist.edit();
         editor.putInt(getString(R.string.achievements_persist_classic), tempVictories);
@@ -229,9 +231,9 @@ public class GameServicesActivity extends AppCompatActivity
         editor.apply();
     }
 
-    private void persistRandomGame(int victories) {
+    private void persistRandomGame() {
         int tempVictories = persist.getInt(getString(R.string.achievements_persist_random), 0);
-        tempVictories += victories;
+        tempVictories += 1;
 
         SharedPreferences.Editor editor = persist.edit();
         editor.putInt(getString(R.string.achievements_persist_random), tempVictories);
