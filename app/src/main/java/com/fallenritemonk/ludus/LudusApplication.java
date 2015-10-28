@@ -14,8 +14,6 @@ public class LudusApplication extends Application {
     private final static String APP_ID = BuildConfig.APPLICATION_ID;
     private final static String APP_VERSION = BuildConfig.VERSION_NAME;
     private final static boolean DEBUG_MODE = BuildConfig.DEBUG;
-    private static String CLIENT_ID;
-    private static String CLIENT_LANG;
 
     private Tracker mTracker;
 
@@ -33,8 +31,8 @@ public class LudusApplication extends Application {
                 mTracker = analytics.newTracker(R.string.analytics_api_key);
             }
 
-            CLIENT_LANG = Locale.getDefault().getDisplayLanguage();
-            CLIENT_ID = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+            String CLIENT_LANG = Locale.getDefault().getDisplayLanguage();
+            String CLIENT_ID = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 
             mTracker.setAppId(APP_ID);
             mTracker.setAppVersion(APP_VERSION);

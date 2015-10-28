@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_version">Uygulama Versiyonu:&#160;</string>
-    <string name="back">Geri</string>
-    <string name="bug_report">Hata Raporla</string>
     <string name="cancel">Vazgeç</string>
     <string name="classic_game">Klasik Oyun</string>
     <string name="restart">Yeniden Başlat</string>
@@ -11,17 +9,11 @@
     <string name="game_won">Kazandın!</string>
     <string name="greet">Hoşgeldin</string>
     <string name="guide">Eğitici</string>
-    <string name="got_it">Anladım!</string>
     <string name="combos">Kombolar:</string>
     <string name="achievements">Başarılar</string>
-    <string name="toast_login_failed">Giriş yapılamadı</string>
     <string name="toast_no_possibility">Hamle kalmadı</string>
-    <string name="statistics">İstatistikler</string>
     <string name="sign_out">Çıkış yap</string>
     <string name="sign_in">Giriş yap</string>
-    <string name="signed_in">Giriş yapıldı</string>
-    <string name="signed_in_as">Olarak giriş yapıldı :</string>
-    <string name="toast_exit">Çıkmak için tekrar basın</string>
     <string name="menu">Menü</string>
     <string name="random_game">Rastgele Oyun</string>
     <string name="rate">Oyla</string>
@@ -31,8 +23,6 @@
     <string name="rate_title">#-ludus\'u Oyla</string>
     <string name="resume">Devam et</string>
     <string name="settings">Ayarlar</string>
-    <string name="show_guide">Rehberi göster</string>
-    <string name="statistics_title">Oyun istatistikleri</string>
     <string name="guide_title">Nasıl oynanır</string>
     <string name="hint">İpucu</string>
     <string name="leaderboards">Liderler</string>
