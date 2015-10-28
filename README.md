@@ -2,7 +2,7 @@
 
 The simple and fun number combination game **#-ludus** goes 2.0 and open source.
 
-<a href="https://play.google.com/store/apps/details?id=com.fallenritemonk.numbers">
+<a href="https://play.google.com/store/apps/details?id=com.fallenritemonk.ludus">
   <img alt="Get it on Google Play"
        src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
 </a>
