@@ -5,13 +5,10 @@ import android.app.Application;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
-import java.util.Locale;
-
 /**
  * Created by FallenRiteMonk on 9/24/15.
  */
 public class LudusApplication extends Application {
-    private final static String APP_ID = BuildConfig.APPLICATION_ID;
     private final static String APP_VERSION = BuildConfig.VERSION_NAME;
     private final static boolean DEBUG_MODE = BuildConfig.DEBUG;
 
@@ -26,21 +23,15 @@ public class LudusApplication extends Application {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
             // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
             if (DEBUG_MODE) {
-                mTracker = analytics.newTracker(R.string.analytics_debug_api_key);
+                mTracker = analytics.newTracker(getString(R.string.analytics_debug_api_key));
             } else {
-                mTracker = analytics.newTracker(R.string.analytics_api_key);
+                mTracker = analytics.newTracker(getString(R.string.analytics_api_key));
             }
 
-            String CLIENT_LANG = Locale.getDefault().getDisplayLanguage();
-            String CLIENT_ID = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-
-            mTracker.setAppId(APP_ID);
-            mTracker.setAppVersion(APP_VERSION);
             mTracker.enableAutoActivityTracking(true);
             mTracker.enableExceptionReporting(true);
-            mTracker.setClientId(CLIENT_ID);
-            mTracker.setLanguage(CLIENT_LANG);
         }
+
         return mTracker;
     }
 

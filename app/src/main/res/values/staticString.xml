@@ -29,6 +29,6 @@
     <string name="wrong_leaderboard_combinations_to_victory" translatable="false">CgkI1OGV0bwTEAIQCQ</string>
     <string name="wrong_leaderboard_minimalist" translatable="false">CgkI1OGV0bwTEAIQCg</string>
 
-    <string name="analytics_api_key" translatable="false">UA–62157119–5</string>
-    <string name="analytics_debug_api_key" translatable="false">UA–62157119–1</string>
+    <string name="analytics_api_key" translatable="false">UA-62157119-5</string>
+    <string name="analytics_debug_api_key" translatable="false">UA-62157119-1</string>
 </resources>
