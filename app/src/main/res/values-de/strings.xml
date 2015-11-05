@@ -37,4 +37,6 @@
     <string name="undo">Rückgängig</string>
     <string name="guide_drawer_1">Öffne das Menü&#8230;</string>
     <string name="guide_drawer_2">&#8230; für rückgängig oder einen Hinweis!</string>
+    <string name="navigation_drawer_close">Schließe das Menü</string>
+    <string name="navigation_drawer_open">Öffne das Menü</string>
 </resources>

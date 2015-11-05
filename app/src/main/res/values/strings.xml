@@ -39,4 +39,6 @@
     <string name="rate_later">Later</string>
     <string name="rate">Rate</string>
     <string name="undo">Undo</string>
+    <string name="navigation_drawer_open">Open menu drawer</string>
+    <string name="navigation_drawer_close">Close menu drawer</string>
 </resources>
