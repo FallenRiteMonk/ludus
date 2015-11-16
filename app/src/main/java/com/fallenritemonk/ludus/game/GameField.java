@@ -137,11 +137,12 @@ class GameField extends BaseAdapter {
 
     private void hideHint() {
         if (hint != -1) {
-            if (fieldArray.get(possibilities.get(hint).getId1()).getState() == NumberField.STATE.HINT) {
-                fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.UNUSED);
+            CombinePos shownHint = possibilities.get(hint);
+            if (shownHint.getId1() < fieldArray.size() && fieldArray.get(shownHint.getId1()).getState() == NumberField.STATE.HINT) {
+                fieldArray.get(shownHint.getId1()).setState(NumberField.STATE.UNUSED);
             }
-            if (fieldArray.get(possibilities.get(hint).getId2()).getState() == NumberField.STATE.HINT) {
-                fieldArray.get(possibilities.get(hint).getId2()).setState(NumberField.STATE.UNUSED);
+            if (shownHint.getId2() < fieldArray.size() && fieldArray.get(shownHint.getId2()).getState() == NumberField.STATE.HINT) {
+                fieldArray.get(shownHint.getId2()).setState(NumberField.STATE.UNUSED);
             }
             hint = -1;
         }
