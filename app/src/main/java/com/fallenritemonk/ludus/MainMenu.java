@@ -32,9 +32,6 @@ public class MainMenu extends GameServicesActivity {
             showTutorial();
         }
 
-        LudusApplication application = (LudusApplication) getApplication();
-        application.getAnalyticsTracker();
-
         new InitDbAsyncTask().execute(this);
 
         TextView newClassic = (TextView) findViewById(R.id.new_classic_game);
@@ -116,7 +113,7 @@ public class MainMenu extends GameServicesActivity {
             }
         });
 
-        appVersion.setText(getString(R.string.app_version) + " " + application.getAppVersion());
+        appVersion.setText(getString(R.string.app_version) + " " + ((LudusApplication) getApplication()).getAppVersion());
     }
 
     private void showTutorial() {

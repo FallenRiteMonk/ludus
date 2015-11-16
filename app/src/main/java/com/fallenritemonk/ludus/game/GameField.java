@@ -252,7 +252,8 @@ class GameField extends BaseAdapter {
         deleteList.addAll(tempList);
     }
 
-    public void addFields() {
+    public void addFields(GridView gridView) {
+        int initialSize = fieldArray.size();
         ArrayList<NumberField> tempField = new ArrayList<>();
         for (NumberField field : fieldArray) {
             if (field.getState() != NumberField.STATE.USED) {
@@ -260,6 +261,8 @@ class GameField extends BaseAdapter {
             }
         }
         fieldArray.addAll(tempField);
+
+        gridView.smoothScrollToPosition(initialSize - 1);
 
         notifyDataSetChanged();
         findPossibilities();

@@ -55,7 +55,7 @@ public class GameActivity extends GameServicesActivity
         addFieldsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gameField.addFields();
+                gameField.addFields(gameFieldView);
             }
         });
 

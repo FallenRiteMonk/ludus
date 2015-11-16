@@ -2,9 +2,6 @@ package com.fallenritemonk.ludus;
 
 import android.app.Application;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.Tracker;
-
 /**
  * Created by FallenRiteMonk on 9/24/15.
  */
