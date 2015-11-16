@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.fallenritemonk.ludus.R;
@@ -152,7 +153,7 @@ class GameField extends BaseAdapter {
         return id1 != id2 && !(fieldArray.get(id1).getNumber() + fieldArray.get(id2).getNumber() != 10 && fieldArray.get(id1).getNumber() != fieldArray.get(id2).getNumber());
     }
 
-    public void hint() {
+    public void hint(GridView gridView) {
         if (possibilities.size() == 0) return;
         if (hint >= 0) {
             fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.UNUSED);
@@ -162,6 +163,8 @@ class GameField extends BaseAdapter {
 
         fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.HINT);
         fieldArray.get(possibilities.get(hint).getId2()).setState(NumberField.STATE.HINT);
+
+        gridView.smoothScrollToPosition(possibilities.get(hint).getId1());
 
         notifyDataSetChanged();
     }

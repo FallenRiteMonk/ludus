@@ -25,6 +25,7 @@ import com.fallenritemonk.ludus.services.GameServicesActivity;
 public class GameActivity extends GameServicesActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static GameField gameField;
+    private GridView gameFieldView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class GameActivity extends GameServicesActivity
         GameModeEnum gameMode = (GameModeEnum) intent.getSerializableExtra(getString(R.string.static_game_mode));
         Boolean resume = intent.getBooleanExtra(getString(R.string.static_game_resume), false);
 
-        GridView gameFieldView = (GridView) findViewById(R.id.fieldGrid);
+        gameFieldView = (GridView) findViewById(R.id.fieldGrid);
         FloatingActionButton addFieldsButton = (FloatingActionButton) findViewById(R.id.add_fields_fab);
         TextView headerGameMode = (TextView) findViewById(R.id.header_game_mode);
         TextView headerCombos = (TextView) findViewById(R.id.header_combos);
@@ -90,7 +91,7 @@ public class GameActivity extends GameServicesActivity
         int id = item.getItemId();
 
         if (id == R.id.action_hint) {
-            gameField.hint();
+            gameField.hint(gameFieldView);
         } else if (id == R.id.action_undo) {
             gameField.undo();
         } else if (id == R.id.action_restart) {
