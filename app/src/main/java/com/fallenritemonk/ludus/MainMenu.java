@@ -76,15 +76,19 @@ public class MainMenu extends GameServicesActivity {
             @Override
             public void onClick(View v) {
                 setExplicitSignOut(false);
-                mGoogleApiClient.connect();
+                if (!mGoogleApiClient.isConnected() && !mGoogleApiClient.isConnecting()) {
+                    mGoogleApiClient.connect();
+                }
             }
         });
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setExplicitSignOut(true);
-                Games.signOut(mGoogleApiClient);
-                mGoogleApiClient.disconnect();
+                if (mGoogleApiClient.isConnected()) {
+                    Games.signOut(mGoogleApiClient);
+                    mGoogleApiClient.disconnect();
+                }
 
                 // show sign-in button, hide the sign-out button
                 signIn.setVisibility(View.VISIBLE);
@@ -96,14 +100,17 @@ public class MainMenu extends GameServicesActivity {
         achievements.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient),
-                        1002);
+                if (mGoogleApiClient.isConnected()) {
+                    startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient), 1002);
+                }
             }
         });
         leaderboards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(mGoogleApiClient), 1003);
+                if (mGoogleApiClient.isConnected()) {
+                    startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(mGoogleApiClient), 1003);
+                }
             }
         });
         tutorial.setOnClickListener(new View.OnClickListener() {
