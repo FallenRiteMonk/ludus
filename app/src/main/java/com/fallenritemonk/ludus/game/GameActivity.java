@@ -40,8 +40,10 @@ public class GameActivity extends GameServicesActivity
 
         gameFieldView = (GridView) findViewById(R.id.fieldGrid);
         FloatingActionButton addFieldsButton = (FloatingActionButton) findViewById(R.id.add_fields_fab);
-        TextView headerGameMode = (TextView) findViewById(R.id.header_game_mode);
-        TextView headerCombos = (TextView) findViewById(R.id.header_combos);
+
+        View header = ((NavigationView) findViewById(R.id.game_menu_drawer)).getHeaderView(0);
+        TextView headerGameMode = (TextView) header.findViewById(R.id.header_game_mode);
+        TextView headerCombos = (TextView) header.findViewById(R.id.header_combos);
 
         gameField = new GameField(this, addFieldsButton, headerCombos, gameMode, resume);
         gameFieldView.setAdapter(gameField);
