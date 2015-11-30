@@ -131,9 +131,11 @@ class GameField extends BaseAdapter {
             }
         }
 
-        if (possibilities.size() == 0)
+        if (possibilities.size() == 0) {
             addFieldsButton.setVisibility(View.VISIBLE);
-        else addFieldsButton.setVisibility(View.GONE);
+        } else {
+            addFieldsButton.setVisibility(View.GONE);
+        }
     }
 
     private void hideHint() {
