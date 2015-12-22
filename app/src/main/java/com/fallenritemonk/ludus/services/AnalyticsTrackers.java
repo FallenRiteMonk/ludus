@@ -20,12 +20,6 @@ import java.util.Map;
  * before using this!
  */
 public final class AnalyticsTrackers {
-
-    public enum Target {
-        APP
-        // Add more trackers here if you need, and update the code in #get(Target) below
-    }
-
     private static AnalyticsTrackers sInstance;
 
     public static synchronized void initialize(Context context) {
@@ -44,8 +38,8 @@ public final class AnalyticsTrackers {
         return sInstance;
     }
 
-    private final Map<Target, Tracker> mTrackers = new HashMap<Target, Tracker>();
     private final Context mContext;
+    private Tracker tracker;
 
     /**
      * Don't instantiate directly - use {@link #getInstance()} instead.
@@ -54,19 +48,11 @@ public final class AnalyticsTrackers {
         mContext = context.getApplicationContext();
     }
 
-    public synchronized Tracker get(Target target) {
-        if (!mTrackers.containsKey(target)) {
-            Tracker tracker;
-            switch (target) {
-                case APP:
-                    tracker = GoogleAnalytics.getInstance(mContext).newTracker(R.xml.app_tracker);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unhandled analytics target " + target);
-            }
-            mTrackers.put(target, tracker);
+    public synchronized Tracker getTracker() {
+        if (tracker == null) {
+            tracker = GoogleAnalytics.getInstance(mContext).newTracker(R.xml.app_tracker);
+            tracker.enableAdvertisingIdCollection(true);
         }
-
-        return mTrackers.get(target);
+        return tracker;
     }
 }

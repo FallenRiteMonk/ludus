@@ -15,6 +15,9 @@
     -->
 
     <!-- The screen names that will appear in reports -->
+    <screenName name="com.fallenritemonk.ludus.SplashScreen">
+        SplashScreen
+    </screenName>
     <screenName name="com.fallenritemonk.ludus.Tutorial">
         Tutorial
     </screenName>
