@@ -15,6 +15,8 @@ import com.fallenritemonk.ludus.services.GameServicesActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.games.Games;
 
+import org.codechimp.apprater.AppRater;
+
 public class MainMenu extends GameServicesActivity {
     private TextView resume;
     private TextView signIn;
@@ -26,6 +28,10 @@ public class MainMenu extends GameServicesActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+
+        AppRater.app_launched(this, 3, 10, 3, 10);
+        //AppRater.setVersionNameCheckEnabled(true);
 
         SharedPreferences persist = getSharedPreferences(getString(R.string.static_settings_file), 0);
         if (persist.getBoolean(getString(R.string.static_first_launch), true)) {
