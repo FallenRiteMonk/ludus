@@ -1,4 +1,4 @@
-# #-ludus <img src="https://lh3.googleusercontent.com/vgUxZVRHQU_eDCJrKX1dH4RIlFgDs1hK3zo3EjnASGC9AWigw1Prr6dx0p3rjcM0WQ=w300-rw" width="120" align="right">
+# #-ludus <img src="https://raw.githubusercontent.com/FallenRiteMonk/ludus/dev/resources/images/icon.png" width="120" align="right">
 
 The simple and fun number combination game **#-ludus** goes 2.0 and open source.
 
