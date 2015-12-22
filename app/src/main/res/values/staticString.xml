@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="static_settings_file" translatable="false">SETTINGS_FILE</string>
     <string name="static_last_game" translatable="false">LAST_GAME</string>
     <string name="static_game_mode" translatable="false">GAME_MODE</string>
@@ -24,11 +24,4 @@
     <string name="achievement_random_master" translatable="false">CgkI1OGV0bwTEAIQCA</string>
     <string name="leaderboard_minimalist" translatable="false">CgkI1OGV0bwTEAIQEQ</string>
     <string name="leaderboard_combinations_to_victory" translatable="false">CgkI1OGV0bwTEAIQEg</string>
-
-    <!-- WRONG TABLES -->
-    <string name="wrong_leaderboard_combinations_to_victory" translatable="false">CgkI1OGV0bwTEAIQCQ</string>
-    <string name="wrong_leaderboard_minimalist" translatable="false">CgkI1OGV0bwTEAIQCg</string>
-
-    <string name="analytics_api_key" translatable="false">UA-62157119-5</string>
-    <string name="analytics_debug_api_key" translatable="false">UA-62157119-1</string>
 </resources>

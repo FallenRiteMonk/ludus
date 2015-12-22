@@ -6,9 +6,6 @@ import com.fallenritemonk.ludus.R;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * A collection of Google Analytics trackers. Fetch the tracker you need using
  * {@code AnalyticsTrackers.getInstance().get(...)}
