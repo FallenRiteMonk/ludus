@@ -24,7 +24,7 @@ import com.fallenritemonk.ludus.services.GameServicesActivity;
  */
 public class GameActivity extends GameServicesActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private static GameField gameField;
+    private static AbstractGame gameField;
     private GridView gameFieldView;
 
     @Override
@@ -45,7 +45,13 @@ public class GameActivity extends GameServicesActivity
         TextView headerGameMode = (TextView) header.findViewById(R.id.header_game_mode);
         TextView headerCombos = (TextView) header.findViewById(R.id.header_combos);
 
-        gameField = new GameField(this, addFieldsButton, headerCombos, gameMode, resume);
+        switch (gameMode) {
+            case CLASSIC: gameField = new ClassicGame(this, addFieldsButton, headerCombos, resume);
+                break;
+            case RANDOM: gameField = new RandomGame(this, addFieldsButton, headerCombos, resume);
+                break;
+        }
+
         gameFieldView.setAdapter(gameField);
 
         gameFieldView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
