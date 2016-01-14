@@ -129,9 +129,9 @@ abstract class AbstractGame extends BaseAdapter {
         }
 
         if (possibilities.size() == 0) {
-            addFieldsButton.setVisibility(View.VISIBLE);
+            addFieldsButton.show();
         } else {
-            addFieldsButton.setVisibility(View.GONE);
+            addFieldsButton.hide();
         }
     }
 
@@ -252,6 +252,10 @@ abstract class AbstractGame extends BaseAdapter {
     }
 
     public void addFields(GridView gridView) {
+        if (possibilities.size() > 0) {
+            return;
+        }
+
         int initialSize = fieldArray.size();
         ArrayList<NumberField> tempField = new ArrayList<>();
         for (NumberField field : fieldArray) {
