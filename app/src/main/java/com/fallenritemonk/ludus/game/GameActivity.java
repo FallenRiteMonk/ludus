@@ -18,6 +18,9 @@ import android.widget.TextView;
 
 import com.fallenritemonk.ludus.R;
 import com.fallenritemonk.ludus.services.GameServicesActivity;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 /**
  * Created by FallenRiteMonk on 9/19/15.
@@ -27,12 +30,37 @@ public class GameActivity extends GameServicesActivity
     private static AbstractGame gameField;
     private GridView gameFieldView;
 
+    private InterstitialAd hintInterstitialAd;
+    private InterstitialAd undoInterstitialAd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        hintInterstitialAd = new InterstitialAd(this);
+        undoInterstitialAd = new InterstitialAd(this);
+        hintInterstitialAd.setAdUnitId(getString(R.string.game_hint_ad_unit_id));
+        undoInterstitialAd.setAdUnitId(getString(R.string.game_undo_ad_unit_id));
+
+        hintInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial(hintInterstitialAd);
+                gameField.hint(gameFieldView);
+            }
+        });
+        undoInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial(undoInterstitialAd);
+                gameField.undo();
+            }
+        });
+        requestNewInterstitial(hintInterstitialAd);
+        requestNewInterstitial(undoInterstitialAd);
 
         Intent intent = getIntent();
         GameModeEnum gameMode = (GameModeEnum) intent.getSerializableExtra(getString(R.string.static_game_mode));
@@ -99,9 +127,17 @@ public class GameActivity extends GameServicesActivity
         int id = item.getItemId();
 
         if (id == R.id.action_hint) {
-            gameField.hint(gameFieldView);
+            if (hintInterstitialAd.isLoaded()) {
+                hintInterstitialAd.show();
+            } else {
+                gameField.hint(gameFieldView);
+            }
         } else if (id == R.id.action_undo) {
-            gameField.undo();
+            if (undoInterstitialAd.isLoaded()) {
+                undoInterstitialAd.show();
+            } else {
+                gameField.undo();
+            }
         } else if (id == R.id.action_restart) {
             restartDialog();
         } else if (id == R.id.action_menu) {
@@ -128,5 +164,13 @@ public class GameActivity extends GameServicesActivity
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void requestNewInterstitial(InterstitialAd interstitialAd) {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("58A7B09CCA80B0F0F68D1781BB963472")
+                .build();
+
+        interstitialAd.loadAd(adRequest);
     }
 }

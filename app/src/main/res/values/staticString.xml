@@ -24,4 +24,8 @@
     <string name="achievement_random_master" translatable="false">CgkI1OGV0bwTEAIQCA</string>
     <string name="leaderboard_minimalist" translatable="false">CgkI1OGV0bwTEAIQEQ</string>
     <string name="leaderboard_combinations_to_victory" translatable="false">CgkI1OGV0bwTEAIQEg</string>
+
+    <string name="menu_banner_ad_unit_id" translatable="false">ca-app-pub-9955219648483161/1837297736</string>
+    <string name="game_hint_ad_unit_id" translatable="false">ca-app-pub-9955219648483161/7465028937</string>
+    <string name="game_undo_ad_unit_id" translatable="false">ca-app-pub-9955219648483161/1265185736</string>
 </resources>

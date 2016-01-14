@@ -12,6 +12,8 @@ import com.fallenritemonk.ludus.db.InitDbAsyncTask;
 import com.fallenritemonk.ludus.game.GameActivity;
 import com.fallenritemonk.ludus.game.GameModeEnum;
 import com.fallenritemonk.ludus.services.GameServicesActivity;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.games.Games;
 
@@ -29,9 +31,14 @@ public class MainMenu extends GameServicesActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-
         AppRater.app_launched(this, 3, 10, 3, 10);
         //AppRater.setVersionNameCheckEnabled(true);
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("58A7B09CCA80B0F0F68D1781BB963472")
+                .build();
+        mAdView.loadAd(adRequest);
 
         SharedPreferences persist = getSharedPreferences(getString(R.string.static_settings_file), 0);
         if (persist.getBoolean(getString(R.string.static_first_launch), true)) {
