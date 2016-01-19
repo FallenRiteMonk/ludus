@@ -99,6 +99,9 @@ abstract class AbstractGame extends BaseAdapter {
 
     private void resumeGame() {
         fieldsFromString(dbHelper.getLastState());
+
+        possibilities = new ArrayList<>(INITIAL_POSSIBILITIES_ARRAY_CAPACITY);
+
         selectedField = -1;
         hint = -1;
         stateOrder = dbHelper.getLastStateOrder();
