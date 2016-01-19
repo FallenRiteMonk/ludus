@@ -21,6 +21,9 @@ import java.util.ArrayList;
  * Created by FallenRiteMonk on 23/12/15.
  */
 abstract class AbstractGame extends BaseAdapter {
+    private final int INITIAL_FIELD_ARRAY_CAPACITY = 200;
+    private final int INITIAL_POSSIBILITIES_ARRAY_CAPACITY = 200;
+
     final GameActivity activity;
     private final FloatingActionButton addFieldsButton;
     private final TextView headerCombos;
@@ -50,7 +53,7 @@ abstract class AbstractGame extends BaseAdapter {
     public void newGame() {
         initFields();
 
-        possibilities = new ArrayList<>();
+        possibilities = new ArrayList<>(INITIAL_POSSIBILITIES_ARRAY_CAPACITY);
 
         selectedField = -1;
         hint = -1;
@@ -63,7 +66,7 @@ abstract class AbstractGame extends BaseAdapter {
     }
 
     void initFields() {
-        fieldArray = new ArrayList<>();
+        fieldArray = new ArrayList<>(INITIAL_FIELD_ARRAY_CAPACITY);
         fieldArray.add(new NumberField(1));
         fieldArray.add(new NumberField(2));
         fieldArray.add(new NumberField(3));
@@ -107,7 +110,7 @@ abstract class AbstractGame extends BaseAdapter {
     private void findPossibilities() {
         hideHint();
 
-        possibilities = new ArrayList<>();
+        possibilities.clear();
         for (int i = 0; i < fieldArray.size() - 1; i++) {
             if (fieldArray.get(i).getState() == NumberField.STATE.USED) continue;
 
@@ -217,7 +220,7 @@ abstract class AbstractGame extends BaseAdapter {
     }
 
     private boolean reduceFields() {
-        ArrayList<NumberField> deleteList = new ArrayList<>();
+        ArrayList<NumberField> deleteList = new ArrayList<>(fieldArray.size());
         int usedCound = 0;
         for (int i = 0; i < fieldArray.size(); i++) {
             if (fieldArray.get(i).getState() == NumberField.STATE.USED) {
@@ -240,7 +243,7 @@ abstract class AbstractGame extends BaseAdapter {
     }
 
     private void deleteNine(int index, ArrayList<NumberField> deleteList) {
-        ArrayList<NumberField> tempList = new ArrayList<>();
+        ArrayList<NumberField> tempList = new ArrayList<>(9);
         for (int i = 0; i < 9; i++) {
             if (deleteList.contains(fieldArray.get(index - i))) {
                 return;
@@ -257,7 +260,7 @@ abstract class AbstractGame extends BaseAdapter {
         }
 
         int initialSize = fieldArray.size();
-        ArrayList<NumberField> tempField = new ArrayList<>();
+        ArrayList<NumberField> tempField = new ArrayList<>(fieldArray.size());
         for (NumberField field : fieldArray) {
             if (field.getState() != NumberField.STATE.USED) {
                 tempField.add(new NumberField(field.getNumber()));
@@ -309,7 +312,7 @@ abstract class AbstractGame extends BaseAdapter {
     }
 
     private void fieldsFromString(String string) {
-        fieldArray = new ArrayList<>();
+        fieldArray = new ArrayList<>(INITIAL_FIELD_ARRAY_CAPACITY);
         String[] tempFieldArray = string.split(",");
         for (String tempField : tempFieldArray) {
             fieldArray.add(new NumberField(tempField));
