@@ -2,9 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.github.triplet.play'
 apply from: '../config/quality.gradle'
 
-
-check.dependsOn 'checkstyle'
-
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"

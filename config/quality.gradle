@@ -1,4 +1,4 @@
-apply plugin: 'checkstyle'
+//apply plugin: 'checkstyle'
 apply plugin: 'findbugs'
 apply plugin: 'pmd'
 
@@ -19,22 +19,22 @@ apply plugin: 'pmd'
  */
 
 // Add checkstyle, findbugs, pmd and lint to the check task.
-check.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
+check.dependsOn 'findbugs', 'pmd', 'lint'
 
-task checkstyle(type: Checkstyle) {
+/*task checkstyle(type: Checkstyle) {
     configFile file("${project.rootDir}/config/quality/checkstyle/checkstyle.xml")
     configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
-    source 'src'
-    include '**/*.java'
-    exclude '**/gen/**'
-    reports {
+    source 'src'*/
+    //include '**/*.java'
+    //exclude '**/gen/**'
+    /*reports {
         xml.destination "$project.buildDir/reports/checkstyle/checkstyle-result.xml"
         html.destination "$project.buildDir/reports/checkstyle/checkstyle-results.html"
     }
     ignoreFailures true
 
     classpath = files()
-}
+}*/
 
 task findbugs(type: FindBugs, dependsOn: assembleDebug) {
     ignoreFailures = true
