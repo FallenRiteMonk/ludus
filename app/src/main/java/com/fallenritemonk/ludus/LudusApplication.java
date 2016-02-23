@@ -8,7 +8,7 @@ import com.fallenritemonk.ludus.services.AnalyticsTrackers;
  * Created by FallenRiteMonk on 9/24/15.
  */
 public class LudusApplication extends Application {
-    private final static String APP_VERSION = BuildConfig.VERSION_NAME;
+    private static final String APP_VERSION = BuildConfig.VERSION_NAME;
 
     @Override
     public void onCreate() {
