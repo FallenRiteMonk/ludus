@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.github.triplet.play'
+apply plugin: 'checkstyle'
+
+
+check.dependsOn 'checkstyle'
 
 android {
     compileSdkVersion 23
@@ -60,4 +64,17 @@ dependencies {
 play {
     serviceAccountEmail = '862135344856-cgnio0uheb477ev5apup8bt94ot8ju2g@developer.gserviceaccount.com'
     pk12File = file('ludus.p12')
+}
+
+task checkstyle(type: Checkstyle) {
+    configFile rootProject.file('checkstyle.xml')
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    reports {
+        xml.destination 'build/reports/checkstyle/checkstyle-result.xml'
+        html.destination 'build/reports/checkstyle/checkstyle-results.html'
+    }
+
+    classpath = files()
 }
