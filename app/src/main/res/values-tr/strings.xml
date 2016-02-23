@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_version">Uygulama Versiyonu:&#160;</string>
+    <string name="app_version">Uygulama Versiyonu: %s</string>
     <string name="cancel">Vazgeç</string>
     <string name="classic_game">Klasik Oyun</string>
     <string name="restart">Yeniden Başlat</string>

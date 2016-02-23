@@ -33,7 +33,7 @@ abstract class AbstractGame extends BaseAdapter {
     ArrayList<NumberField> fieldArray;
     private ArrayList<CombinePos> possibilities;
     private int selectedField;
-    private int hint;
+    private int hintIndex;
     int stateOrder;
 
     AbstractGame(final GameActivity activity, FloatingActionButton addFieldsButton, TextView headerCombos, Boolean resume) {
@@ -56,7 +56,7 @@ abstract class AbstractGame extends BaseAdapter {
         possibilities = new ArrayList<>(INITIAL_POSSIBILITIES_ARRAY_CAPACITY);
 
         selectedField = -1;
-        hint = -1;
+        hintIndex = -1;
         stateOrder = -1;
 
         findPossibilities();
@@ -103,7 +103,7 @@ abstract class AbstractGame extends BaseAdapter {
         possibilities = new ArrayList<>(INITIAL_POSSIBILITIES_ARRAY_CAPACITY);
 
         selectedField = -1;
-        hint = -1;
+        hintIndex = -1;
         stateOrder = dbHelper.getLastStateOrder();
         headerCombos.setText(String.valueOf(stateOrder));
 
@@ -115,22 +115,26 @@ abstract class AbstractGame extends BaseAdapter {
 
         possibilities.clear();
         for (int i = 0; i < fieldArray.size() - 1; i++) {
-            if (fieldArray.get(i).getState() == NumberField.STATE.USED) continue;
+            if (fieldArray.get(i).getState() == NumberField.STATE.USED) {
+                continue;
+            }
 
             for (int ii = i + 1; ii < fieldArray.size(); ii++) {
-                if (fieldArray.get(ii).getState() == NumberField.STATE.USED) continue;
-                if (canBeCombined(i, ii)) {
-                    possibilities.add(new CombinePos(i, ii));
+                if (fieldArray.get(ii).getState() != NumberField.STATE.USED) {
+                    if (canBeCombined(i, ii)) {
+                        possibilities.add(new CombinePos(i, ii));
+                    }
+                    break;
                 }
-                break;
             }
 
             for (int ii = i + 9; ii < fieldArray.size(); ii += 9) {
-                if (fieldArray.get(ii).getState() == NumberField.STATE.USED) continue;
-                if (canBeCombined(i, ii)) {
-                    possibilities.add(new CombinePos(i, ii));
+                if (fieldArray.get(ii).getState() != NumberField.STATE.USED) {
+                    if (canBeCombined(i, ii)) {
+                        possibilities.add(new CombinePos(i, ii));
+                    }
+                    break;
                 }
-                break;
             }
         }
 
@@ -146,31 +150,33 @@ abstract class AbstractGame extends BaseAdapter {
     }
 
     public void hint(GridView gridView) {
-        if (possibilities.size() == 0) return;
-        if (hint >= 0) {
-            fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.UNUSED);
-            fieldArray.get(possibilities.get(hint).getId2()).setState(NumberField.STATE.UNUSED);
+        if (possibilities.size() == 0) {
+            return;
         }
-        hint = ++hint % possibilities.size();
+        if (hintIndex >= 0) {
+            fieldArray.get(possibilities.get(hintIndex).getId1()).setState(NumberField.STATE.UNUSED);
+            fieldArray.get(possibilities.get(hintIndex).getId2()).setState(NumberField.STATE.UNUSED);
+        }
+        hintIndex = ++hintIndex % possibilities.size();
 
-        fieldArray.get(possibilities.get(hint).getId1()).setState(NumberField.STATE.HINT);
-        fieldArray.get(possibilities.get(hint).getId2()).setState(NumberField.STATE.HINT);
+        fieldArray.get(possibilities.get(hintIndex).getId1()).setState(NumberField.STATE.HINT);
+        fieldArray.get(possibilities.get(hintIndex).getId2()).setState(NumberField.STATE.HINT);
 
-        gridView.smoothScrollToPosition(possibilities.get(hint).getId1());
+        gridView.smoothScrollToPosition(possibilities.get(hintIndex).getId1());
 
         notifyDataSetChanged();
     }
 
     private void hideHint() {
-        if (hint != -1) {
-            CombinePos shownHint = possibilities.get(hint);
+        if (hintIndex != -1) {
+            CombinePos shownHint = possibilities.get(hintIndex);
             if (shownHint.getId1() < fieldArray.size() && fieldArray.get(shownHint.getId1()).getState() == NumberField.STATE.HINT) {
                 fieldArray.get(shownHint.getId1()).setState(NumberField.STATE.UNUSED);
             }
             if (shownHint.getId2() < fieldArray.size() && fieldArray.get(shownHint.getId2()).getState() == NumberField.STATE.HINT) {
                 fieldArray.get(shownHint.getId2()).setState(NumberField.STATE.UNUSED);
             }
-            hint = -1;
+            hintIndex = -1;
         }
     }
 
@@ -181,7 +187,9 @@ abstract class AbstractGame extends BaseAdapter {
     }
 
     public void clicked(int id) {
-        if (fieldArray.get(id).getState() == NumberField.STATE.USED) return;
+        if (fieldArray.get(id).getState() == NumberField.STATE.USED) {
+            return;
+        }
 
         if (selectedField == -1) {
             selectedField = id;

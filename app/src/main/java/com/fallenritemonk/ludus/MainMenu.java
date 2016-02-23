@@ -133,7 +133,7 @@ public class MainMenu extends GameServicesActivity {
             }
         });
 
-        appVersion.setText(getString(R.string.app_version) + ((LudusApplication) getApplication()).getAppVersion());
+        appVersion.setText(String.format(getString(R.string.app_version), ((LudusApplication) getApplication()).getAppVersion()));
     }
 
     private void showTutorial() {

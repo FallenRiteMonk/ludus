@@ -15,7 +15,7 @@ public class NumberField {
 
     public NumberField(String fieldState) {
         String[] field = fieldState.split("/");
-        number = Integer.valueOf(field[0]);
+        number = Integer.parseInt(field[0]);
         switch (field[1]) {
             case "UNUSED": state = STATE.UNUSED;
                 break;

@@ -96,7 +96,9 @@ public abstract class GameServicesActivity extends AppCompatActivity
 
     @Override
     public void onConnectionSuspended(int i) {
-        if (BuildConfig.DEBUG) Log.d("GAMES_SERVICES", "onConnectionSuspended");
+        if (BuildConfig.DEBUG) {
+            Log.d("GAMES_SERVICES", "onConnectionSuspended");
+        }
     }
 
     @Override
