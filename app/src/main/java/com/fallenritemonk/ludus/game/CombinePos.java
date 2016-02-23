@@ -14,8 +14,12 @@ class CombinePos {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         CombinePos that = (CombinePos) o;
 
@@ -23,9 +27,12 @@ class CombinePos {
 
     }
 
-    /*public boolean equals(CombinePos combine) {
-        return combine.getId1() == id1 && combine.getId2() == id2 || combine.getId2() == id1 && combine.getId1() == id2;
-    }*/
+    @Override
+    public int hashCode() {
+        int result = id1;
+        result = 31 * result + id2;
+        return result;
+    }
 
     public int getId1() {
         return id1;
