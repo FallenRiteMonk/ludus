@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.github.triplet.play'
-apply plugin: 'checkstyle'
+apply from: '../config/quality.gradle'
 
 
 check.dependsOn 'checkstyle'
@@ -25,24 +25,6 @@ android {
             applicationIdSuffix '.dev'
         }
     }
-    lintOptions {
-        // if true, stop the gradle build if errors are found
-        abortOnError false
-        // if true, only report errors
-        ignoreWarnings false
-        // if true, check all issues, including those that are off by default
-        checkAllWarnings true
-        // if true, show all locations for an error, do not truncate lists, etc.
-        showAll true
-        // if true, generate a text report of issues (false by default)
-        textReport true
-
-        // set to true to have all release builds run lint on issues with severity=fatal
-        // and abort the build (controlled by abortOnError above) if fatal issues are found
-        checkReleaseBuilds true
-
-        warning 'MissingTranslation', 'InvalidPackage'
-    }
 }
 
 dependencies {
@@ -64,18 +46,4 @@ dependencies {
 play {
     serviceAccountEmail = '862135344856-cgnio0uheb477ev5apup8bt94ot8ju2g@developer.gserviceaccount.com'
     pk12File = file('ludus.p12')
-}
-
-task checkstyle(type: Checkstyle) {
-    configFile rootProject.file('checkstyle.xml')
-    source 'src'
-    include '**/*.java'
-    exclude '**/gen/**'
-    reports {
-        xml.destination 'build/reports/checkstyle/checkstyle-result.xml'
-        html.destination 'build/reports/checkstyle/checkstyle-results.html'
-    }
-    ignoreFailures true
-
-    classpath = files()
 }
