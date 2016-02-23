@@ -75,6 +75,7 @@ task checkstyle(type: Checkstyle) {
         xml.destination 'build/reports/checkstyle/checkstyle-result.xml'
         html.destination 'build/reports/checkstyle/checkstyle-results.html'
     }
+    ignoreFailures true
 
     classpath = files()
 }
