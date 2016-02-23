@@ -34,11 +34,11 @@ public class MainMenu extends GameServicesActivity {
         AppRater.app_launched(this, 3, 10, 3, 10);
         //AppRater.setVersionNameCheckEnabled(true);
 
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("58A7B09CCA80B0F0F68D1781BB963472")
                 .build();
-        mAdView.loadAd(adRequest);
+        adView.loadAd(adRequest);
 
         SharedPreferences persist = getSharedPreferences(getString(R.string.static_settings_file), 0);
         if (persist.getBoolean(getString(R.string.static_first_launch), true)) {
@@ -55,8 +55,6 @@ public class MainMenu extends GameServicesActivity {
         achievements = (TextView) findViewById(R.id.game_services_achievements);
         leaderboards = (TextView) findViewById(R.id.game_services_leaderboards);
         TextView tutorial = (TextView) findViewById(R.id.tutorial);
-
-        TextView appVersion = (TextView) findViewById(R.id.app_version);
 
         newClassic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +131,7 @@ public class MainMenu extends GameServicesActivity {
             }
         });
 
+        TextView appVersion = (TextView) findViewById(R.id.app_version);
         appVersion.setText(String.format(getString(R.string.app_version), ((LudusApplication) getApplication()).getAppVersion()));
     }
 
